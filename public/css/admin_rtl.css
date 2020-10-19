@@ -1,0 +1,38 @@
+.mr-ar-auto{
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+.dropdown-menu-left-ar{
+    right: auto;
+    left: 0;
+}
+.page-wrapper{
+    display: block;
+    margin-right: 250px !important;
+    margin-left: 0 !important;
+    text-align: right;
+}
+.page-breadcrumb{
+    margin-bottom: 35px !important;
+}
+.box span{
+    left: 30px !important;
+    right: auto !important;
+}
+.block-center{
+    margin: 2px auto 15px !important;
+}
+.d-flex-center{
+    display: flex;
+    justify-content: center;
+}
+.text-center{
+    text-align: center !important;
+}
+
+@media (min-width: 768px){
+    .offset-md-invers-4 {
+        margin-left: 0 !important;
+        margin-right: 33.333333% !important;
+    }
+}
