@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +15,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function (){
+
+
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'default_font_size' => 0,
+            'default_font' => '',
+            'margin_left' => 10,
+            'margin_right' => 10,
+            'margin_top' => 10,
+            'margin_bottom' => 10,
+            'margin_header' => 9,
+            'margin_footer' => 9,
+            'orientation' => 'P',
+        ]);
+
+        $view = view('pdf.contract');
+        //dd(str_replace("\r\n","", $view->render()));
+        $html = $view->render();
+        $mpdf->autoLangToFont = true;
+        $mpdf->WriteHTML($html);
+        $mpdf->Output("test.pdf", "D");
+
+    return view('pdf.contract');
 });
 
 Auth::routes();
@@ -24,34 +48,3 @@ Route::get('change-lang-to-{lang}', 'LanguageController@index')->name('change.la
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-Route::group(['prefix'=>'admin', 'as'=> 'admin.'], function() {
-
-    Route::group(['namespace'=> 'Admin'], function() {
-        Route::get('/login', 'LoginController@showLoginForm')->name('login');
-        Route::post('/login', 'LoginController@login');
-
-    });
-
-    Route::group(['namespace'=> 'Backend', 'middleware'=> 'auth:admin'], function () {
-        Route::get('/', 'AdminController@index')->name('index');
-
-
-        Route::group(['namespace'=>'Users', 'prefix'=>'users' ,'as'=> 'users.'], function () {
-            Route::get('/', 'UserController@index')->name('index');
-            Route::get('/create', 'UserController@create')->name('create');
-            Route::post('/create', 'UserController@store');
-            Route::get('/{user}/edit', 'UserController@edit')->name('edit');
-            Route::post('/{user}/edit', 'UserController@update');
-
-            Route::get('/{user}/show', 'UserController@show')->name('show');
-
-            Route::post('/{user}/destroy', 'UserController@destroy')->name('destroy');
-
-        });
-
-    });
-
-
-    Route::post('/logout', 'Admin\LoginController@logout')->name('logout');
-});

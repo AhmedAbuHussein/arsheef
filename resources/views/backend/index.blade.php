@@ -27,36 +27,32 @@
     <div class="container-fluid">
        
        <div class="row">
-           <div class="col-md-3">
+
+        <div class="col-md-4">
+            <div class="box">
+                <i class="fa fa-users"></i>
+                <span>{{ $users }}</span>
+                <a href="{{ route('admin.users.index') }}">{{ __('file.users') }}</a>
+            </div>
+        </div>
+
+           <div class="col-md-4">
                <div class="box">
-                   <i class="fa fa-users"></i>
-                   <span>{{ $users }}</span>
-                   <a href="{{ route('admin.users.index') }}">{{ __('file.users') }}</a>
-               </div>
-           </div>
-           <div class="col-md-3">
-               <div class="box">
-                   <i class="fa fa-product-hunt"></i>
-                   <span>{{ $users }}</span>
-                   <a href="{{ route('admin.users.index') }}">{{ __('file.products') }}</a>
+                   <i class="fa fa-list"></i>
+                   <span>{{ $info }}</span>
+                   <a href="{{ route('admin.info.index') }}">{{ __('file.information') }}</a>
                </div>
            </div>
 
-           <div class="col-md-3">
+
+           <div class="col-md-4">
                 <div class="box">
-                    <i class="fa fa-list"></i>
+                    <i class="fa fa-product-hunt"></i>
                     <span>{{ $users }}</span>
                     <a href="{{ route('admin.users.index') }}">{{ __('file.reservation') }}</a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="box">
-                    <i class="fa fa-universal-access"></i>
-                    <span>{{ $users }}</span>
-                    <a href="{{ route('admin.users.index') }}">{{ __('file.orders') }}</a>
-                </div>
-            </div>
-
+        
        </div>
 
     </div>

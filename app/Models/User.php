@@ -35,4 +35,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'expired_at'=> 'datetime'
     ];
+
+    public function information()
+    {
+        return $this->hasOne(Information::class, 'user_id');
+    }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class, 'user_id')->with('items');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class, 'user_id');
+    }
+
+    public function structures()
+    {
+        return $this->hasMany(Structure::class, 'user_id');
+    }
 }

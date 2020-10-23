@@ -182,9 +182,9 @@
                         </li>
                        
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index') }}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.info.index') }}" aria-expanded="false">
                                 <i class="mdi mdi-cup-water"></i>
-                                <span class="hide-menu">{{ __('file.categories') }}</span>
+                                <span class="hide-menu">{{ __('file.information') }}</span>
                             </a>
                         </li>
                          <li class="sidebar-item">
