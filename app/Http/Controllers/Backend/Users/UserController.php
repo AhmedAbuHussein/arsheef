@@ -6,9 +6,9 @@ use App\Models\User;
 
 class UserController extends Controller {
 
-    public function index()
+    public function create($account_type)
     {
-        $users = User::get();
-        return view('backend.users.index', compact('users'));
+        $type = $account_type;
+        return view('backend.users.create', compact('type'));
     }
 }

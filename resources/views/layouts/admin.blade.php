@@ -174,67 +174,26 @@
                                 <span class="hide-menu">{{ __('file.dashboard') }}</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-account-check"></i>
-                                <span class="hide-menu">{{ __('file.users') }}</span>
-                            </a>
-                        </li>
-                       
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.info.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-cup-water"></i>
-                                <span class="hide-menu">{{ __('file.information') }}</span>
-                            </a>
-                        </li>
-                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-arrange-bring-forward"></i>
-                                <span class="hide-menu">{{ __('file.products') }}</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-access-point"></i>
-                                <span class="hide-menu">{{ __('file.orders') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-adjust"></i>
-                                <span class="hide-menu">{{ __('file.reservation') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-database"></i>
-                                <span class="hide-menu">{{ __('file.parties') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-account-multiple-minus"></i>
-                                <span class="hide-menu">{{ __('file.team') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-settings"></i>
-                                <span class="hide-menu">{{ __('file.setting') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-adjust"></i>
-                                <span class="hide-menu">{{ __('file.profile') }}</span>
-                            </a>
-                        </li>
                         
+                         <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.consultation.index') }}" aria-expanded="false">
+                                <i class="mdi mdi-arrange-bring-forward"></i>
+                                <span class="hide-menu">{{ __('file.consultation') }}</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.safety.index') }}" aria-expanded="false">
+                                <i class="mdi mdi-access-point"></i>
+                                <span class="hide-menu">{{ __('file.safety') }}</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.camera.index') }}" aria-expanded="false">
+                                <i class="mdi mdi-adjust"></i>
+                                <span class="hide-menu">{{ __('file.camera') }}</span>
+                            </a>
+                        </li>
 
                     </ul>
                 </nav>

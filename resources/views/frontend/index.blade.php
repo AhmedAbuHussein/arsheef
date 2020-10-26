@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.master')
 @section('content')
 
 <!-- ============================================================== -->
@@ -14,7 +14,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('admin.index') }}">{{ __('file.home') }}</a>
+                            <a href="{{ route('home') }}">{{ __('file.home') }}</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">{{ __('file.dashboard') }}</li>
                     </ol>
@@ -30,26 +30,26 @@
 
         <div class="col-md-4">
             <div class="box">
-                <i class="fa fa-building"></i>
-                <span>{{ $consultation }}</span>
-                <a href="{{ route('admin.consultation.index') }}">{{ __('file.consultation') }}</a>
+                <i class="fa fa-users"></i>
+                <span>{{ $contracts }}</span>
+                <a href="{{ route('home') }}">{{ __('file.users') }}</a>
             </div>
         </div>
 
            <div class="col-md-4">
                <div class="box">
-                   <i class="fa fa-key"></i>
-                   <span>{{ $safety }}</span>
-                   <a href="{{ route('admin.safety.index') }}">{{ __('file.safety') }}</a>
+                   <i class="fa fa-list"></i>
+                   <span>{{ $contracts }}</span>
+                   <a href="{{ route('home') }}">{{ __('file.information') }}</a>
                </div>
            </div>
 
 
            <div class="col-md-4">
                 <div class="box">
-                    <i class="fa fa-camera"></i>
-                    <span>{{ $camera }}</span>
-                    <a href="{{ route('admin.camera.index') }}">{{ __('file.camera') }}</a>
+                    <i class="fa fa-product-hunt"></i>
+                    <span>{{ $contracts }}</span>
+                    <a href="{{ route('home') }}">{{ __('file.reservation') }}</a>
                 </div>
             </div>
         

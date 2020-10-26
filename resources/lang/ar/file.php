@@ -13,6 +13,14 @@ return [
     "name"=>"الاسم",
     "control"=>"التحكم",
     "information" => "معلومات المستخدمين",
+    "consultation"=> "استشارات هندسة",
+    "safety"=> "أمن وسلامة",
+    "camera"=> "كاميرات مراقبة",
+    "installation scenes"=> "مشاهد تركيب",
+    "installation contracts"=> "عقود تركيب",
+    "inspection scenes"=> "مشاهد معاينة",
+    "inspection contracts"=> "عقود معاينة",
+    "image"=> "صورة",
     
     
 ];

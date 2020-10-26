@@ -11,8 +11,10 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::count();
-        $info = Information::count();
-        return view('backend.index', compact('users', 'info'));
+        $camera = User::where('account_type', 'camera')->count();
+        $consultation = User::where('account_type', 'consultation')->count();
+        $safety = User::where('account_type', 'safety')->count();
+
+        return view('backend.index', compact('camera', 'consultation', 'safety'));
     }
 }

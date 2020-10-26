@@ -118,14 +118,14 @@
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto mr-ar-auto">
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ url('images/logo.png') }}" alt="user" class="rounded-circle" width="31"></a>
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated dropdown-menu-left-ar">
                                 
                                 @if (app()->getLocale() == 'en')
                                 <a class="dropdown-item" href="{{ route('change.lang', ['lang'=> 'ar']) }}">عربي</a>
@@ -169,72 +169,40 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.index') }}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('home') }}" aria-expanded="false">
                                 <i class="mdi mdi-av-timer"></i>
-                                <span class="hide-menu">{{ __('admin.Dashboard') }}</span>
+                                <span class="hide-menu">{{ __('file.dashboard') }}</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index') }}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('home') }}" aria-expanded="false">
                                 <i class="mdi mdi-account-check"></i>
-                                <span class="hide-menu">{{ __('admin.Users') }}</span>
+                                <span class="hide-menu">{{ __('file.installation scenes') }}</span>
                             </a>
                         </li>
                        
+                       
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.categories.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-cup-water"></i>
-                                <span class="hide-menu">{{ __('admin.Categories') }}</span>
-                            </a>
-                        </li>
-                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.products.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-arrange-bring-forward"></i>
-                                <span class="hide-menu">{{ __('admin.Products') }}</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.orders.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-access-point"></i>
-                                <span class="hide-menu">{{ __('admin.Orders') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.reservation.index') }}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('home') }}" aria-expanded="false">
                                 <i class="mdi mdi-adjust"></i>
-                                <span class="hide-menu">{{ __('admin.Reservation') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.parties.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-database"></i>
-                                <span class="hide-menu">{{ __('admin.Parties') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.team.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-account-multiple-minus"></i>
-                                <span class="hide-menu">{{ __('admin.Team') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.setting.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-settings"></i>
-                                <span class="hide-menu">{{ __('admin.Setting') }}</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.profile.index') }}" aria-expanded="false">
-                                <i class="mdi mdi-adjust"></i>
-                                <span class="hide-menu">{{ __('admin.Profile') }}</span>
+                                <span class="hide-menu">{{ __('file.inspection scenes') }}</span>
                             </a>
                         </li>
                         
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('home') }}" aria-expanded="false">
+                                <i class="mdi mdi-account-check"></i>
+                                <span class="hide-menu">{{ __('file.installation contracts') }}</span>
+                            </a>
+                        </li>
+                       
+                       
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('home') }}" aria-expanded="false">
+                                <i class="mdi mdi-adjust"></i>
+                                <span class="hide-menu">{{ __('file.inspection contracts') }}</span>
+                            </a>
+                        </li>
 
                     </ul>
                 </nav>
@@ -258,7 +226,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                All Rights Reserved for Dozzan &copy; {{ date('Y') }}
+                All Rights Reserved for Bacura &copy; {{ date('Y') }}
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
