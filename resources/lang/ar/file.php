@@ -21,6 +21,30 @@ return [
     "inspection scenes"=> "مشاهد معاينة",
     "inspection contracts"=> "عقود معاينة",
     "image"=> "صورة",
+    "expired_at"=> " ينتهي في",
+    "please enter account name"=> "اسم المستخدم",
+    "please enter account email"=> "البريد الالكتروني للمستخدم",
+    "please enter account expired date"=> "فترة السماح للاستخدام",
+    "process"=> "المتابعة",
+    "edit"=> "تعديل",
+    "create"=> "انشاء",
+    "show"=> 'عرض',
+    "logout"=> "تسجيل الخروج",
+    "account_type"=> 'التخصص',
+    "establish"=> "المؤسسة",
+    "commerical_register"=>"السجل التجاري",
+    "license_number"=>"ترخيص رقم ",
+    "establish_email"=>"إيميل المؤسسة",
+    "establish_phone"=>"هاتف المؤسسة",
+    "admin_name"=>"اسم المدير",
+    "logo"=>"اللوجو الخاص بالمؤسسة",
+    "are you sure?"=>"هل انت متأكد من الحذف ؟",
+    "after delete you can not restore this data"=>"لن تستطيع استعاده البيانات بعد الحذف",
+    "confirm"=>"تأكيد",
+    "ignore"=>"إلغاء",
+    ""=>"",
+
+
     
     
 ];

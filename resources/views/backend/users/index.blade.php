@@ -45,12 +45,15 @@
                 <tr class="text-center">
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->phone }}</td>
-                    <td><img src="{{ url($user->image) }}" style="width: 50px; height:50px;border-radius: 100%" /></td>
+                    <td>
+
+                        <img src="{{ $user->image?url($user->image):'' }}" style="width: 50px; height:50px;border-radius: 100%" />
+                    </td>
                     <td>{{ $user->expired_at->diffForHumans() }}</td>
                     <td>
                         <a class="btn btn-success" href="{{ route('admin.users.edit', ['user'=> $user->id, 'account_type'=> $type]) }}"><i class="fa fa-edit"></i></a> 
                         <a class="btn btn-primary" href="{{ route('admin.users.show', ['user'=> $user->id, 'account_type'=> $type]) }}"><i class="fa fa-eye"></i></a>
-                        <a onclick="event.preventDefault(); document.getElementById('distroy-form-{{ $user->id }}').submit();" class="btn btn-danger" href="{{ route('admin.users.destroy', ['user'=> $user->id, 'account_type'=> $type]) }}"><i class="fa fa-close"></i></a>
+                        <a onclick="destroyUser(event, {{ $user->id }})" class="btn btn-danger" href="{{ route('admin.users.destroy', ['user'=> $user->id, 'account_type'=> $type]) }}"><i class="fa fa-close"></i></a>
                         <form id="distroy-form-{{ $user->id }}" action="{{ route('admin.users.destroy', ['user'=> $user->id, 'account_type'=> $type]) }}" method="POST" style="display: none;">
                             @csrf
                         </form>  
@@ -63,8 +66,32 @@
         </table> 
     </div>
     <script>
+        function destroyUser(event, userid){
+            event.preventDefault();
+            let elm = document.getElementById(`distroy-form-${userid}`);
+            swal({
+                title: "{{ __('file.are you sure?') }}",
+                text: "{{ __('file.after delete you can not restore this data') }}",
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            }).then((result) => {
+                if(result) {
+                     elm.submit();
+                } 
+            }).catch((err)=>{
+                console.log(err);
+            });
+        }
+
         $(function () {
-            $('#table').DataTable();
+            try {
+                $('#table').DataTable();
+            } catch (error) {
+                
+            }
+           
+
         })
     </script>
 </div>

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Ahmed Shaker">
+    <meta name="developer" content="Ahmed Shaker">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -18,10 +18,12 @@
     <script src="{{ url('js/datatables.min.js') }}"></script>
     <script src="{{ url('js/sweetalert.js') }}"></script>
     <script src="{{ url('js/multiple-select.js') }}"></script>
+    <script src="{{ url('js/datetimepicker.js') }}"></script>
 
     <script src="{{ url('color/js/colorpicker.js') }}"></script>
     <script src="{{ url('color/js/eye.js') }}"></script>
     <script src="{{ url('color/js/utils.js') }}"></script>
+    
 
     <!-- Custom CSS -->
     <link href="{{ url('res/dist/css/style.min.css') }}" rel="stylesheet">
@@ -31,6 +33,8 @@
     <link href="{{ url('color/css/colorpicker.css') }}" rel="stylesheet">
     <link href="{{ url('css/flaticon.css') }}" rel="stylesheet">
     <link href="{{ url('css/simditor.css') }}" rel="stylesheet" />
+    <link href="{{ url('css/datetimepicker.css') }}" rel="stylesheet" />
+    
 
     @yield('style')
 
@@ -176,20 +180,20 @@
                         </li>
                         
                          <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.consultation.index') }}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index', ['account_type'=> 'consultation']) }}" aria-expanded="false">
                                 <i class="mdi mdi-arrange-bring-forward"></i>
                                 <span class="hide-menu">{{ __('file.consultation') }}</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.safety.index') }}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index', ['account_type'=> 'safety']) }}" aria-expanded="false">
                                 <i class="mdi mdi-access-point"></i>
                                 <span class="hide-menu">{{ __('file.safety') }}</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.camera.index') }}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users.index', ['account_type'=> 'camera']) }}" aria-expanded="false">
                                 <i class="mdi mdi-adjust"></i>
                                 <span class="hide-menu">{{ __('file.camera') }}</span>
                             </a>

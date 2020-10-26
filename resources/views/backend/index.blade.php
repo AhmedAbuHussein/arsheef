@@ -32,7 +32,7 @@
             <div class="box">
                 <i class="fa fa-building"></i>
                 <span>{{ $consultation }}</span>
-                <a href="{{ route('admin.consultation.index') }}">{{ __('file.consultation') }}</a>
+                <a href="{{ route('admin.users.index', ['account_type'=> 'consultation']) }}">{{ __('file.consultation') }}</a>
             </div>
         </div>
 
@@ -40,7 +40,7 @@
                <div class="box">
                    <i class="fa fa-key"></i>
                    <span>{{ $safety }}</span>
-                   <a href="{{ route('admin.safety.index') }}">{{ __('file.safety') }}</a>
+                   <a href="{{ route('admin.users.index', ['account_type'=> 'safety']) }}">{{ __('file.safety') }}</a>
                </div>
            </div>
 
@@ -49,7 +49,7 @@
                 <div class="box">
                     <i class="fa fa-camera"></i>
                     <span>{{ $camera }}</span>
-                    <a href="{{ route('admin.camera.index') }}">{{ __('file.camera') }}</a>
+                    <a href="{{ route('admin.users.index', ['account_type'=> 'camera']) }}">{{ __('file.camera') }}</a>
                 </div>
             </div>
         
