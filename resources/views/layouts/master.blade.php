@@ -29,9 +29,26 @@
     <link href="{{ url('css/multiple-select.css') }}" rel="stylesheet">
     <link href="{{ url('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ url('color/css/colorpicker.css') }}" rel="stylesheet">
-    <link href="{{ url('css/flaticon.css') }}" rel="stylesheet">
     <link href="{{ url('css/simditor.css') }}" rel="stylesheet" />
-
+    <style>
+        #label-img {
+            padding: 20px;
+            border: 1px solid #ddd;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+        #label-img img{
+            max-width: 100%;
+        }
+        #label-img+input[type='file']{
+            width: 0;
+            height: 0;
+            border: none;
+            opacity: 0;
+        }
+    
+    </style>
     @yield('style')
 
     
@@ -134,13 +151,13 @@
                                 @endif
                                                               
 
-                                <a class="dropdown-item" href="{{ route('admin.logout') }}"
+                                <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
-                                              <i class="fa fa-sign-out"></i> {{ __('admin.Logout') }}
+                                              <i class="fa fa-sign-out"></i> {{ __('file.logout') }}
                                 </a>
 
-                             <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                  @csrf
                              </form>  
 
@@ -175,7 +192,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('home') }}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('index', ['type'=> 'inst_scen']) }}" aria-expanded="false">
                                 <i class="mdi mdi-account-check"></i>
                                 <span class="hide-menu">{{ __('file.installation scenes') }}</span>
                             </a>
@@ -183,14 +200,14 @@
                        
                        
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('home') }}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('index', ['type'=> 'insp_scen']) }}" aria-expanded="false">
                                 <i class="mdi mdi-adjust"></i>
                                 <span class="hide-menu">{{ __('file.inspection scenes') }}</span>
                             </a>
                         </li>
                         
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('home') }}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('index', ['type'=> 'inst_cont']) }}" aria-expanded="false">
                                 <i class="mdi mdi-account-check"></i>
                                 <span class="hide-menu">{{ __('file.installation contracts') }}</span>
                             </a>
@@ -198,9 +215,16 @@
                        
                        
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('home') }}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('index', ['type'=> 'insp_cont']) }}" aria-expanded="false">
                                 <i class="mdi mdi-adjust"></i>
                                 <span class="hide-menu">{{ __('file.inspection contracts') }}</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('profile') }}" aria-expanded="false">
+                                <i class="mdi mdi-human-male"></i>
+                                <span class="hide-menu">{{ __('file.profile') }}</span>
                             </a>
                         </li>
 

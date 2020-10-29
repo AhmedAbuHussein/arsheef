@@ -35,4 +35,16 @@
         margin-left: 0 !important;
         margin-right: 33.333333% !important;
     }
+
+    #main-wrapper[data-layout=vertical][data-sidebar-position=fixed][data-sidebartype=mini-sidebar] .topbar .top-navbar .navbar-collapse, #main-wrapper[data-layout=vertical][data-sidebartype=mini-sidebar] .page-wrapper {
+        margin-right: 65px !important;
+    }
+}
+
+
+@media (max-width: 767px){
+
+    #main-wrapper[data-layout=vertical][data-sidebar-position=fixed][data-sidebartype=mini-sidebar] .topbar .top-navbar .navbar-collapse, #main-wrapper[data-layout=vertical][data-sidebartype=mini-sidebar] .page-wrapper {
+        margin-right: 0px !important;
+    }
 }

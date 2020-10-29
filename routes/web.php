@@ -67,6 +67,26 @@ Route::redirect('/home', '/');
 Auth::routes();
 Route::get('change-lang-to-{lang}', 'LanguageController@index')->name('change.lang');
 
+Route::group(['namespace'=>'Frontend','middleware'=> 'auth:web'], function () {
+    
+    Route::get('/profile', 'ProfileController@index')->name('profile');
+    Route::get('/edit-{type}', 'ProfileController@edit')->name('profile.edit');
+    Route::post('/edit-{type}', 'ProfileController@update');
 
-Route::get('/', 'HomeController@index')->name('home');
+    Route::group(['middleware'=> 'first-login'], function () {
+        Route::get('/', 'HomeController@home')->name('home');
+        Route::get('/{type}/index', 'HomeController@index')->name('index');
+        Route::get('/{type}/create', 'HomeController@create')->name('create');
+        Route::post('/{type}/create', 'HomeController@store');
+
+        Route::get('/{type}/item/{item}/show', 'HomeController@show')->name('show');
+        Route::get('/{type}/item/{item}/edit', 'HomeController@edit')->name('edit');
+        Route::post('/{type}/item/{item}/edit', 'HomeController@update');
+        
+        Route::post('/{type}/item/{item}/delete', 'HomeController@destroy')->name('destroy');
+
+    });
+
+});
+
 

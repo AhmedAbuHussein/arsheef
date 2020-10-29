@@ -13,9 +13,6 @@
             <div class="d-flex align-items-center justify-content-end">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}">{{ __('file.home') }}</a>
-                        </li>
                         <li class="breadcrumb-item active" aria-current="page">{{ __('file.dashboard') }}</li>
                     </ol>
                 </nav>
@@ -28,28 +25,36 @@
        
        <div class="row">
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="box">
-                <i class="fa fa-users"></i>
-                <span>{{ $contracts }}</span>
-                <a href="{{ route('home') }}">{{ __('file.users') }}</a>
+                <i class="fa fa-inbox" style="color: #3cafb4"></i>
+                <span>{{ $items->where('type', 'inst_scen')->count() }}</span>
+                <a href="{{ route('index', ['type'=> 'inst_scen']) }}">{{ __('file.installation scenes') }}</a>
             </div>
         </div>
 
-           <div class="col-md-4">
+           <div class="col-md-3">
                <div class="box">
-                   <i class="fa fa-list"></i>
-                   <span>{{ $contracts }}</span>
-                   <a href="{{ route('home') }}">{{ __('file.information') }}</a>
+                   <i class="fa fa-eye" style="color: #865f13"></i>
+                   <span>{{ $items->where('type', 'insp_scen')->count() }}</span>
+                   <a href="{{ route('index', ['type'=> 'insp_scen']) }}">{{ __('file.inspection scenes') }}</a>
                </div>
            </div>
 
 
-           <div class="col-md-4">
+           <div class="col-md-3">
                 <div class="box">
-                    <i class="fa fa-product-hunt"></i>
-                    <span>{{ $contracts }}</span>
-                    <a href="{{ route('home') }}">{{ __('file.reservation') }}</a>
+                    <i class="fa fa-contao" style="color: #3cafb4"></i>
+                    <span>{{ $items->where('type', 'inst_cont')->count() }}</span>
+                    <a href="{{ route('index', ['type'=> 'inst_cont']) }}">{{ __('file.installation contracts') }}</a>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="box">
+                    <i class="fa fa-eye" style="color: #865f13"></i>
+                    <span>{{ $items->where('type', 'insp_cont')->count() }}</span>
+                    <a href="{{ route('index', ['type'=> 'insp_cont']) }}">{{ __('file.inspection contracts') }}</a>
                 </div>
             </div>
         
@@ -64,13 +69,13 @@
         width: 100%;
         margin-bottom: 15px;
         min-height: 215px;
-        background: #ccc;
+        background: #efefef;
         border-radius: 10px;
         padding: 20px;
         position: relative;
     }
     .box i{
-        font-size: 95px;
+        font-size: 70px;
     }
     .box span{
         position: absolute;
@@ -85,7 +90,7 @@
         right: 0;
         width:100%;
         padding:10px;
-        background: #ddd;
+        background: #eaeaea;
         text-align: center;
         font-size: 20px;
         transition: all 0.5s linear;
@@ -94,7 +99,7 @@
         border-bottom-left-radius: 10px;
     }
     .box a:hover{
-        background: #aaa;
+        background: #3cafb4;
         color: white;
     }
     .sidebar-nav ul .sidebar-item{

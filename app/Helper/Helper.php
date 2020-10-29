@@ -10,3 +10,20 @@ if (! function_exists('arabicNumbers')) {
         return str_replace($arabic_western, $arabic_eastern, $value);
     }
 }
+
+if (! function_exists('uploadImage')) {
+
+    function uploadImage($file, $folder = 'images', $old = null){
+        if(request()->hasFile($file)){
+            if(!is_null($old) && is_file($old)){
+                unlink($old);
+            }
+            $name = time().'.'.request()->file($file)->getClientOriginalExtension();
+            request()->file($file)->storeAs($folder, $name);
+            $name = $folder.'/'.$name;
+            return $name;
+        }
+        return null;
+    }
+
+}
