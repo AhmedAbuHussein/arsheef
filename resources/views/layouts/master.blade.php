@@ -18,11 +18,14 @@
     <script src="{{ url('js/datatables.min.js') }}"></script>
     <script src="{{ url('js/sweetalert.js') }}"></script>
     <script src="{{ url('js/multiple-select.js') }}"></script>
+    <script src="{{ url('js/datetimepicker.js') }}"></script>
 
+    
     <script src="{{ url('color/js/colorpicker.js') }}"></script>
     <script src="{{ url('color/js/eye.js') }}"></script>
     <script src="{{ url('color/js/utils.js') }}"></script>
 
+    
     <!-- Custom CSS -->
     <link href="{{ url('res/dist/css/style.min.css') }}" rel="stylesheet">
     <link href="{{ url('css/datatables.min.css') }}" rel="stylesheet">
@@ -30,6 +33,8 @@
     <link href="{{ url('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ url('color/css/colorpicker.css') }}" rel="stylesheet">
     <link href="{{ url('css/simditor.css') }}" rel="stylesheet" />
+    <link href="{{ url('css/datetimepicker.css') }}" rel="stylesheet" />
+
     <style>
         #label-img {
             padding: 20px;
@@ -296,6 +301,13 @@
     <script src="{{ url('js/simditor.js') }}"></script>
     <script>
         $(function() {
+
+            $('.datetime').datetimepicker({
+                format:'Y-m-d H:i',
+                lang: 'ar',
+                theme: 'dark'
+            });
+
 
             $('.confirm').click(function(){
                 return confirm("Are You Sure?");

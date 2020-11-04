@@ -3,17 +3,17 @@
     <div class="row mb-10">
         <div class="col-md-4">
             <div>
-                <h3 class="mb-10">مؤسسة باكورة التقنية للمراقبة الامنية</h3>
-                <p class="mb-10"><span class="text-bold">السجل التجاري :</span><span>{{ arabicNumbers($number) }}</span></p>
-                <p class="mb-10"><span class="text-bold"> ترخيص رقم :</span><span>{{  arabicNumbers($number) }}</span></p>
+                <h3 class="mb-10">{{ optional($user->information)->establish_name }}</h3>
+                <p class="mb-10"><span class="text-bold">السجل التجاري :</span><span>{{ arabicNumbers($user->information->commerical_register) }}</span></p>
+                <p class="mb-10"><span class="text-bold"> ترخيص رقم :</span><span>{{  arabicNumbers($user->information->license_number) }}</span></p>
             </div>
         </div>
         <div class="col-md-4">
-            <img src="{{ asset('images/logo.png') }}" class="logo"/>
+            <img src="{{ asset($user->information->logo) }}" class="logo"/>
         </div>
         <div class="col-md-4">
-            <p class="mb-10 text-bold mt-20">ahmed.shaker.fci.fcu@gmail.com</p>
-            <p>{{ arabicNumbers("01153154445") }}</p>
+            <p class="mb-10 text-bold mt-20">{{ $user->information->email }}</p>
+            <p>{{ arabicNumbers($user->information->phone) }}</p>
         </div>
 
     </div>
@@ -28,8 +28,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="date-container">
-                        <p class="date">{{ arabicNumbers($date) }}</p>
-                        <p class="date" dir="rtl">{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', new Carbon\Carbon($date)) }}</p>
+                        <p class="date">{{ arabicNumbers($data->date->format('Y/m/d')) }}</p>
+                        <p class="date" dir="rtl">{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', $data->date) }}</p>
                     </div>
                 </div>
            </div>
@@ -40,10 +40,10 @@
                 <span>تشهد </span>
                 <span>مؤسسة باكورة التقنية للمراقبة الامنية</span>
                 <span>سجل تجاري رقم : </span>
-                <span>{{ arabicNumbers($date) }}</span> 
+                <span>{{ arabicNumbers($user->information->commerical_register) }}</span> 
                 <br>
                 <span>رقم خطاب ترخيص مزاولة الانشطة الامنية :</span>
-                <span>{{ arabicNumbers($date) }}</span>
+                <span>{{ arabicNumbers($user->information->license_number) }}</span>
             </p>
             <p class="text text-bold">
                 <span>بانه تم معاينة النظام الامني كاميرات مراقبة امنية</span>
@@ -51,16 +51,16 @@
                 <span>لـ</span>
                 <span>شقق الاسلام للمواد الانشائية</span>
                 <br>
-                <span>سجل تجاري رقم : </span><span>{{ arabicNumbers($date) }}</span>
+                <span>سجل تجاري رقم : </span><span>{{ arabicNumbers($user->information->commerical_register) }}</span>
                 <br>
-                <span>رقم المبني : </span><span>{{ arabicNumbers(123) }}</span> &nbsp;&nbsp;&nbsp;&nbsp;
-                <span>الرقم الاضافي : </span><span>{{ arabicNumbers(325) }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>الرمز البريدي : </span><span>{{ arabicNumbers(452) }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>جوال رقم : </span><span>{{ arabicNumbers("01153154445") }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>رقم المبني : </span><span>{{ arabicNumbers($data->building_no) }}</span> &nbsp;&nbsp;&nbsp;&nbsp;
+                <span>الرقم الاضافي : </span><span>{{ arabicNumbers($data->second_no) }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>الرمز البريدي : </span><span>{{ arabicNumbers($data->postal_code) }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>جوال رقم : </span><span>{{ arabicNumbers($data->phone) }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <br>
-                <span>اسم الشارع : </span><span>شارع عمر بن عبد العزيز</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>المدينة : </span><span>خميس مشيط</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>الحي : </span><span>الجامعين</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>اسم الشارع : </span><span>{{ $data->street }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>المدينة : </span><span> {{ $data->city }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>الحي : </span><span>{{ $data->neignborhood }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
             </p>
 
                 
@@ -128,7 +128,7 @@
                 <div class="col-md-4">
                     <div>
                         <p class="footer-text">اسم المسئول</p>
-                        <P class="footer-text">محمد أحمد الشهراني</P>
+                        <P class="footer-text">{{ $user->information->admin_name }}</P>
                     </div>
                 </div>
                 <div class="col-md-4">
