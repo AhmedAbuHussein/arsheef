@@ -41,6 +41,22 @@ class CreateController extends Controller
 
     public function store(Request $request, $type)
     {
+        $account_type = Auth::guard('web')->user()->account_type;
+        switch ($account_type) {
+            case 'camera':
+                return $this->storeCamera($request, $type);
+                break;
+            case 'safety':
+                    return $this->storeSafety($request, $type);
+                    break;
+            default:
+            return $this->storeConsultation($request, $type);
+                break;
+        }
+    }
+
+    private function storeCamera(Request $request, $type)
+    {
         $this->validate($request, [
             'type'=> 'required|in:inst_scen,inst_cont,insp_scen,insp_cont',
             'owner'=> 'required|string|min:3|max:255',
@@ -67,6 +83,7 @@ class CreateController extends Controller
         }
         $data['user_id']= $user->id;
         Contract::create($data);
+        flash('تم اضافة عقد جديد');
         return redirect()->route('index', ['type'=> $type]);
     }
     

@@ -29,15 +29,25 @@ Route::group(['namespace'=>'Frontend','middleware'=> 'auth:web'], function () {
     Route::group(['middleware'=> 'first-login'], function () {
         Route::get('/', 'HomeController@home')->name('home');
         Route::get('/{type}/index', 'HomeController@index')->name('index');
+
         Route::get('/{type}/create', 'CreateController@create')->name('create');
         Route::post('/{type}/create', 'CreateController@store');
 
-        Route::get('/{type}/item/{item}/show', 'HomeController@show')->name('show');
         Route::get('/{type}/item/{item}/edit', 'EditController@edit')->name('edit');
-        Route::post('/{type}/item/{item}/edit', 'HomeController@update');
+        Route::post('/{type}/item/{item}/edit', 'EditController@update');
 
-        Route::post('/{type}/item/{item}/attach/{file}', 'CreateController@attachShow')->name('attach');
-        Route::post('/{type}/item/{item}/items', 'ItemController@items')->name('items');
+        
+        Route::get('/{type}/item/{item}/show', 'HomeController@show')->name('show');
+
+        Route::post('/{type}/parent/{parent}/attach/{file}', 'CreateController@attachShow')->name('attach');
+        Route::get('/{type}/parent/{parent}/items', 'ItemController@index')->name('items');
+        Route::get('/{type}/parent/{parent}/create', 'ItemController@create')->name('items.create');
+        Route::post('/{type}/parent/{parent}/create', 'ItemController@store');
+        
+        Route::get('/{type}/parent/{parent}/show/{item}', 'ItemController@show')->name('items.show');
+        Route::get('/{type}/parent/{parent}/edit/{item}', 'ItemController@edit')->name('items.edit');
+        Route::post('/{type}/parent/{parent}/edit/{item}', 'ItemController@update');
+        Route::post('/{type}/parent/{parent}/delete/{item}', 'ItemController@destroy')->name('items.destroy');
 
         Route::post('/{type}/item/{item}/delete', 'HomeController@destroy')->name('destroy');
 

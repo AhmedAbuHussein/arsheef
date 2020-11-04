@@ -248,6 +248,9 @@
         <div class="page-wrapper">
 
             <div style="min-height: 85vh">
+                <div class="text-center">
+                    @include('flash::message')
+                </div>
                 @yield('content')
             </div>
 

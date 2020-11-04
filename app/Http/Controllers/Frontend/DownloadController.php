@@ -43,6 +43,7 @@ class DownloadController extends Controller
         ]);
           
         $view = view('pdf.contract', compact('user', 'data'));
+        //return $view;
         $html = $view->render();
         $mpdf->WriteHTML($html);
         $mpdf->Output("test.pdf", "D"); 

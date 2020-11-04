@@ -3,7 +3,7 @@
     <div class="row mb-10">
         <div class="col-md-4">
             <div>
-                <h3 class="mb-10">{{ optional($user->information)->establish_name }}</h3>
+                <h3 class="mb-10" style="color: #5dc6e6">{{ optional($user->information)->establish_name }}</h3>
                 <p class="mb-10"><span class="text-bold">السجل التجاري :</span><span>{{ arabicNumbers($user->information->commerical_register) }}</span></p>
                 <p class="mb-10"><span class="text-bold"> ترخيص رقم :</span><span>{{  arabicNumbers($user->information->license_number) }}</span></p>
             </div>
@@ -63,55 +63,32 @@
                 <span>الحي : </span><span>{{ $data->neignborhood }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
             </p>
 
-                
+             @if ($data->items->count() > 0)
+                 
             <div class="table-container">
                 <p class=" text-bold text-underline text-right text-up-table">جدول كميات ومواصفات كاميرات المراقبة وملحقاتها :-</p>
-                <table class="text-right" dir="rtl" lang="ar" style="border: 3px solid #333;">
-                    <thead style="border-bottom: 2px solid #333; background: #e6e5e5;">
+                <table class="text-right table-borderd" dir="rtl" lang="ar">
+                    <thead>
                         <tr class="text-right">
-                            <th>الاسم</th>
-                            <th>العنوان</th>
-                            <th>الهاتف</th>
-                            <th>الحي</th>
+                            <th>اسم الجهاز</th>
+                            <th>العدد</th>
+                            <th>النوع</th>
+                            <th>المواصفات</th>
+                            <th>سعة التخزين</th>
+                            <th> الماركة</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data->items as $item)
                         <tr>
-                            <td>احمد شاكر</td>
-                            <td>كفر الشيخ</td>
-                            <td>{{ arabicNumbers("01153154445") }}</td>
-                            <td>شنو</td>
+                            <td>{{ $item->name }}</td>
+                            <td> {{ arabicNumbers($item->quantity) }}</td>
+                            <td>{{ $item->type }}</td>
+                            <td>{{ $item->details }}</td>
+                            <td>{{ $item->storage }}</td>
+                            <td>{{ $item->modal }}</td>
                         </tr>
-                        <tr>
-                            <td>احمد شاكر</td>
-                            <td>كفر الشيخ</td>
-                            <td>{{ arabicNumbers("01153154445") }}</td>
-                            <td>شنو</td>
-                        </tr>
-                        <tr>
-                            <td>احمد شاكر</td>
-                            <td>كفر الشيخ</td>
-                            <td>{{ arabicNumbers("01153154445") }}</td>
-                            <td>شنو</td>
-                        </tr>
-                        <tr>
-                            <td>احمد شاكر</td>
-                            <td>كفر الشيخ</td>
-                            <td>{{ arabicNumbers("01153154445") }}</td>
-                            <td>شنو</td>
-                        </tr>
-                        <tr>
-                            <td>احمد شاكر</td>
-                            <td>كفر الشيخ</td>
-                            <td>{{ arabicNumbers("01153154445") }}</td>
-                            <td>شنو</td>
-                        </tr>
-                        <tr>
-                            <td>احمد شاكر</td>
-                            <td>كفر الشيخ</td>
-                            <td>{{ arabicNumbers("01153154445") }}</td>
-                            <td>شنو</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
@@ -120,30 +97,30 @@
             <p class="text-under-table">
                 <span>وعليه نقر بأن جميع الأجهزة مطابقة لما ورد بكراسة الشروط والمواصفات العامة لنظام المراقبة التلفزيونية المعتمد من وكالة التخطيط والتطوير الأمني لوزارة الداخلية .</span>
             </p>
-
+            @endif   
         </div>
 
         <div class="footer mt-20">
             <div class="row mb-20">
                 <div class="col-md-4">
                     <div>
-                        <p class="footer-text">اسم المسئول</p>
+                        <p class="footer-text" style="font-weight: bold;">اسم المسئول</p>
                         <P class="footer-text">{{ $user->information->admin_name }}</P>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div>
-                        <p class="footer-text">توقيعـــــه</p>
+                        <p class="footer-text" style="font-weight: bold;">توقيعـه</p>
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div>
-                        <p class="footer-text">الختــــــم </p>
+                        <p class="footer-text" style="font-weight: bold;">الختـــم </p>
                     </div>
                 </div>
             </div>
-            <div class="border-bold mb-10" style="clear: both"></div>
+            <div class="border-bold mb-10" style="clear: both; margin-top: 60px;"></div>
         </div>
     </div>
     
@@ -152,9 +129,31 @@
 <style>
 @media print, screen {
 
-    *{
-        font-family: 'Scheherazade';
-    }
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.table-borderd {
+  font-family:  Arial, Helvetica, sans-serif;
+    border: 2px solid #000;
+  width: 100%;
+
+}
+.table-borderd tr th, .table-borderd tr td{
+    text-align: center !important;
+}
+.table-borderd td, .table-borderd th {
+  border: 1px solid #000000;
+  padding: 13px 0;
+}
+
+.table-borderd tr:nth-child(even){background-color: #f2f2f2;}
+
+.table-borderd th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #858585;
+  color: white;
+}
 .row {
     margin-right: -15px;
     margin-left: -15px;
@@ -175,7 +174,6 @@ div, p, span, h3, h4, h5, h2{
     padding: 0;
     margin: 0;
     text-align: center;
-    font-family: 'Scheherazade';
 }
 
 .container{

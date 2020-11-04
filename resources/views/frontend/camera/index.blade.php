@@ -54,11 +54,11 @@
                     <td>
                         <a title="تعديل بيانات" class="btn btn-success" href="{{ route('edit', ['type'=> $type, 'item'=> $item->id]) }}"><i class="fa fa-edit"></i></a> 
                         <a title="عرض البيانات" class="btn btn-primary" href="{{ route('show', ['type'=> $type, 'item'=> $item->id]) }}"><i class="fa fa-eye"></i></a>
-                        <a title="عرض العناصر" class="btn btn-dark" href="{{ route('items', ['type'=> $type, 'item'=> $item->id]) }}"><i class="fa fa-list"></i></a>
+                        <a title="عرض العناصر" class="btn btn-dark" href="{{ route('items', ['type'=> $type, 'parent'=> $item->id]) }}"><i class="fa fa-list"></i></a>
                         <a title="تنزيل الملف" class="btn btn-success" target="_blank" href="{{ route('download', ['type'=> $type, 'item'=> $item->id]) }}"><i class="fa fa-download"></i></a>
-                        <a title="الحاق ملف 1" class="btn btn-info" href="{{ route('attach', ['type'=> $type, 'item'=> $item->id, 'file'=> 1]) }}"><i class="fa fa-paperclip"></i></a>
-                        <a title="الحاق ملف 2" class="btn btn-danger" href="{{ route('attach', ['type'=> $type, 'item'=> $item->id, 'file'=> 2]) }}"><i class="fa fa-paperclip"></i></a>
-                        <a title="الحاق ملف 3" class="btn btn-warning" href="{{ route('attach', ['type'=> $type, 'item'=> $item->id, 'file'=> 3]) }}"><i class="fa fa-paperclip"></i></a>
+                        <a title="الحاق ملف 1" class="btn btn-info" href="{{ route('attach', ['type'=> $type, 'parent'=> $item->id, 'file'=> 1]) }}"><i class="fa fa-paperclip"></i></a>
+                        <a title="الحاق ملف 2" class="btn btn-danger" href="{{ route('attach', ['type'=> $type, 'parent'=> $item->id, 'file'=> 2]) }}"><i class="fa fa-paperclip"></i></a>
+                        <a title="الحاق ملف 3" class="btn btn-warning" href="{{ route('attach', ['type'=> $type, 'parent'=> $item->id, 'file'=> 3]) }}"><i class="fa fa-paperclip"></i></a>
                         <a title="حذف البيانات" onclick="destroyUser(event, {{ $item->id }})" class="btn btn-danger" href="{{ route('destroy',['type'=> $type, 'item'=> $item->id]) }}"><i class="fa fa-close"></i></a>
                         <form id="distroy-form-{{ $item->id }}" action="{{ route('destroy',['type'=> $type, 'item'=> $item->id]) }}" method="POST" style="display: none;">
                             @csrf
