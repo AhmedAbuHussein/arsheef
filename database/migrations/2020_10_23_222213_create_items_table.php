@@ -25,7 +25,7 @@ class CreateItemsTable extends Migration
             $table->string('storage')->nullable();
             $table->string('modal')->nullable();
 
-            $table->json('other')->nullable();
+            $table->longText('other')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('contract_id')->references('id')->on('contracts')->cascadeOnDelete();

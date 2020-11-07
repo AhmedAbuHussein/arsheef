@@ -60,6 +60,24 @@ class ItemController extends Controller
         }
     }
 
+    public function show($type, $parent, $item)
+    {
+        $user = Auth::guard('web')->user();
+        switch ($user->account_type) {
+            case 'camera':
+                $parent = Contract::findOrFail($parent);
+                $item = Item::where(['user_id'=> $user->id, 'contract_id'=> $parent->id, 'id'=> $item])->first();
+                return view('frontend.camera.items.show', compact('type', 'parent', 'item'));
+                break;
+            case 'safety':
+                return $this->itemCreateSafety($type, $parent);
+                break;
+            default:
+                return $this->itemCreateConsultation($type, $parent);
+                break;
+        }
+    }
+
     private function itemCreateCamera($type, $parent)
     {
         return view('frontend.camera.items.create', compact('type', 'parent'));

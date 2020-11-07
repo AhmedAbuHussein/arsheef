@@ -59,6 +59,7 @@
                         <a title="الحاق ملف 1" class="btn btn-info" href="{{ route('attach', ['type'=> $type, 'parent'=> $item->id, 'file'=> 1]) }}"><i class="fa fa-paperclip"></i></a>
                         <a title="الحاق ملف 2" class="btn btn-danger" href="{{ route('attach', ['type'=> $type, 'parent'=> $item->id, 'file'=> 2]) }}"><i class="fa fa-paperclip"></i></a>
                         <a title="الحاق ملف 3" class="btn btn-warning" href="{{ route('attach', ['type'=> $type, 'parent'=> $item->id, 'file'=> 3]) }}"><i class="fa fa-paperclip"></i></a>
+                        <a title="الحاق ملف 4" class="btn btn-dark" href="{{ route('attach', ['type'=> $type, 'parent'=> $item->id, 'file'=> 4]) }}"><i class="fa fa-paperclip"></i></a>
                         <a title="حذف البيانات" onclick="destroyUser(event, {{ $item->id }})" class="btn btn-danger" href="{{ route('destroy',['type'=> $type, 'item'=> $item->id]) }}"><i class="fa fa-close"></i></a>
                         <form id="distroy-form-{{ $item->id }}" action="{{ route('destroy',['type'=> $type, 'item'=> $item->id]) }}" method="POST" style="display: none;">
                             @csrf

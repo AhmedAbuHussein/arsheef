@@ -7,6 +7,7 @@ use App\Models\Contract;
 use App\Models\Structure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\TryCatch;
 
 class HomeController extends Controller
 {
@@ -71,4 +72,25 @@ class HomeController extends Controller
         return view('frontend.consultation.index', compact('items', 'type'));
     }
 
+    public function destroy($type, $item)
+    {
+        $user = Auth::guard('web')->user();
+        switch ($user->account_type) {
+            case 'camera':
+                $item = Contract::findOrFail($item);
+                for ($i=1; $i < 5; $i++) { 
+                    if($item->{"attach_$i"}){
+                        deleteFileFromStorage($item->{"attach_$i"});
+                    }
+                }
+                $item->delete();
+                flash("تم حذف العقد بنجاح")->success();
+                break;
+            case 'safety':
+                break;
+            default:
+                break;
+        }
+        return redirect()->back();
+    }
 }

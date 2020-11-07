@@ -37,7 +37,7 @@ Route::group(['namespace'=>'Frontend','middleware'=> 'auth:web'], function () {
         Route::post('/{type}/item/{item}/edit', 'EditController@update');
 
         
-        Route::get('/{type}/item/{item}/show', 'HomeController@show')->name('show');
+        Route::get('/{type}/item/{item}/show', 'ShowController@show')->name('show');
 
         Route::post('/{type}/parent/{parent}/attach/{file}', 'CreateController@attachShow')->name('attach');
         Route::get('/{type}/parent/{parent}/items', 'ItemController@index')->name('items');
@@ -49,8 +49,8 @@ Route::group(['namespace'=>'Frontend','middleware'=> 'auth:web'], function () {
         Route::post('/{type}/parent/{parent}/edit/{item}', 'ItemController@update');
         Route::post('/{type}/parent/{parent}/delete/{item}', 'ItemController@destroy')->name('items.destroy');
 
+        
         Route::post('/{type}/item/{item}/delete', 'HomeController@destroy')->name('destroy');
-
         Route::get('/{type}/item/{item}/download-pdf', 'DownloadController@index')->name('download');
 
     });

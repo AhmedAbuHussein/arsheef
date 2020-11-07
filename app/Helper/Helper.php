@@ -27,3 +27,18 @@ if (! function_exists('uploadImage')) {
     }
 
 }
+
+if (! function_exists('deleteFileFromStorage')) {
+
+    function deleteFileFromStorage($file, $prefix = null){
+        $path = public_path($prefix.$file);
+        if(is_file($path)){
+            try {
+                unlink($path);
+            } catch (\Throwable $th) {
+                flash("لن نتمكن من حذف $file")->warning();
+            }
+        }
+    }
+
+}
