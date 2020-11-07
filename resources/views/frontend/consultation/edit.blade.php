@@ -26,7 +26,7 @@
 
 <div class="container" style="margin-top: 60px">
 
-    <form method="POST" action="{{ route('edit', ['type'=> $type, 'item'=> $data->id]) }}">
+    <form method="POST" enctype="multipart/form-data" action="{{ route('edit', ['type'=> $type, 'item'=> $data->id]) }}">
         @csrf
         <input type="hidden" name="type" value="{{ $type }}">
         <div class="form-row">
@@ -38,9 +38,9 @@
             @enderror
           </div>
           <div class="form-group col-md-4">
-            <label for="phone">{{ __('file.phone') }}</label>
-            <input type="text" name="phone" value="{{ old('phone')??$data->phone }}" class="form-control" id="phone" required />
-            @error('phone')
+            <label for="building_name">{{ __('file.building name') }}</label>
+            <input type="text" name="building_name" value="{{ old('building_name')??$data->building_name }}" class="form-control" id="building_name" required />
+            @error('building_name')
             <div class="text-danger">{{ $message }}</div>
             @enderror
           </div>
@@ -73,41 +73,44 @@
                 @error('street')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
-              </div>
+            </div>
+            
+
           </div>
           <div class="form-row">
-            <div class="form-group col-md-3">
-              <label for="commerical_register">{{ __('file.commerical_register') }}</label>
-              <input type="text" name="commerical_register" value="{{ old('commerical_register')??$data->commerical_register }}" class="form-control" id="commerical_register" required />
-              @error('commerical_register')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">
               <label for="building_no">{{ __('file.building no') }}</label>
               <input type="text" name="building_no" value="{{ old('building_no')??$data->building_no }}" class="form-control" id="building_no" required />
               @error('building_no')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group col-md-3">
-              <label for="second_no">{{ __('file.second no') }}</label>
-              <input type="text" name="second_no" value="{{ old('second_no')??$data->second_no }}" class="form-control" id="second_no" required />
-              @error('second_no')
+            <div class="form-group col-md-6 text-center">
+              <label for="attach_1">
+                <img src="{{ asset($data->attach_1) }}" class="preview" />
+              </label>
+              <input style="width:0; height:0; visibility: hidden;" type="file" name="attach_1" value="{{ old('attach_1') }}" class="form-control" id="attach_1" accept="image/*" />
+              @error('attach_1')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group col-md-3">
-                <label for="postal_code">{{ __('file.postal code') }}</label>
-                <input type="text" name="postal_code" value="{{ old('postal_code')??$data->postal_code }}" class="form-control" id="postal_code" required />
-                @error('postal_code')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
-              </div>
+
           </div>
         
             <button type="submit" class="btn btn-primary">{{ __('file.process') }}</button>
       </form>
 
 </div>
+@endsection
+@section('style')
+    <style>
+      .preview{
+        width: 250px;
+        padding: 5px;
+        border-radius: 5px;
+        min-height: 100px;
+        background: #233242;
+      }
+    </style>
+
 @endsection

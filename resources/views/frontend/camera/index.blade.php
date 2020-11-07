@@ -25,7 +25,14 @@
    
     <div class="row">
         <div class="col-md-4 mr-auto ml-auto">
-            <a href="{{ route('create', ['type'=> $type]) }}" class="btn btn-purple btn-block"><i class="fa fa-plus"></i> {{ __('file.new') }}</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{{ route('create', ['type'=> $type]) }}" class="btn btn-purple btn-block"><i class="fa fa-plus"></i> {{ __('file.new') }}</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{{ route('export', ['type'=> $type]) }}" class="btn btn-dark btn-block"><i class="fa fa-download"></i> {{ __('file.export') }}</a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="content">

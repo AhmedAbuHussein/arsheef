@@ -75,22 +75,30 @@
                 @enderror
               </div>
           </div>
+
           <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
+              <label for="commerical_register">{{ __('file.commerical_register') }}</label>
+              <input type="text" name="commerical_register" value="{{ old('commerical_register') }}" class="form-control" id="commerical_register" required />
+              @error('commerical_register')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group col-md-3">
               <label for="building_no">{{ __('file.building no') }}</label>
               <input type="text" name="building_no" value="{{ old('building_no') }}" class="form-control" id="building_no" required />
               @error('building_no')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
               <label for="second_no">{{ __('file.second no') }}</label>
               <input type="text" name="second_no" value="{{ old('second_no') }}" class="form-control" id="second_no" required />
               @error('second_no')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="postal_code">{{ __('file.postal code') }}</label>
                 <input type="text" name="postal_code" value="{{ old('postal_code') }}" class="form-control" id="postal_code" required />
                 @error('postal_code')

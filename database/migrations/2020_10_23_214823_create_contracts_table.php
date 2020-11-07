@@ -18,6 +18,8 @@ class CreateContractsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->json('date')->comment('object of hijri data and date');
             $table->string('owner');
+            $table->string('commerical_register')->nullable();
+
             $table->string('building_no')->nullable();
             $table->string('second_no')->nullable()->comment('additional number');
             $table->string('postal_code')->nullable();

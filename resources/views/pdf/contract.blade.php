@@ -1,9 +1,9 @@
-
+<body>
 <div class="container text-right" dir="rtl">
     <div class="row mb-10">
         <div class="col-md-4">
             <div>
-                <h3 class="mb-10" style="color: #5dc6e6">{{ optional($user->information)->establish_name }}</h3>
+                <h3 class="mb-10" style="color: #2ba9af">{{ optional($user->information)->establish_name }}</h3>
                 <p class="mb-10"><span class="text-bold">السجل التجاري :</span><span>{{ arabicNumbers($user->information->commerical_register) }}</span></p>
                 <p class="mb-10"><span class="text-bold"> ترخيص رقم :</span><span>{{  arabicNumbers($user->information->license_number) }}</span></p>
             </div>
@@ -24,7 +24,7 @@
            <div class="row">
                 <div class="col-md-4"><div style="height: 2px;"></div></div>
                 <div class="col-md-4">
-                    <h3 class="title text-underline"> مشهــد إنجـــاز</h3>
+                    <h3 class="title text-underline">{{ $title }}</h3>
                 </div>
                 <div class="col-md-4">
                     <div class="date-container">
@@ -35,7 +35,7 @@
            </div>
             <div class="clear-fix"></div>
         </div>
-        <div class="body mb-20">
+        <div class="body">
             <p class="text text-bold text-underline">
                 <span>تشهد </span>
                 <span>مؤسسة باكورة التقنية للمراقبة الامنية</span>
@@ -49,9 +49,9 @@
                 <span>بانه تم معاينة النظام الامني كاميرات مراقبة امنية</span>
                 <br>
                 <span>لـ</span>
-                <span>شقق الاسلام للمواد الانشائية</span>
-                <br>
-                <span>سجل تجاري رقم : </span><span>{{ arabicNumbers($user->information->commerical_register) }}</span>
+                <span>{{ $data->owner }}</span>
+          
+                <span>سجل تجاري رقم : </span><span>{{ arabicNumbers($data->commerical_register) }}</span>
                 <br>
                 <span>رقم المبني : </span><span>{{ arabicNumbers($data->building_no) }}</span> &nbsp;&nbsp;&nbsp;&nbsp;
                 <span>الرقم الاضافي : </span><span>{{ arabicNumbers($data->second_no) }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -81,12 +81,12 @@
                     <tbody>
                         @foreach ($data->items as $item)
                         <tr>
-                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->name??'------' }}</td>
                             <td> {{ arabicNumbers($item->quantity) }}</td>
-                            <td>{{ $item->type }}</td>
-                            <td>{{ $item->details }}</td>
-                            <td>{{ $item->storage }}</td>
-                            <td>{{ $item->modal }}</td>
+                            <td>{{ $item->type??'------' }}</td>
+                            <td>{{ $item->details??'------' }}</td>
+                            <td>{{ $item->storage??'------' }}</td>
+                            <td>{{ $item->modal??'------' }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -100,8 +100,8 @@
             @endif   
         </div>
 
-        <div class="footer mt-20">
-            <div class="row mb-20">
+        <div class="footer mt-10">
+            <div class="row mb-10">
                 <div class="col-md-4">
                     <div>
                         <p class="footer-text" style="font-weight: bold;">اسم المسئول</p>
@@ -120,7 +120,6 @@
                     </div>
                 </div>
             </div>
-            <div class="border-bold mb-10" style="clear: both; margin-top: 60px;"></div>
         </div>
     </div>
     
@@ -129,13 +128,10 @@
 <style>
 @media print, screen {
 
-*{
-    font-family: Arial, Helvetica, sans-serif;
-}
 .table-borderd {
-  font-family:  Arial, Helvetica, sans-serif;
+ 
     border: 2px solid #000;
-  width: 100%;
+    width: 100%;
 
 }
 .table-borderd tr th, .table-borderd tr td{
@@ -277,7 +273,7 @@ tr{
 .text-under-table{
     padding: 3px 0px;
     text-decoration: underline;
-    margin: 15px 40px 60px;
+    margin: 15px 40px 14px;
     text-align: right;
     font-size: 16px
 }
@@ -286,7 +282,7 @@ tr{
 }
 
 .footer-text {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     line-height: 45px;
 }
@@ -295,3 +291,4 @@ tr{
 }
 }
 </style>
+</body>

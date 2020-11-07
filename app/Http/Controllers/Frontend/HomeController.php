@@ -68,7 +68,7 @@ class HomeController extends Controller
     private function indexConsultation($type)
     {
         $user = Auth::guard('web')->user();
-        $items = Contract::where(['user_id'=> $user->id, 'type'=> $type])->get();
+        $items = Structure::where(['user_id'=> $user->id, 'type'=> $type])->get();
         return view('frontend.consultation.index', compact('items', 'type'));
     }
 
@@ -77,7 +77,11 @@ class HomeController extends Controller
         $user = Auth::guard('web')->user();
         switch ($user->account_type) {
             case 'camera':
-                $item = Contract::findOrFail($item);
+                $item = Contract::where(['id'=> $item, 'type'=>$type, 'user_id'=>$user->id])->first();
+                if(!$item){
+                    flash("لا يمكنك حذف هذا العنصر")->error();
+                    return redirect()->back();
+                }
                 for ($i=1; $i < 5; $i++) { 
                     if($item->{"attach_$i"}){
                         deleteFileFromStorage($item->{"attach_$i"});
@@ -87,8 +91,21 @@ class HomeController extends Controller
                 flash("تم حذف العقد بنجاح")->success();
                 break;
             case 'safety':
+                flash("لم يتم اضفاه هذه الفئه بعد");
                 break;
             default:
+                $item = Structure::where(['id'=> $item, 'type'=>$type, 'user_id'=>$user->id])->first();
+                if(!$item){
+                    flash("لا يمكنك حذف هذا العنصر")->error();
+                    return redirect()->back();
+                }
+                for ($i=1; $i < 5; $i++) { 
+                    if($item->{"attach_$i"}){
+                        deleteFileFromStorage($item->{"attach_$i"});
+                    }
+                }
+                $item->delete();
+                flash("تم حذف العقد بنجاح")->success();
                 break;
         }
         return redirect()->back();

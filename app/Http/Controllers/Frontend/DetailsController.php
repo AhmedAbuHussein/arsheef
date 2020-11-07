@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Controllers\Frontend;
+
+use App\Http\Controllers\Controller;
+use App\Models\Structure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class DetailsController extends Controller
+{
+    public function index($type, $parent)
+    {
+        $item = Structure::findOrFail($parent);
+        return view('frontend.consultation.details', compact('type', 'parent', 'item'));
+    }
+
+    public function update(Request $request,$type, $parent)
+    {
+        $this->validate($request, [
+            'type'=>'required|string|in:inst_scen,inst_cont,insp_scen,insp_cont',
+            'details'=> 'required|string'
+        ]);
+        $user = Auth::guard('web')->user();
+        $item = Structure::where(['user_id'=> $user->id, 'type'=> $type , 'id'=> $parent])->first();
+        if(!$item) abort(404);
+        $item->update(['details'=> $request->details]);
+        flash("تم تعديل التفاصيل بنجاح")->success();
+        return redirect()->route('index', ['type'=>$type]);
+    }
+}

@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Alkoumi\LaravelHijriDate\LaravelHijriDateServiceProvider::class,
-
+        Rap2hpoutre\FastExcel\Providers\FastExcelServiceProvider::class,
     ],
 
     /*
@@ -228,6 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         "Hijri" => \Alkoumi\LaravelHijriDate\Hijri::class,
+        'FastExcel' => Rap2hpoutre\FastExcel\Facades\FastExcel::class,
 
     ],
 

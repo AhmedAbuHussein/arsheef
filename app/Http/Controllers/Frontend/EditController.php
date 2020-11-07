@@ -68,15 +68,18 @@ class EditController extends Controller
        $this->validate($request, [
            'date'=> 'required|date_format:Y-m-d H:i',
            'owner'=> 'required|string|min:3',
-           'street'=> 'required|string|min:3',
            'city'=> 'required|string|min:3',
+           'street'=> 'required|string|min:3',
            'neignborhood'=> 'required|string|min:3',
            'phone'=> 'required|string|min:6',
            'postal_code'=> 'required|numeric',
            'second_no'=> 'required|numeric',
+           "commerical_register"=> 'required|numeric',
            'building_no'=> 'required|numeric',
        ]);
-      $data = Contract::findOrFail($item);
+       $user = Auth::guard('web')->user();
+      $data = Contract::where(['id'=> $item, 'user_id'=> $user->id])->first();
+      if(!$data) abort(404);
       $data->update($request->except('_token'));
       flash('تم تحديث البيانات بنجاح')->success();
       return redirect()->route('index', ['type'=> $type]);
@@ -84,21 +87,28 @@ class EditController extends Controller
 
     private function updateConsultation(Request $request, $type, $item)
     {
-       $this->validate($request, [
-           'date'=> 'required|date_format:Y-m-d H:i',
-           'owner'=> 'required|string|min:3',
-           'street'=> 'required|string|min:3',
-           'city'=> 'required|string|min:3',
-           'neignborhood'=> 'required|string|min:3',
-           'building_name'=> 'required|string|min:3',
-           'building_no'=> 'required|numeric',
-           'details'=> 'required|array',
-           'details.*'=> 'required|string',
-       ]);
-      $data = Structure::findOrFail($item);
-      $data->update($request->except('_token'));
-      flash('تم تحديث البيانات بنجاح')->success();
-      return redirect()->route('index', ['type'=> $type]);
+        $this->validate($request, [
+            'date'=> 'required|date_format:Y-m-d H:i',
+            'owner'=> 'required|string|min:3',
+            'street'=> 'required|string|min:3',
+            'city'=> 'required|string|min:3',
+            'neignborhood'=> 'required|string|min:3',
+            'building_name'=> 'required|string|min:3',
+            'building_no'=> 'required|numeric',
+            "attach_1"=> 'required|image|mimes:jpg,jpeg,png,gif,bmp'
+        ]);
+        $data = $request->except(['_token', 'attach_1']);
+        $user = Auth::guard('web')->user();
+        $updated =  Structure::where(['user_id'=> $user->id, 'id'=>$item])->first();
+        if(!$updated) abort(404);
+        if($request->hasFile('attach_1')){
+            $old = public_path($updated->attach_1);
+            $name = uploadImage('attach_1', 'images/structure', $old);
+            $data['attach_1'] = $name;
+        }
+        $updated->update($data);
+        flash('تم تحديث البيانات بنجاح')->success();
+        return redirect()->route('index', ['type'=> $type]);
     }
 
 

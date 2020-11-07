@@ -21,4 +21,9 @@ class Contract extends Model
     {
         return $this->hasMany(Item::class, 'contract_id');
     }
+
+    public function pluckNameForItems()
+    {
+        return $this->items->pluck("name")->implode(' , ');
+    }
 }

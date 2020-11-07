@@ -16,7 +16,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('index', ['type'=> $type]) }}">{{ __("file.{$type}") }}</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ __("file.edit") }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ __("file.create") }}</li>
                     </ol>
                 </nav>
             </div>
@@ -26,88 +26,103 @@
 
 <div class="container" style="margin-top: 60px">
 
-    <form method="POST" action="{{ route('edit', ['type'=> $type, 'item'=> $data->id]) }}">
+    <form method="POST" enctype="multipart/form-data" action="{{ route('create', ['type'=> $type]) }}">
         @csrf
         <input type="hidden" name="type" value="{{ $type }}">
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="owner">{{ __('file.owner') }}</label>
-            <input type="text" name="owner" value="{{ old('owner')??$data->owner }}" class="form-control" id="owner" required />
+            <input type="text" name="owner" value="{{ old('owner') }}" class="form-control" id="owner" required />
             @error('owner')
-            <div class="text-danger">{{ $message }}</div>
+                <div class="text-danger">{{ $message }}</div>
             @enderror
           </div>
           <div class="form-group col-md-4">
-            <label for="phone">{{ __('file.phone') }}</label>
-            <input type="text" name="phone" value="{{ old('phone')??$data->phone }}" class="form-control" id="phone" required />
-            @error('phone')
-            <div class="text-danger">{{ $message }}</div>
+            <label for="building_name">{{ __('file.building name') }}</label>
+            <input type="text" name="building_name" value="{{ old('building_name') }}" class="form-control" id="building_name" required />
+            @error('building_name')
+                <div class="text-danger">{{ $message }}</div>
             @enderror
           </div>
           <div class="form-group col-md-4">
             <label for="date">{{ __('file.date') }}</label>
-            <input type="text" name="date" value="{{ old('date')??$data->date->format('Y-m-d H:i') }}" class="form-control datetime" id="date" autocomplete="off" required />
+            <input type="text" name="date" value="{{ old('date') }}" class="form-control datetime" id="date" autocomplete="off" required />
             @error('date')
-            <div class="text-danger">{{ $message }}</div>
+                <div class="text-danger">{{ $message }}</div>
             @enderror
           </div>
         </div>
+
         <div class="form-row">
             <div class="form-group col-md-4">
               <label for="city">{{ __('file.city') }}</label>
-              <input type="text" name="city" value="{{ old('city')??$data->city }}" class="form-control" id="city" required />
+              <input type="text" name="city" value="{{ old('city') }}" class="form-control" id="city" required />
               @error('city')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group col-md-4">
               <label for="neignborhood">{{ __('file.neignborhood') }}</label>
-              <input type="text" name="neignborhood" value="{{ old('neignborhood')??$data->neignborhood }}" class="form-control" id="neignborhood" required />
+              <input type="text" name="neignborhood" value="{{ old('neignborhood') }}" class="form-control" id="neignborhood" required />
               @error('neignborhood')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group col-md-4">
                 <label for="street">{{ __('file.street') }}</label>
-                <input type="text" name="street" value="{{ old('street')??$data->street }}" class="form-control" id="street" required />
+                <input type="text" name="street" value="{{ old('street') }}" class="form-control" id="street" required />
                 @error('street')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
               </div>
           </div>
+
           <div class="form-row">
-            <div class="form-group col-md-3">
-              <label for="commerical_register">{{ __('file.commerical_register') }}</label>
-              <input type="text" name="commerical_register" value="{{ old('commerical_register')??$data->commerical_register }}" class="form-control" id="commerical_register" required />
-              @error('commerical_register')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">
               <label for="building_no">{{ __('file.building no') }}</label>
-              <input type="text" name="building_no" value="{{ old('building_no')??$data->building_no }}" class="form-control" id="building_no" required />
+              <input type="text" name="building_no" value="{{ old('building_no') }}" class="form-control" id="building_no" required />
               @error('building_no')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group col-md-3">
-              <label for="second_no">{{ __('file.second no') }}</label>
-              <input type="text" name="second_no" value="{{ old('second_no')??$data->second_no }}" class="form-control" id="second_no" required />
-              @error('second_no')
+            <div class="form-group col-md-6">
+              <label for="attach_1">{{ __('file.attach image') }}</label>
+              <input type="file" name="attach_1" value="{{ old('attach_1') }}" class="form-control" id="attach_1" accept="image/*" />
+              @error('attach_1')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group col-md-3">
-                <label for="postal_code">{{ __('file.postal code') }}</label>
-                <input type="text" name="postal_code" value="{{ old('postal_code')??$data->postal_code }}" class="form-control" id="postal_code" required />
-                @error('postal_code')
+
+          </div>
+
+          <div class="form-row">
+           
+            <div class="form-group col-md-6">
+                <label for="attach_2">{{ __('file.attach file') }}</label>
+                <input type="file" name="attach_2" value="{{ old('attach_2') }}" class="form-control" id="attach_2" />
+                @error('attach_2')
+                  <div class="text-danger">{{ $message }}</div>
+                  @enderror
+            </div>
+            <div class="form-group col-md-6">
+              <label for="attach_3">{{ __('file.attach file') }}</label>
+              <input type="file" name="attach_3" value="{{ old('attach_3') }}" class="form-control" id="attach_3" />
+              @error('attach_3')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
-              </div>
+            </div>
+
           </div>
         
             <button type="submit" class="btn btn-primary">{{ __('file.process') }}</button>
       </form>
 
 </div>
+@endsection
+@section('script')
+    <script>
+        $(function() {
+
+        });
+    </script>
 @endsection

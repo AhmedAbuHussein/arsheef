@@ -16,7 +16,8 @@ class DownloadController extends Controller
         switch ($account_type) {
             case 'camera':
                 $data = Contract::with('items')->findOrFail($item);
-                return $this->handler($user, $data);
+                $title = $this->getTitle($type);
+                return $this->handler($user, $data, $title);
                 break;
             
             default:
@@ -25,27 +26,44 @@ class DownloadController extends Controller
         }
     }
 
-    public function handler($user, $data)
+    public function handler($user, $data, $title)
     {
-        
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
             'format' => 'A4',
-            'default_font_size' => 0,
-            'default_font' => 'Scheherazade',//'Scheherazade',
+            'default_font_size' => 10,
+            'default_font' => 'xbriyaz',
             'margin_left' => 10,
             'margin_right' => 10,
-            'margin_top' => 10,
-            'margin_bottom' => 10,
-            'margin_header' => 9,
-            'margin_footer' => 9,
+            'margin_top' => 5,
+            'margin_bottom' => 5,
+            'margin_header' => 6,
+            'margin_footer' => 6,
             'orientation' => 'P',
         ]);
           
-        $view = view('pdf.contract', compact('user', 'data'));
-        //return $view;
+        $view = view('pdf.contract', compact('user', 'data', 'title'));
         $html = $view->render();
         $mpdf->WriteHTML($html);
-        $mpdf->Output("test.pdf", "D"); 
+        $mpdf->Output(time().".pdf", "D"); 
+    }
+
+    public function getTitle($type)
+    {
+        switch ($type) {
+            case 'inst_scen':
+                return "مشهد تركيب";
+                break;
+            case 'insp_scen':
+                return "مشهد معاينة";
+                break;
+            case 'inst_cont':
+                return "عقد تركيب";
+                break;
+            case 'insp_cont':
+                return "عقد معاينة";
+                break;
+        }
+        return "مشهد انجاز";
     }
 }

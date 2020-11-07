@@ -149,11 +149,11 @@
                                 <img src="{{ url('images/logo.png') }}" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated dropdown-menu-left-ar">
                                 
-                                @if (app()->getLocale() == 'en')
+                              {{--   @if (app()->getLocale() == 'en')
                                 <a class="dropdown-item" href="{{ route('change.lang', ['lang'=> 'ar']) }}">عربي</a>
                                 @else
                                 <a class="dropdown-item" href="{{ route('change.lang', ['lang'=> 'en']) }}">English</a>
-                                @endif
+                                @endif --}}
                                                               
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
@@ -305,15 +305,30 @@
     <script>
         $(function() {
 
+            try {
+                var $preview, editor, toolbar;
+                Simditor.locale = 'en-US';
+                toolbar = ['title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale', 'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'hr', '|', 'indent', 'outdent', 'alignment'];
+            
+                editor = new Simditor({
+                    textarea: $('.texteditor'),
+                    toolbar: toolbar,
+                    pasteImage: false,
+                });
+                /* $preview = $('#editor');
+                if ($preview.length > 0) {
+                    return editor.on('valuechanged', function(e) {
+                        return $preview.val(editor.getValue());
+                    });
+                } */
+            } catch (error) {
+                
+            }
+
             $('.datetime').datetimepicker({
                 format:'Y-m-d H:i',
                 lang: 'ar',
                 theme: 'dark'
-            });
-
-
-            $('.confirm').click(function(){
-                return confirm("Are You Sure?");
             });
 
             function readURL(input,$seleector) {
@@ -331,7 +346,6 @@
         
             $("input[type='file']").change(function() {
                 var preview = $(this).siblings('label').children('img.preview');
-                console.log(preview);
                 readURL(this,preview);
             });
 

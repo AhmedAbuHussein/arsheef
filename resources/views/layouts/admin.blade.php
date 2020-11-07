@@ -131,11 +131,11 @@
                                 <img src="{{ url('images/logo.png') }}" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated dropdown-menu-left-ar">
                                 
-                                @if (app()->getLocale() == 'en')
+                               {{--  @if (app()->getLocale() == 'en')
                                 <a class="dropdown-item" href="{{ route('change.lang', ['lang'=> 'ar']) }}">عربي</a>
                                 @else
                                 <a class="dropdown-item" href="{{ route('change.lang', ['lang'=> 'en']) }}">English</a>
-                                @endif
+                                @endif --}}
                                                               
 
                                 <a class="dropdown-item" href="{{ route('admin.logout') }}"

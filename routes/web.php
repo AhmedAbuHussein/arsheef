@@ -1,20 +1,8 @@
 <?php
 
-use Carbon\Carbon;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::redirect('/home', '/');
 Auth::routes();
@@ -29,6 +17,7 @@ Route::group(['namespace'=>'Frontend','middleware'=> 'auth:web'], function () {
     Route::group(['middleware'=> 'first-login'], function () {
         Route::get('/', 'HomeController@home')->name('home');
         Route::get('/{type}/index', 'HomeController@index')->name('index');
+        Route::get('/{type}/export', 'ExportController@index')->name('export');
 
         Route::get('/{type}/create', 'CreateController@create')->name('create');
         Route::post('/{type}/create', 'CreateController@store');
@@ -39,8 +28,13 @@ Route::group(['namespace'=>'Frontend','middleware'=> 'auth:web'], function () {
         
         Route::get('/{type}/item/{item}/show', 'ShowController@show')->name('show');
 
-        Route::post('/{type}/parent/{parent}/attach/{file}', 'CreateController@attachShow')->name('attach');
+        Route::get('/{type}/parent/{parent}/details', 'DetailsController@index')->name('create.details');
+        Route::post('/{type}/parent/{parent}/details', 'DetailsController@update');
+
+        Route::get('/{type}/parent/{parent}/attach/{file}', 'CreateController@attachShow')->name('attach');
+        Route::post('/{type}/parent/{parent}/attach/{file}', 'CreateController@uploadFile');
         Route::get('/{type}/parent/{parent}/items', 'ItemController@index')->name('items');
+
         Route::get('/{type}/parent/{parent}/create', 'ItemController@create')->name('items.create');
         Route::post('/{type}/parent/{parent}/create', 'ItemController@store');
         

@@ -66,25 +66,12 @@
         </div>
         <div class="col-md-6">
             <div class="row">
-                <div class="col-md-5 custom-col border-right-custom">{{ __('file.second no') }}</div>
-                <div class="col-md-7 custom-col">{{ $item->second_no }}</div>
+                <div class="col-md-5 custom-col border-right-custom">{{ __('file.building name') }}</div>
+                <div class="col-md-7 custom-col">{{ $item->building_name }}</div>
             </div>
         </div>
     </div>
-    <div class="row custom-row">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-5 custom-col">{{ __('file.postal code') }}</div>
-                <div class="col-md-7 custom-col">{{ $item->postal_code }}</div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-5 custom-col">{{ __('file.phone') }}</div>
-                <div class="col-md-7 custom-col">{{ $item->phone }}</div>
-            </div>
-        </div>
-    </div>
+    
 
     <div class="row custom-row">
         <div class="col-md-6">
@@ -115,48 +102,15 @@
             </div>
         </div>
     </div>
-
-
     <div class="row custom-row">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-5 custom-col">{{ __('file.commerical_register') }}</div>
-                <div class="col-7 custom-col">{{ $item->commerical_register }}</div>
-            </div>
-        </div>
-       
+        <div class="col-md-12 custom-col delimiter-custom">{{ __('file.details') }}</div>
     </div>
 
-    @if ($item->items->count() > 0)
-    
-        <div class="row custom-row">
-            <div class="col-md-12 custom-col delimiter-custom">{{ __('file.items') }}</div>
-        </div>
-
-        @foreach ($item->items as $value)
-        <div class="row custom-row">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-5 custom-col">{{ __('file.name') }}</div>
-                    <div class="col-md-7 custom-col">{{ $value->name }}</div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-5 custom-col">{{ __('file.quantity') }}</div>
-                    <div class="col-md-7 custom-col">{{ $value->quantity }}</div>
-                </div>
-            </div>
-        </div>
-        @endforeach
-
-    @else
     <div class="row custom-row">
-        <div class="col-md-12 custom-col delimiter-custom-empty">{{ __('file.there are no items') }} <a class="custom-link" href="{{ route('items.create', ['type'=> $type, 'parent'=> $item]) }}">{{ __('file.create') }}</a></div>
+        <div class="col-12">
+            {!! $item->details?? "<p class='text-center my-3'>لا يوجد تفاصيل للعرض <a href='".route('create.details', ['parent'=> $item->id, 'type'=> $type])."'>انشاء</a></p>" !!}
+        </div>
     </div>
-    @endif
-    
-
 
     <div class="row custom-row">
         <div class="col-md-12 custom-col delimiter-custom">{{ __('file.attaches') }}</div>

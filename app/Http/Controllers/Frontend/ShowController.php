@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
+use App\Models\Structure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,8 @@ class ShowController extends Controller
                 return "safety";
                 break;
             default:
-                return "consultation";
+                $item = Structure::findOrFail($item);
+                return view('frontend.consultation.show', compact('type', 'item'));
                 break;
         }
     }
