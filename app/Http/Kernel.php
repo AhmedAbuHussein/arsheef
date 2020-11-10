@@ -43,6 +43,15 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'expired'=> [
+            \App\Http\Middleware\Expired::class,
+        ],
+        'block-expired'=> [
+            \App\Http\Middleware\BlockUser::class,
+        ],
+        'block-safety'=> [
+            \App\Http\Middleware\BlockSafety::class,
+        ],
     ];
 
     /**

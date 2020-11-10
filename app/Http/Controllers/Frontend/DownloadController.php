@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
+use App\Models\Structure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,18 +16,28 @@ class DownloadController extends Controller
         $account_type = $user->account_type;
         switch ($account_type) {
             case 'camera':
-                $data = Contract::with('items')->findOrFail($item);
+                $data = Contract::where(['user_id'=> $user->id, 'type'=> $type, 'id'=> $item])->with('items')->first();
+                if(!$data){
+                    flash("لا يمكنك الولوج لهذه الصفحة");
+                    return redirect()->route('index', ['type'=> $type]);
+                }
                 $title = $this->getTitle($type);
-                return $this->handler($user, $data, $title);
+                return $this->handler($user, $data, $title, "pdf.contract");
                 break;
             
             default:
-                # code...
+                $data = Structure::where(['user_id'=> $user->id, 'type'=> $type, 'id'=> $item])->first();
+                if(!$data){
+                    flash("لا يمكنك الولوج لهذه الصفحة");
+                    return redirect()->route('index', ['type'=> $type]);
+                }
+                $title = $this->getTitle($type);
+                return $this->handler($user, $data, $title, "pdf.structure");
                 break;
         }
     }
 
-    public function handler($user, $data, $title)
+    public function handler($user, $data, $title, $view= "pdf.contract")
     {
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
@@ -42,7 +53,7 @@ class DownloadController extends Controller
             'orientation' => 'P',
         ]);
           
-        $view = view('pdf.contract', compact('user', 'data', 'title'));
+        $view = view($view, compact('user', 'data', 'title'));
         $html = $view->render();
         $mpdf->WriteHTML($html);
         $mpdf->Output(time().".pdf", "D"); 

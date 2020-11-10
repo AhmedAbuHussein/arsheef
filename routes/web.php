@@ -14,8 +14,8 @@ Route::group(['namespace'=>'Frontend','middleware'=> 'auth:web'], function () {
     Route::get('/edit-{type}', 'ProfileController@edit')->name('profile.edit');
     Route::post('/edit-{type}', 'ProfileController@update');
 
-    Route::group(['middleware'=> 'first-login'], function () {
-        Route::get('/', 'HomeController@home')->name('home');
+    Route::group(['middleware'=> ['block-safety','first-login', 'block-expired']], function () {
+        Route::get('/', 'HomeController@home')->middleware('expired')->name('home');
         Route::get('/{type}/index', 'HomeController@index')->name('index');
         Route::get('/{type}/export', 'ExportController@index')->name('export');
 
@@ -46,6 +46,11 @@ Route::group(['namespace'=>'Frontend','middleware'=> 'auth:web'], function () {
         
         Route::post('/{type}/item/{item}/delete', 'HomeController@destroy')->name('destroy');
         Route::get('/{type}/item/{item}/download-pdf', 'DownloadController@index')->name('download');
+
+        Route::get('/read-notification/{id}', function($id){
+            auth('web')->user()->notifications()->where('id', $id)->first()->markAsRead();
+            return redirect()->back();
+        })->name('notify.read');
 
     });
 

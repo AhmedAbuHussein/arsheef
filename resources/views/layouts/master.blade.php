@@ -81,6 +81,17 @@
             display: flex;
             justify-content: center;
         }
+        .header-badge{
+            position: absolute;
+            top: 14px;
+            border-radius: 35px;
+            display: inline-block;
+            width: 17px;
+            height: 17px;
+            right: 2px;
+            font-size: 8px;
+            line-height: 15px;
+        }
     </style>
     
     @if (app()->getLocale() == 'ar')
@@ -141,9 +152,21 @@
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav ml-auto mr-ar-auto">
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
+                      
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <i class="fa fa-envelope"></i> <span class="badge {{ auth('web')->user()->unreadNotifications()->count()>0?'badge-danger': 'badge-dark' }} header-badge">{{ auth('web')->user()->unreadNotifications()->count() }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right user-dd animated dropdown-menu-left-ar">
+                                @forelse (auth('web')->user()->unreadNotifications as $notify)
+                                <li class="dropdown-item"><a href="{{ route('notify.read', ['id'=> $notify->id]) }}" >{{ $notify->data['message'] }}</a></li>  
+                                @empty
+                                <li class="dropdown-item">عقوا لا يوجد اشعارات جديدة</li>  
+                                @endforelse
+                                                          
+                            </ul>
+                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ url('images/logo.png') }}" alt="user" class="rounded-circle" width="31"></a>
@@ -168,6 +191,8 @@
 
                             </div>
                         </li>
+
+                        
 
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -348,7 +373,6 @@
                 var preview = $(this).siblings('label').children('img.preview');
                 readURL(this,preview);
             });
-
 
             $(".multiSelect").multipleSelect({
                 filter: true,

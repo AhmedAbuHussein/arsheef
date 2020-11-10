@@ -48,7 +48,7 @@ class ExportController extends Controller
     public function cameratExcel($type) {
 
         $user = Auth::guard('web')->user();
-        $contracts = Contract::where(['type'=> $type, 'user_id'=> $user->id])->with(['items', 'user']);
+        $contracts = Contract::where(['type'=> $type, 'user_id'=> $user->id])->with(['items']);
         foreach ($contracts->cursor() as $index=>$contract) {
             yield  [
                 "الرقم التسلسلي"            => $index +1, 
@@ -78,7 +78,7 @@ class ExportController extends Controller
                 " المدينة"          => $contract->city,
                 " الشارع"          => $contract->street,
                 " الحي"          => $contract->neignborhood,
-                "الوصف "          => str_replace(["&nbsp;", "<br>"],["\0", "\n"] ,strip_tags($contract->details, '<br>')),
+                "الوصف "          => str_replace(["&nbsp;", "<br>"],["\0", "\r"] ,strip_tags($contract->details, '<br>')),
             ];
         }
     }

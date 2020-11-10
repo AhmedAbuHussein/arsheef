@@ -44,7 +44,23 @@
 
                     <div class="form-group">
                         <label for="expired_at">{{ __('file.expired_at') }}</label>
-                        <input type="text" name="expired_at" id="expired_at" autocomplete="off" value="{{ old('expired_at')??$user->expired_at }}" class="form-control" placeholder="{{ __('file.please enter account expired date') }}" required>
+                        <input type="text" name="expired_at" id="expired_at" autocomplete="off" value="{{ old('expired_at')??$user->expired_at->format('Y-m-d H:i') }}" class="form-control" placeholder="{{ __('file.please enter account expired date') }}" required>
+                        @error('expired_at')
+                            <div class="text-dangert">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">{{ __('file.change password') }}</label>
+                        <input type="password" name="password"  id="password" value="{{ old('password') }}" class="form-control" autocomplete="new-password">
+                        @error('password')
+                            <div class="text-dangert">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password-confirm">{{ __('file.confirm password') }}</label>
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                     </div>
 
                     <div class="form-group">

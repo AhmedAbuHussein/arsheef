@@ -11,7 +11,12 @@ class DetailsController extends Controller
 {
     public function index($type, $parent)
     {
-        $item = Structure::findOrFail($parent);
+        $user = Auth::guard('web')->user();
+        $item = Structure::where(['id'=>$parent, 'type'=>$type, 'user_id'=> $user->id])->first();
+        if(!$item){
+            flash('غير مسموح لك بعرض هذا العنصر');
+            return redirect()->route('index', ['type'=> $type]);
+        }
         return view('frontend.consultation.details', compact('type', 'parent', 'item'));
     }
 
@@ -23,7 +28,10 @@ class DetailsController extends Controller
         ]);
         $user = Auth::guard('web')->user();
         $item = Structure::where(['user_id'=> $user->id, 'type'=> $type , 'id'=> $parent])->first();
-        if(!$item) abort(404);
+        if(!$item){
+            flash('غير مسموح لك بالتعديل علي هذا العنصر');
+            return redirect()->route('index', ['type'=> $type]);
+        }
         $item->update(['details'=> $request->details]);
         flash("تم تعديل التفاصيل بنجاح")->success();
         return redirect()->route('index', ['type'=>$type]);

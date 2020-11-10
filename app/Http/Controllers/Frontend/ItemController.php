@@ -29,17 +29,25 @@ class ItemController extends Controller
 
     private function itemCamera($type, $parent)
     {
-        $data = Item::where('contract_id', $parent)->get();
+        $user = Auth::guard('web')->user();
+        $data = Item::where(['contract_id'=> $parent, 'user_id'=> $user->id])->get();
         return view('frontend.camera.items.index', compact('data', 'type', 'parent'));
     }
     private function itemSafety($type, $parent)
     {
-        $data = Item::where('contract_id', $parent)->get();
+        $user = Auth::guard('web')->user();
+        $data = Item::where(['contract_id'=> $parent, 'user_id'=> $user->id])->get();
         return view('frontend.camera.items.index', compact('data', 'type', 'parent'));
     }
     private function itemConsultation($type, $parent)
     {
-        $data = Structure::findOrFail($parent)->details;
+        $user = Auth::guard('web')->user();
+        $item = Structure::where(['id'=>$parent, "type"=> $type, 'user_id'=> $user->id])->first();
+        if(!$item){
+            flash("لا يمكن الولوج لهذا العنصر")->error();
+            return redirect()->route('index', ['type'=> $type]);
+        }
+        $data = $item->details;
         return view('frontend.consultation.items.index', compact('data', 'type', 'parent'));
     }
 
@@ -65,15 +73,16 @@ class ItemController extends Controller
         $user = Auth::guard('web')->user();
         switch ($user->account_type) {
             case 'camera':
-                $parent = Contract::findOrFail($parent);
+                $parent = Contract::where(['id'=>$parent, "type"=> $type, 'user_id'=> $user->id])->first();
+                if(!$parent){
+                    flash("لا يمكن الولوج لهذا العنصر")->error();
+                    return redirect()->route('index', ['type'=> $type]);
+                }
                 $item = Item::where(['user_id'=> $user->id, 'contract_id'=> $parent->id, 'id'=> $item])->first();
                 return view('frontend.camera.items.show', compact('type', 'parent', 'item'));
                 break;
             case 'safety':
                 return $this->itemCreateSafety($type, $parent);
-                break;
-            default:
-                return $this->itemCreateConsultation($type, $parent);
                 break;
         }
     }
@@ -94,9 +103,6 @@ class ItemController extends Controller
                 break;
             case 'safety':
                 return $this->itemStoreSafety($request, $type, $parent);
-                break;
-            default:
-                return $this->itemStoreConsultation($request, $type, $parent);
                 break;
         }
     }
@@ -134,9 +140,6 @@ class ItemController extends Controller
             case 'safety':
                 return $this->itemEditSafety($type, $parent, $item);
                 break;
-            default:
-                return $this->itemEditConsultation($type, $parent, $item);
-                break;
         }
     }
 
@@ -162,9 +165,6 @@ class ItemController extends Controller
                 break;
             case 'safety':
                 return $this->itemUpdateSafety($request, $type, $parent, $item);
-                break;
-            default:
-                return $this->itemUpdateConsultation($request, $type, $parent, $item);
                 break;
         }
     }

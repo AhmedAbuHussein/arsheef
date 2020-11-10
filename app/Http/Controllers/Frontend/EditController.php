@@ -45,19 +45,34 @@ class EditController extends Controller
     # helper methods edit pages
     private function editCamera($type, $item)
     {
-        $data = Contract::findOrFail($item);
+        $user = Auth::guard('web')->user();
+        $data = Contract::where(['id'=>$item, 'type'=> $type, 'user_id'=> $user->id])->first();
+        if(!$data){
+            flash("غير مسموح الولوج لهذا العنصر");
+            return redirect()->route('index', ['type'=> $type]);
+        }
         return view('frontend.camera.edit', compact('data', 'type'));
     }
 
     private function editSafety($type, $item)
     {
-        $data = Contract::findOrFail($item);
+        $user = Auth::guard('web')->user();
+        $data = Contract::where(['id'=>$item, 'type'=> $type, 'user_id'=> $user->id])->first();
+        if(!$data){
+            flash("غير مسموح الولوج لهذا العنصر");
+            return redirect()->route('index', ['type'=> $type]);
+        }
         return view('frontend.safety.edit', compact('data', 'type'));
     }
 
     private function editConsultation($type, $item)
     {
-        $data = Structure::findOrFail($item);
+        $user = Auth::guard('web')->user();
+        $data = Structure::where(['id'=>$item, 'type'=> $type, 'user_id'=> $user->id])->first();
+        if(!$data){
+            flash("غير مسموح الولوج لهذا العنصر");
+            return redirect()->route('index', ['type'=> $type]);
+        }
         return view('frontend.consultation.edit', compact('data', 'type'));
     }
     
@@ -79,7 +94,10 @@ class EditController extends Controller
        ]);
        $user = Auth::guard('web')->user();
       $data = Contract::where(['id'=> $item, 'user_id'=> $user->id])->first();
-      if(!$data) abort(404);
+      if(!$data){
+        flash("غير مسموح التعديل علي هذا العنصر");
+        return redirect()->route('index', ['type'=> $type]);
+      }
       $data->update($request->except('_token'));
       flash('تم تحديث البيانات بنجاح')->success();
       return redirect()->route('index', ['type'=> $type]);
@@ -100,7 +118,10 @@ class EditController extends Controller
         $data = $request->except(['_token', 'attach_1']);
         $user = Auth::guard('web')->user();
         $updated =  Structure::where(['user_id'=> $user->id, 'id'=>$item])->first();
-        if(!$updated) abort(404);
+        if(!$updated) {
+            flash("غير مسموح التعديل علي هذا العنصر");
+            return redirect()->route('index', ['type'=> $type]);
+          }
         if($request->hasFile('attach_1')){
             $old = public_path($updated->attach_1);
             $name = uploadImage('attach_1', 'images/structure', $old);

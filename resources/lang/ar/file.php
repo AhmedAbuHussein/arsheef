@@ -94,8 +94,8 @@ return [
     "export"=>"تصدير excel",
     "building name"=>"اسم المبني",
     "attach image"=>"ارفاق صوره فقط",
-    ""=>"",
-    ""=>"",
+    "change password"=>"لعدم تغير كلمة السير اتركه فارغ",
+    "confirm password"=>"تاكيد كلمة المرور",
 
 
     
