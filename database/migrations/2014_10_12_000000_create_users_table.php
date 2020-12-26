@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('image')->nullable();
             $table->string('phone')->nullable();
             $table->timestamp('expired_at')->nullable();
+            $table->boolean('first_login')->default(1);
+            $table->enum('account_type', ['camera', 'safety', 'consultation']);
             $table->rememberToken();
             $table->timestamps();
         });

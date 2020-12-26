@@ -16,7 +16,7 @@ class CreateStructuresTable extends Migration
         Schema::create('structures', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-
+            $table->enum('type', ['inst_scen', 'inst_cont', 'insp_scen', 'insp_cont']);
             $table->json('date')->comment('object of hijri data and date');
             $table->string('owner')->nullable();
             $table->string('building_no')->nullable();
