@@ -22,7 +22,8 @@ class DownloadController extends Controller
                     return redirect()->route('index', ['type'=> $type]);
                 }
                 $title = $this->getTitle($type);
-                return $this->handler($user, $data, $title, "pdf.contract");
+
+                return $this->handler($user, $data, $title, "pdf.contract2", "pdf.contract_header");
                 break;
             
             default:
@@ -37,7 +38,7 @@ class DownloadController extends Controller
         }
     }
 
-    public function handler($user, $data, $title, $view= "pdf.contract", $header = "pdf.contract_header")
+    public function handler($user, $data, $title, $view= "pdf.contract", $header = null)
     {
         
         $mpdf = new \Mpdf\Mpdf([
@@ -50,10 +51,15 @@ class DownloadController extends Controller
             "margin_header"=> 2,
             'orientation'   => 'P',
         ]);
-        $header = view($header, compact('user', 'data'))->render();
+
+        if($header != null){
+            $header_html = view($header, compact('user', 'data'))->render();
+            $mpdf->SetHTMLHeader($header_html);
+        }
+
         $view = view($view, compact('user', 'data', 'title'));
         $html = $view->render();        
-        $mpdf->SetHTMLHeader($header);
+       
         $mpdf->SetFooter('|{PAGENO} of {nbpg}|');
         $mpdf->WriteHTML($html);
         $mpdf->Output(time().".pdf", "D"); 
@@ -69,10 +75,10 @@ class DownloadController extends Controller
                 return "مشهد معاينة";
                 break;
             case 'inst_cont':
-                return "عقد تركيب";
+                return "عقد تركيب النظام الامني";
                 break;
             case 'insp_cont':
-                return "عقد معاينة";
+                return "عقد معاينة النظام الامني";
                 break;
         }
         return "مشهد انجاز";
