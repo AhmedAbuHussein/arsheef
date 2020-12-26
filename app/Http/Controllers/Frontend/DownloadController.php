@@ -37,26 +37,30 @@ class DownloadController extends Controller
         }
     }
 
-    public function handler($user, $data, $title, $view= "pdf.contract")
+    public function handler($user, $data, $title, $view= "pdf.contract", $header = "pdf.contract_header")
     {
+        
         $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8',
-            'format' => 'A4',
+            'mode'          => 'utf-8',
+            'format'        => 'A4',
             'default_font_size' => 10,
-            'default_font' => 'xbriyaz',
-            'margin_left' => 10,
-            'margin_right' => 10,
-            'margin_top' => 5,
+            'default_font'  => 'xbriyaz',
+            'margin_left'   => 10,
+            'margin_right'  => 10,
+            'margin_top'    => 5,
             'margin_bottom' => 5,
             'margin_header' => 6,
             'margin_footer' => 6,
-            'orientation' => 'P',
+            'orientation'   => 'P',
         ]);
-          
+        $header = view($header, compact('user', 'data'))->render();
         $view = view($view, compact('user', 'data', 'title'));
-        $html = $view->render();
-        $mpdf->WriteHTML($html);
-        $mpdf->Output(time().".pdf", "D"); 
+        $html = $view->render();        
+        $mpdf->SetHTMLHeader($header);
+        $mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY);
+        return $mpdf->stream('document.pdf');
+
+        $mpdf->Output(time().".pdf"); 
     }
 
     public function getTitle($type)

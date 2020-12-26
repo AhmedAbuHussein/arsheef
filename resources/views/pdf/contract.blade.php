@@ -1,24 +1,4 @@
-<body>
 <div class="container text-right" dir="rtl">
-    <div class="row mb-10">
-        <div class="col-md-4">
-            <div>
-                <h3 class="mb-10" style="color: #2ba9af">{{ optional($user->information)->establish_name }}</h3>
-                <p class="mb-10"><span class="text-bold">السجل التجاري :</span><span>{{ arabicNumbers($user->information->commerical_register) }}</span></p>
-                <p class="mb-10"><span class="text-bold"> ترخيص رقم :</span><span>{{  arabicNumbers($user->information->license_number) }}</span></p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <img src="{{ asset($user->information->logo) }}" class="logo"/>
-        </div>
-        <div class="col-md-4">
-            <p class="mb-10 text-bold mt-20">{{ $user->information->email }}</p>
-            <p>{{ arabicNumbers($user->information->phone) }}</p>
-        </div>
-
-    </div>
-    <div class="border-bold mb-20" style="clear: both"></div>
-
     <div class="content">
         <div class="header" style="width: 800px; margin:auto;">
            <div class="row">
@@ -38,7 +18,7 @@
         <div class="body">
             <p class="text text-bold text-underline">
                 <span>تشهد </span>
-                <span>مؤسسة باكورة التقنية للمراقبة الامنية</span>
+                <span>مؤسسة {{ optional($user->information)->establish_name }}</span>
                 <span>سجل تجاري رقم : </span>
                 <span>{{ arabicNumbers($user->information->commerical_register) }}</span> 
                 <br>
@@ -46,11 +26,11 @@
                 <span>{{ arabicNumbers($user->information->license_number) }}</span>
             </p>
             <p class="text text-bold">
-                <span>بانه تم معاينة النظام الامني كاميرات مراقبة امنية</span>
+                <span>بانه تم {{ str_replace(["مشهد","عقد"],"",$title) }} النظام الامني كاميرات مراقبة امنية</span>
                 <br>
                 <span>لـ</span>
                 <span>{{ $data->owner }}</span>
-          
+                <br> 
                 <span>سجل تجاري رقم : </span><span>{{ arabicNumbers($data->commerical_register) }}</span>
                 <br>
                 <span>رقم المبني : </span><span>{{ arabicNumbers($data->building_no) }}</span> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -93,6 +73,41 @@
                 </table>
 
             </div>
+
+            @if ($data->attach_1 != null)
+            <div class="table-container image text-center" style="margin-top: 20px">
+                <table>
+                    <tr class="no-border">
+                        <td colspan="2" class="no-border">
+                            <p class=" text-bold text-underline text-right text-up-table">الصور الملحقة بالعقد:-</p>
+                        </td>
+                    </tr>
+                    <tr class="no-border">
+                        <td class="text-center no-border">
+                            <img style="max-width: 100%; max-height:300px; margin-top:30px" src="{{ asset($data->attach_1) }}" />
+                        </td>
+                        @if(!is_null($data->attach_2) && substr_count(mime_content_type($data->attach_2), "image") > 0)
+                        <td class="text-center no-border">
+                            <img style="max-width: 100%; max-height:300px; margin-top:30px" src="{{ asset($data->attach_2) }}" />
+                        </td>
+                        @endif
+                    </tr>
+                    <tr>
+                        @if(!is_null($data->attach_3) && substr_count(mime_content_type($data->attach_3), "image") > 0)
+                        <td class="text-center no-border">
+                            <img style="max-width: 100%; max-height:300px; margin-top:30px" src="{{ asset($data->attach_3) }}" />
+                        </td>
+                        @endif
+                        @if(!is_null($data->attach_4) && substr_count(mime_content_type($data->attach_4), "image") > 0)
+                        <td class="text-center no-border">
+                            <img style="max-width: 100%; max-height:300px; margin-top:30px" src="{{ asset($data->attach_4) }}" />
+                        </td>
+                        @endif
+                    </tr>
+                </table>
+                
+            </div>
+            @endif
 
             <p class="text-under-table">
                 <span>وعليه نقر بأن جميع الأجهزة مطابقة لما ورد بكراسة الشروط والمواصفات العامة لنظام المراقبة التلفزيونية المعتمد من وكالة التخطيط والتطوير الأمني لوزارة الداخلية .</span>
@@ -237,7 +252,6 @@ tr{
 }
 .border-bold{
     border-bottom: 8px solid #333;
-
 }
 .text-underline{
     text-decoration: underline;
@@ -289,6 +303,8 @@ tr{
 .clear-fix{
     clear:both;
 }
+.no-border{
+    border: none !important;
+}
 }
 </style>
-</body>
