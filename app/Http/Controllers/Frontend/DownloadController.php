@@ -45,22 +45,18 @@ class DownloadController extends Controller
             'format'        => 'A4',
             'default_font_size' => 10,
             'default_font'  => 'xbriyaz',
-            'margin_left'   => 10,
-            'margin_right'  => 10,
-            'margin_top'    => 5,
-            'margin_bottom' => 5,
-            'margin_header' => 6,
-            'margin_footer' => 6,
+            'setAutoTopMargin'   => "stretch",
+            "margin_top"=> 2,
+            "margin_header"=> 2,
             'orientation'   => 'P',
         ]);
         $header = view($header, compact('user', 'data'))->render();
         $view = view($view, compact('user', 'data', 'title'));
         $html = $view->render();        
         $mpdf->SetHTMLHeader($header);
-        $mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY);
-        return $mpdf->stream('document.pdf');
-
-        $mpdf->Output(time().".pdf"); 
+        $mpdf->SetFooter('|{PAGENO} of {nbpg}|');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output(time().".pdf", "D"); 
     }
 
     public function getTitle($type)

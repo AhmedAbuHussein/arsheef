@@ -17,8 +17,8 @@
         </div>
         <div class="body">
             <p class="text text-bold text-underline">
-                <span>تشهد </span>
-                <span>مؤسسة {{ optional($user->information)->establish_name }}</span>
+                <span class="text-bold">تشهد </span>
+                <span class="text-bold">مؤسسة {{ optional($user->information)->establish_name }}</span>
                 <span>سجل تجاري رقم : </span>
                 <span>{{ arabicNumbers($user->information->commerical_register) }}</span> 
                 <br>
@@ -74,9 +74,30 @@
 
             </div>
 
-            @if ($data->attach_1 != null)
-            <div class="table-container image text-center" style="margin-top: 20px">
-                <table>
+            <p class="text-under-table">
+                <span>وعليه نقر بأن جميع الأجهزة مطابقة لما ورد بكراسة الشروط والمواصفات العامة لنظام المراقبة التلفزيونية المعتمد من وكالة التخطيط والتطوير الأمني لوزارة الداخلية .</span>
+            </p>
+            @endif   
+        </div>
+
+        <table class="footer mt-10 mb-20">
+            <tr class="no-border mb-10">
+                <td class="no-border text-center" style="width: 33.33%;">
+                    <p class="footer-text" style="font-weight: bold; margin-bottom: 30px; display:block">اسم المسئول</p>
+                    <p class="footer-text">{{ $user->information->admin_name }}</p>
+                </td>
+                <td class="no-border text-center" style="width: 33.33%;">
+                    <p class="footer-text" style="font-weight: bold;">توقيعـه</p>
+                </td>
+
+                <td class="no-border text-center" style="width: 33.33%;">
+                    <p class="footer-text" style="font-weight: bold;">الختـــم </p>
+                </td>
+            </tr>
+        </table>
+        @if ($data->attach_1 != null)
+            <div class="table-container image text-center" style="margin-top: 35px">
+                <table style="page-break-inside: avoid">
                     <tr class="no-border">
                         <td colspan="2" class="no-border">
                             <p class=" text-bold text-underline text-right text-up-table">الصور الملحقة بالعقد:-</p>
@@ -109,33 +130,7 @@
             </div>
             @endif
 
-            <p class="text-under-table">
-                <span>وعليه نقر بأن جميع الأجهزة مطابقة لما ورد بكراسة الشروط والمواصفات العامة لنظام المراقبة التلفزيونية المعتمد من وكالة التخطيط والتطوير الأمني لوزارة الداخلية .</span>
-            </p>
-            @endif   
-        </div>
 
-        <div class="footer mt-10">
-            <div class="row mb-10">
-                <div class="col-md-4">
-                    <div>
-                        <p class="footer-text" style="font-weight: bold;">اسم المسئول</p>
-                        <P class="footer-text">{{ $user->information->admin_name }}</P>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div>
-                        <p class="footer-text" style="font-weight: bold;">توقيعـه</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div>
-                        <p class="footer-text" style="font-weight: bold;">الختـــم </p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     
 </div>
@@ -308,3 +303,4 @@ tr{
 }
 }
 </style>
+</body>
