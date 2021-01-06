@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/test', function(){
+    return App\Models\User::get();
+});
 
 Route::redirect('/home', '/');
 Auth::routes();

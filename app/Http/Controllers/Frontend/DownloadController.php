@@ -69,7 +69,7 @@ class DownloadController extends Controller
     {
         switch ($type) {
             case 'inst_scen':
-                return "مشهد تركيب";
+                return "عقد تركيب النظام الامني";
                 break;
             case 'insp_scen':
                 return "مشهد معاينة";

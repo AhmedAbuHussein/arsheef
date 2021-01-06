@@ -8,8 +8,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="date-container">
-                        <p class="date">{{ arabicNumbers(Carbon\Carbon::now()->format('Y/m/d')) }}</p>
-                        <p class="date" dir="rtl">{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', Carbon\Carbon::now()) }}</p>
+                        <p class="date text-left">{{ arabicNumbers(Carbon\Carbon::now()->format('Y/m/d')) }}</p>
+                        <p class="date text-left" dir="rtl">{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', Carbon\Carbon::now()) }}</p>
                     </div>
                 </div>
            </div>
@@ -18,10 +18,10 @@
         <div class="body">
             <p>الحمد لله وحده والصلاة والسلام علي رسول الله, ففي يوم <span>{{ Carbon\Carbon::now()->format("L") }}</span> الموافق <span>{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', Carbon\Carbon::now()) }}</span>
             اجتمع الطرفان:</p>
-            <p>طرف اول مؤسسة <span>باكورة التقنية</span> ويمثله (<span>ا/احمد شاكر</span>)</p>
+            <p>طرف اول مؤسسة <span>باكورة التقنية</span> ويمثله <span>ا/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
             <p>طرف ثاني / <span>مركز الشراء</span></p>
             <p><i style="text-decoration: underline">واتفق الطرفان علي:</i></p>
-            <ol>
+            <ul>
                 <li>يقوم الطرف الاول بتركيب النظام الأمني لكاميرات المراقبة حسب الموصف المذكور في الفاتورة الموفقةمع العقد.</li>
                 <li>اسم الموقع/ </li>
                 <li>
@@ -31,20 +31,20 @@
                             <td class="no-border" style="width: 50%">يتم دفعها مقدم العقد.</td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                في حال كان المبلغ اكثر من 5000 ريال فإنه يكون علي دفعتين, مقدم 70% (&nbsp; &nbsp; &nbsp; &nbsp;) أثناء توقيع العقد, ومؤخر 30% (&nbsp; &nbsp; &nbsp;&nbsp;) يتم إستلامها في نفس يوم تسليم العمل
+                            <td class="no-border" colspan="2">
+                                في حال كان المبلغ اكثر من 5000 ريال فإنه يكون علي دفعتين, مقدم 70% (&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;) أثناء توقيع العقد,<br> ومؤخر 30% (&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;) يتم إستلامها في نفس يوم تسليم العمل
                             </td>
                         </tr>
                     </table>
                 </li>
                 <li>يوم وتاريخ البدء في تنفيذ العقد هو </li>
-                <li>مدة تنفيذ العمل &nbsp;&nbsp;&nbsp;&nbsp; يوم/ايام عمل</li>
+                <li>مدة تنفيذ العمل &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; يوم/ايام عمل</li>
                 <li>يلتزم الطرف الاول بالبدء بالتنفيذ بعد توقيع العقد والاتفاق علي اليوم والتاريخ المناسب في العقد وفي حال لم يتم البدء في نفس الوقت المحدد فللطرف الثاني الحق في فسخ العقد</li>
                 <li>يتم توزيع الكاميرات والنقاط كالتالي
-                    <table>
-                        <tr>
-                            <td>عدد &nbsp;&nbsp;&nbsp;&nbsp; كاميرا خارجية</td>
-                            <td>عدد &nbsp;&nbsp;&nbsp;&nbsp; كاميرا داخلية</td>
+                    <table class="no-border" style="border: 1px solid;">
+                        <tr class="no-border" style="border: 1px solid;">
+                            <td style="border: 1px solid;">عدد &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; كاميرا خارجية</td>
+                            <td style="border: 1px solid;">عدد &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; كاميرا داخلية</td>
                         </tr>
                     </table>
                 </li>
@@ -62,27 +62,13 @@
                 <li>المؤسسة غير مسؤولة عن توقف تطبيق الجوال او تحديثه او اعطال الشبكة او اي ضرر اخؤ ويلتزم
                     الطرف الثاني بتوفير النت قبل البدء في العمل ولا يحق له مطالبه الطرف الاول بالرجوع لموقع العمل لربط الكاميرات علي النت إلا بمقابل مالي
                 </li>
-            </ol>
+            </ul>
         </div>
 
         <pagebreak></pagebreak>
-        <div class="header" style="width: 800px; margin:auto;">
-            <div class="row">
-                 <div class="col-md-4"><div style="height: 2px;"></div></div>
-                 <div class="col-md-4">
-                     <h3 class="title text-underline">{{ $title }}</h3>
-                 </div>
-                 <div class="col-md-4">
-                     <div class="date-container">
-                         <p class="date">{{ arabicNumbers(Carbon\Carbon::now()->format('Y/m/d')) }}</p>
-                         <p class="date" dir="rtl">{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', Carbon\Carbon::now()) }}</p>
-                     </div>
-                 </div>
-            </div>
-             <div class="clear-fix"></div>
-         </div>
+        
          <div class="body">
-            <ol>
+            <ul>
                 <li>بعد الاتفاق وتوقيع العقد فانه لا يحق للمستفيد إيقاف العمل او ارجاع الكاميرات 
                     الا بدفع مبلغ <span>{{ arabicNumbers(1500) }}</span> ريال + قيمة العمل الذي تم ويشمل (قيمة اعمال التركيب وقيمة الاغراض التي فتحت) وفي حال تاخرالطرف الاول عن مدة تنفيذ العقد فانه يحق للطرف الثاني 
                     ان يخصم من المتبقي للطرف الاول عن كل يوم تاخر مبلغ <span>{{ arabicNumbers(300) }}</span> ريال وذلك في حال لم يكن تعطيل العمل من الطرف الثاني
@@ -106,16 +92,16 @@
                     </table>
                 </li>
                 <li></li>
-            </ol>
+            </ul>
 
                 <p>طرف اول مؤسسة <span>باكورة التقنية</span></p>
-                <p>ويمثلها المدير العام/ <span>احمد شاكر</span></p>
+                <p>ويمثلها المدير العام/ <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
                 <p>التوقيع/</p>
                 <br>
                 <br>
                 <br>
                 <p>طرف ثاني/ </p>
-                <p>ممثل الطرف الثاني/ <span>احمد شاكر</span></p>
+                <p>ممثل الطرف الثاني/ <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
                 <p>التوقيع/</p>
                 
                 <p class="text-left"><i>وعلي ذلك تم الاتفاق والتوقيع وبالله التوفيق.</i></p>
@@ -127,28 +113,19 @@
 <style>
 @media print, screen {
 
+p, li, td {
+    text-align: right;
+    margin-bottom: 8px;
+    font-size: 11pt;
+    font-weight: bold;
+}
 .table-borderd {
  
     border: 2px solid #000;
     width: 100%;
 
 }
-.table-borderd tr th, .table-borderd tr td{
-    text-align: center !important;
-}
-.table-borderd td, .table-borderd th {
-  border: 1px solid #000000;
-  padding: 13px 0;
-}
 
-.table-borderd tr:nth-child(even){background-color: #f2f2f2;}
-
-.table-borderd th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  background-color: #858585;
-  color: white;
-}
 .row {
     margin-right: -15px;
     margin-left: -15px;
@@ -168,7 +145,6 @@ div, p, span, h3, h4, h5, h2{
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    text-align: center;
 }
 
 .container{
@@ -182,14 +158,7 @@ table {
   width: 100%;
 }
 
-th, td {
-  text-align: left;
-  padding: 8px;
-}
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
 .text-right {
     text-align: right !important;
 }
@@ -213,9 +182,7 @@ th, td {
     text-align: right !important;
     border-left: 2px solid #333;
 }
-tr{
-    border-bottom: 2px solid #444;
-}
+
 .mb-20{
     margin-bottom: 20px !important;
 }
@@ -243,6 +210,9 @@ tr{
 .body .text{
     font-size: 15px;
     line-height: 33px;
+}
+.body *{
+    text-align: right;
 }
 .header .title{
     font-size: 22px;
@@ -290,6 +260,7 @@ tr{
 .no-border{
     border: none !important;
 }
+
 }
 </style>
 </body>
