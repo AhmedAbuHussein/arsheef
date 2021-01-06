@@ -18,7 +18,7 @@ class DownloadController extends Controller
         switch ($account_type) {
             case 'camera':
 
-               
+               return $this->contractType($type, $item);
 
                 break;
             
