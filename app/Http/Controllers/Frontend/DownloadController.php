@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
+use App\Models\ContractPoint;
 use App\Models\Structure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,14 +17,9 @@ class DownloadController extends Controller
         $account_type = $user->account_type;
         switch ($account_type) {
             case 'camera':
-                $data = Contract::where(['user_id'=> $user->id, 'type'=> $type, 'id'=> $item])->with('items')->first();
-                if(!$data){
-                    flash("لا يمكنك الولوج لهذه الصفحة");
-                    return redirect()->route('index', ['type'=> $type]);
-                }
-                $title = $this->getTitle($type);
 
-                return $this->handler($user, $data, $title, "pdf.contract2", "pdf.contract_header");
+               
+
                 break;
             
             default:
@@ -35,6 +31,31 @@ class DownloadController extends Controller
                 $title = $this->getTitle($type);
                 return $this->handler($user, $data, $title, "pdf.structure");
                 break;
+        }
+    }
+
+
+    public function contractType($type, $item)
+    {
+        $user = Auth::guard('web')->user();
+        if(in_array($type, ['inst_cont', 'insp_cont'])){
+            $data = ContractPoint::where(['user_id'=> $user->id, 'type'=> $type, 'id'=> $item])->with("user")->first();
+            if(!$data){
+                flash("لا يمكنك الولوج لهذه الصفحة");
+                return redirect()->route('index', ['type'=> $type]);
+            }
+            $title = $this->getTitle($type);
+            return $this->handler($user, $data, $title, "pdf.contract2", "pdf.contract_header");
+
+        }else{
+            $data = Contract::where(['user_id'=> $user->id, 'type'=> $type, 'id'=> $item])->with('items')->first();
+            if(!$data){
+                flash("لا يمكنك الولوج لهذه الصفحة");
+                return redirect()->route('index', ['type'=> $type]);
+            }
+            $title = $this->getTitle($type);
+
+            return $this->handler($user, $data, $title, "pdf.contract", "pdf.contract_header");
         }
     }
 
@@ -69,7 +90,7 @@ class DownloadController extends Controller
     {
         switch ($type) {
             case 'inst_scen':
-                return "عقد تركيب النظام الامني";
+                return "مشهد تركيب";
                 break;
             case 'insp_scen':
                 return "مشهد معاينة";

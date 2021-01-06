@@ -39,12 +39,22 @@
         <table id="table" class="table table-striped table-hover text-center">
             <thead>
                 <tr>
+                   
+                    @if (in_array($type, ['inst_cont', 'insp_cont']))
+                    <th>{{ __('file.username') }}</th>
+                    <th>{{ __('file.est_name') }}</th>
+                    <th>{{ __('file.start_date') }}</th>
+                    <th>{{ __('file.working_day') }}</th>
+                    <th>{{ __('file.control') }}</th>
+                    @else
                     <th>{{ __('file.name') }}</th>
                     <th>{{ __('file.phone') }}</th>
                     <th>{{ __('file.building no') }}</th>
                     <th>{{ __('file.street') }}</th>
                     <th>{{ __('file.city') }}</th>
                     <th>{{ __('file.control') }}</th>
+                    @endif
+                    
                 </tr>
             </thead>
             
@@ -52,21 +62,29 @@
 
                 @foreach ($items as $item)
                 <tr class="text-center">
+                    @if (in_array($type, ['inst_cont', 'insp_cont']))
+                    <td>{{ $item->username }}</td>
+                    <td>{{ $item->est_name }}</td>
+                    <td>{{ $item->start_date->diffForHumans() }}</td>
+                    <td>{{ $item->working_days }}</td>
+                    @else
                     <td>{{ $item->owner }}</td>
                     <td>{{ $item->phone }}</td>
                     <td>{{ $item->building_no }}</td>
                     <td>{{ $item->street }}</td>
                     <td>{{ $item->city }}</td>
-                  
+                    @endif
                     <td>
                         <a title="تعديل بيانات" class="btn btn-success" href="{{ route('edit', ['type'=> $type, 'item'=> $item->id]) }}"><i class="fa fa-edit"></i></a> 
                         <a title="عرض البيانات" class="btn btn-primary" href="{{ route('show', ['type'=> $type, 'item'=> $item->id]) }}"><i class="fa fa-eye"></i></a>
-                        <a title="عرض العناصر" class="btn btn-dark" href="{{ route('items', ['type'=> $type, 'parent'=> $item->id]) }}"><i class="fa fa-list"></i></a>
                         <a title="تنزيل الملف" class="btn btn-success" target="_blank" href="{{ route('download', ['type'=> $type, 'item'=> $item->id]) }}"><i class="fa fa-download"></i></a>
+                        @if (in_array($type, ['inst_scen', 'insp_scen']))
+                        <a title="عرض العناصر" class="btn btn-dark" href="{{ route('items', ['type'=> $type, 'parent'=> $item->id]) }}"><i class="fa fa-list"></i></a>
                         <a title="الحاق ملف 1" class="btn btn-info" href="{{ route('attach', ['type'=> $type, 'parent'=> $item->id, 'file'=> 1]) }}"><i class="fa fa-paperclip"></i></a>
                         <a title="الحاق ملف 2" class="btn btn-danger" href="{{ route('attach', ['type'=> $type, 'parent'=> $item->id, 'file'=> 2]) }}"><i class="fa fa-paperclip"></i></a>
                         <a title="الحاق ملف 3" class="btn btn-warning" href="{{ route('attach', ['type'=> $type, 'parent'=> $item->id, 'file'=> 3]) }}"><i class="fa fa-paperclip"></i></a>
                         <a title="الحاق ملف 4" class="btn btn-dark" href="{{ route('attach', ['type'=> $type, 'parent'=> $item->id, 'file'=> 4]) }}"><i class="fa fa-paperclip"></i></a>
+                        @endif
                         <a title="حذف البيانات" onclick="destroyUser(event, {{ $item->id }})" class="btn btn-danger" href="{{ route('destroy',['type'=> $type, 'item'=> $item->id]) }}"><i class="fa fa-close"></i></a>
                         <form id="distroy-form-{{ $item->id }}" action="{{ route('destroy',['type'=> $type, 'item'=> $item->id]) }}" method="POST" style="display: none;">
                             @csrf

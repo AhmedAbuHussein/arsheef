@@ -8,43 +8,43 @@
                 </div>
                 <div class="col-md-4">
                     <div class="date-container">
-                        <p class="date text-left">{{ arabicNumbers(Carbon\Carbon::now()->format('Y/m/d')) }}</p>
-                        <p class="date text-left" dir="rtl">{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', Carbon\Carbon::now()) }}</p>
+                        <p class="date text-left">{{ arabicNumbers($data->date->format('Y/m/d')) }}</p>
+                        <p class="date text-left" dir="rtl">{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', $data->date) }}</p>
                     </div>
                 </div>
            </div>
             <div class="clear-fix"></div>
         </div>
         <div class="body">
-            <p>الحمد لله وحده والصلاة والسلام علي رسول الله, ففي يوم <span>{{ Carbon\Carbon::now()->format("L") }}</span> الموافق <span>{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', Carbon\Carbon::now()) }}</span>
+            <p>الحمد لله وحده والصلاة والسلام علي رسول الله, ففي يوم <span>{{ $data->date->format("L") }}</span> الموافق <span>{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', $data->date) }}</span>
             اجتمع الطرفان:</p>
-            <p>طرف اول مؤسسة <span>باكورة التقنية</span> ويمثله <span>ا/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-            <p>طرف ثاني / <span>مركز الشراء</span></p>
+            <p>طرف اول مؤسسة <span>باكورة التقنية</span> ويمثله <span>ا/ {{  $data->user->name  }}</span></p>
+            <p>طرف ثاني / <span>{{ $data->est_name }}</span></p>
             <p><i style="text-decoration: underline">واتفق الطرفان علي:</i></p>
             <ul>
                 <li>يقوم الطرف الاول بتركيب النظام الأمني لكاميرات المراقبة حسب الموصف المذكور في الفاتورة الموفقةمع العقد.</li>
-                <li>اسم الموقع/ </li>
+                <li>اسم الموقع/ {{ $data->username }}</li>
                 <li>
                     <table class="no-border">
                         <tr>
-                            <td class="no-border" style="width: 50%">قيمة الفاتورة:</td>
+                            <td class="no-border" style="width: 50%">قيمة الفاتورة: {{ $data->total_cost }}</td>
                             <td class="no-border" style="width: 50%">يتم دفعها مقدم العقد.</td>
                         </tr>
                         <tr>
                             <td class="no-border" colspan="2">
-                                في حال كان المبلغ اكثر من 5000 ريال فإنه يكون علي دفعتين, مقدم 70% (&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;) أثناء توقيع العقد,<br> ومؤخر 30% (&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;) يتم إستلامها في نفس يوم تسليم العمل
+                                في حال كان المبلغ اكثر من 5000 ريال فإنه يكون علي دفعتين, مقدم 70% ( {{ round(($data->total_cost * 70)/100, 1) }} ) أثناء توقيع العقد,<br> ومؤخر 30% ({{ round(($data->total_cost * 30)/100, 1) }}) يتم إستلامها في نفس يوم تسليم العمل
                             </td>
                         </tr>
                     </table>
                 </li>
-                <li>يوم وتاريخ البدء في تنفيذ العقد هو </li>
-                <li>مدة تنفيذ العمل &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; يوم/ايام عمل</li>
+                <li>يوم وتاريخ البدء في تنفيذ العقد هو {{ $data->start_date->format("L") ."  ".   \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', $data->start_date) }}</li>
+                <li>مدة تنفيذ العمل {{ $data->working_days }} يوم/ايام عمل</li>
                 <li>يلتزم الطرف الاول بالبدء بالتنفيذ بعد توقيع العقد والاتفاق علي اليوم والتاريخ المناسب في العقد وفي حال لم يتم البدء في نفس الوقت المحدد فللطرف الثاني الحق في فسخ العقد</li>
                 <li>يتم توزيع الكاميرات والنقاط كالتالي
                     <table class="no-border" style="border: 1px solid;">
                         <tr class="no-border" style="border: 1px solid;">
-                            <td style="border: 1px solid;">عدد &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; كاميرا خارجية</td>
-                            <td style="border: 1px solid;">عدد &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; كاميرا داخلية</td>
+                            <td style="border: 1px solid;">عدد {{ $data->outside_camera }} كاميرا خارجية</td>
+                            <td style="border: 1px solid;">عدد {{ $data->inside_camera }} كاميرا داخلية</td>
                         </tr>
                     </table>
                 </li>
@@ -86,8 +86,8 @@
                 <li>يتم تحويل مبلغ الفاتورة علي حسابات المؤسسة 
                     <table class="no-border">
                         <tr class="no-border">
-                            <td class="no-border" style="width: 50%;">حساب الراجحي <span>{{ arabicNumbers(1231231231311331) }}</span></td>
-                            <td class="no-border" style="width: 50%;">حساب الاهلي <span>{{ arabicNumbers(9895695599959559) }}</span></td>
+                            <td class="no-border" style="width: 50%;">حساب الراجحي <span>{{ arabicNumbers(426608010538011) }}</span></td>
+                            <td class="no-border" style="width: 50%;">حساب الاهلي <span>{{ arabicNumbers(49400000226906) }}</span></td>
                         </tr>
                     </table>
                 </li>
@@ -95,13 +95,13 @@
             </ul>
 
                 <p>طرف اول مؤسسة <span>باكورة التقنية</span></p>
-                <p>ويمثلها المدير العام/ <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                <p>ويمثلها المدير العام/ <span>{{ $data->user->name }}</span></p>
                 <p>التوقيع/</p>
                 <br>
                 <br>
                 <br>
-                <p>طرف ثاني/ </p>
-                <p>ممثل الطرف الثاني/ <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                <p>طرف ثاني/ {{ $data->est_name }}</p>
+                <p>ممثل الطرف الثاني/ <span>{{ $data->username }}</span></p>
                 <p>التوقيع/</p>
                 
                 <p class="text-left"><i>وعلي ذلك تم الاتفاق والتوقيع وبالله التوفيق.</i></p>

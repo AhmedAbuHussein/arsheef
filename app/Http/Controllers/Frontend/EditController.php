@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
+use App\Models\ContractPoint;
 use App\Models\Structure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Matcher\Contains;
 
 class EditController extends Controller
 {
@@ -46,12 +48,23 @@ class EditController extends Controller
     private function editCamera($type, $item)
     {
         $user = Auth::guard('web')->user();
-        $data = Contract::where(['id'=>$item, 'type'=> $type, 'user_id'=> $user->id])->first();
-        if(!$data){
-            flash("غير مسموح الولوج لهذا العنصر");
-            return redirect()->route('index', ['type'=> $type]);
+        if(in_array($type, ['inst_cont', 'insp_cont'])){
+            $data = ContractPoint::where(['id'=>$item, 'type'=> $type, 'user_id'=> $user->id])->first();
+            if(!$data){
+                flash("غير مسموح الولوج لهذا العنصر");
+                return redirect()->route('index', ['type'=> $type]);
+            }
+            return view('frontend.camera.inst_edit', compact('data', 'type'));
+        }else{
+            $data = Contract::where(['id'=>$item, 'type'=> $type, 'user_id'=> $user->id])->first();
+            if(!$data){
+                flash("غير مسموح الولوج لهذا العنصر");
+                return redirect()->route('index', ['type'=> $type]);
+            }
+            return view('frontend.camera.edit', compact('data', 'type'));
         }
-        return view('frontend.camera.edit', compact('data', 'type'));
+       
+        
     }
 
     private function editSafety($type, $item)
@@ -80,27 +93,62 @@ class EditController extends Controller
     #helper methods UPdate pages
     private function updateCamera(Request $request, $type, $item)
     {
-       $this->validate($request, [
-           'date'=> 'required|date_format:Y-m-d H:i',
-           'owner'=> 'required|string|min:3',
-           'city'=> 'required|string|min:3',
-           'street'=> 'required|string|min:3',
-           'neignborhood'=> 'required|string|min:3',
-           'phone'=> 'required|string|min:6',
-           'postal_code'=> 'required|numeric',
-           'second_no'=> 'required|numeric',
-           "commerical_register"=> 'required|numeric',
-           'building_no'=> 'required|numeric',
-       ]);
-       $user = Auth::guard('web')->user();
-      $data = Contract::where(['id'=> $item, 'user_id'=> $user->id])->first();
-      if(!$data){
-        flash("غير مسموح التعديل علي هذا العنصر");
-        return redirect()->route('index', ['type'=> $type]);
-      }
-      $data->update($request->except('_token'));
-      flash('تم تحديث البيانات بنجاح')->success();
-      return redirect()->route('index', ['type'=> $type]);
+        if(in_array($type, ['inst_cont', 'insp_cont'])){
+            return $this->createContCont($request, $type, $item);
+        }else{
+           return $this->updateInsCont($request, $type, $item);
+        }
+    }
+
+    public function createContCont(Request $request, $type, $item)
+    {
+
+        $this->validate($request, [
+            'type'=> 'required|in:inst_scen,inst_cont,insp_scen,insp_cont',
+            'username'=> 'required|string|min:2|max:255',
+            'est_name'=> 'required|string|max:255',
+            'date'=> 'required|string|date_format:Y-m-d H:i:s',
+            'start_date'=> 'required|string|date_format:Y-m-d H:i:s',
+            'total_cost'=> 'required|numeric',
+            'working_days'=> 'required|numeric',
+            'inside_camera'=> 'required|numeric',
+            'outside_camera'=> 'required|numeric'
+        ]);
+        $user = Auth::guard('web')->user();
+        $data = ContractPoint::where(['id'=> $item, 'user_id'=> $user->id])->first();
+       if(!$data){
+         flash("غير مسموح التعديل علي هذا العنصر");
+         return redirect()->route('index', ['type'=> $type]);
+       }
+       $data->update($request->except('_token'));
+       flash('تم تحديث البيانات بنجاح')->success();
+       return redirect()->route('index', ['type'=> $type]);
+       
+    }
+
+    public function updateInsCont(Request $request, $type, $item)
+    {
+        $this->validate($request, [
+            'date'=> 'required|date_format:Y-m-d H:i',
+            'owner'=> 'required|string|min:3',
+            'city'=> 'required|string|min:3',
+            'street'=> 'required|string|min:3',
+            'neignborhood'=> 'required|string|min:3',
+            'phone'=> 'required|string|min:6',
+            'postal_code'=> 'required|numeric',
+            'second_no'=> 'required|numeric',
+            "commerical_register"=> 'required|numeric',
+            'building_no'=> 'required|numeric',
+        ]);
+        $user = Auth::guard('web')->user();
+       $data = Contract::where(['id'=> $item, 'user_id'=> $user->id])->first();
+       if(!$data){
+         flash("غير مسموح التعديل علي هذا العنصر");
+         return redirect()->route('index', ['type'=> $type]);
+       }
+       $data->update($request->except('_token'));
+       flash('تم تحديث البيانات بنجاح')->success();
+       return redirect()->route('index', ['type'=> $type]);
     }
 
     private function updateConsultation(Request $request, $type, $item)

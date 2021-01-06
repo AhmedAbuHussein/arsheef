@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
+use App\Models\ContractPoint;
 use App\Models\Structure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,12 +30,29 @@ class CreateController extends Controller
 
     private function createCamera($type)
     {
-        return view('frontend.camera.create', compact('type'));
+        switch($type){
+            case "inst_cont":
+                 return view('frontend.camera.inst_create', compact('type'));
+                break;
+            case "insp_cont":
+                 return view('frontend.camera.inst_create', compact('type'));
+                break;
+
+            case "inst_scen":
+                return view('frontend.camera.create', compact('type'));
+                    break;
+            case "insp_scen":
+                return view('frontend.camera.create', compact('type'));
+                break;
+        }
+        abort(404);
     }
+
     private function createSafety($type)
     {
         return view('frontend.safety.create', compact('type'));
     }
+
      private function createConsultation($type)
     {
         return view('frontend.consultation.create', compact('type'));
@@ -57,6 +75,49 @@ class CreateController extends Controller
     }
 
     private function storeCamera(Request $request, $type)
+    {
+        switch($type){
+            case "inst_cont":
+                return $this->createContCont($request, $type);
+                break;
+            case "insp_cont":
+                return $this->createContCont($request, $type);
+                break;
+
+            case "inst_scen":
+                return $this->createScenCont($request, $type);
+                    break;
+            case "insp_scen":
+                return $this->createScenCont($request, $type);
+                break;
+        }
+        abort(404);        
+    }
+    
+    public function createContCont(Request $request, $type)
+    {
+
+        $this->validate($request, [
+            'type'=> 'required|in:inst_scen,inst_cont,insp_scen,insp_cont',
+            'username'=> 'required|string|min:2|max:255',
+            'est_name'=> 'required|string|max:255',
+            'date'=> 'required|string|date_format:Y-m-d H:i',
+            'start_date'=> 'required|string|date_format:Y-m-d H:i',
+            'total_cost'=> 'required|numeric',
+            'working_days'=> 'required|numeric',
+            'inside_camera'=> 'required|numeric',
+            'outside_camera'=> 'required|numeric'
+        ]);
+        $user = Auth::guard('web')->user();
+        $data = $request->except(['_token']);
+        $data['user_id']= $user->id;
+        ContractPoint::create($data);
+        flash('تم اضافة عقد جديد');
+        return redirect()->route('index', ['type'=> $type]);
+       
+    }
+
+    public function createScenCont(Request $request, $type)
     {
         $this->validate($request, [
             'type'=> 'required|in:inst_scen,inst_cont,insp_scen,insp_cont',
@@ -88,7 +149,8 @@ class CreateController extends Controller
         flash('تم اضافة عقد جديد');
         return redirect()->route('index', ['type'=> $type]);
     }
-    
+
+
     private function storeConsultation(Request $request, $type)
     {
         $this->validate($request, [
