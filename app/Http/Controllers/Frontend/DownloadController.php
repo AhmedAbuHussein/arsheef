@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Contract;
 use App\Models\ContractPoint;
 use App\Models\Structure;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,6 +39,7 @@ class DownloadController extends Controller
     public function contractType($type, $item)
     {
         $user = Auth::guard('web')->user();
+        $user->load('information');
         if(in_array($type, ['inst_cont', 'insp_cont'])){
             $data = ContractPoint::where(['user_id'=> $user->id, 'type'=> $type, 'id'=> $item])->with("user")->first();
             if(!$data){
@@ -61,7 +63,7 @@ class DownloadController extends Controller
 
     public function handler($user, $data, $title, $view= "pdf.contract", $header = null)
     {
-        
+      
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',
             'format'        => 'A4',
@@ -80,7 +82,7 @@ class DownloadController extends Controller
 
         $view = view($view, compact('user', 'data', 'title'));
         $html = $view->render();        
-       
+
         $mpdf->SetFooter('|{PAGENO} of {nbpg}|');
         $mpdf->WriteHTML($html);
         $mpdf->Output(time().".pdf", "D"); 

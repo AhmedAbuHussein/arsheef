@@ -16,7 +16,7 @@
             <div class="clear-fix"></div>
         </div>
         <div class="body">
-            <p>الحمد لله وحده والصلاة والسلام علي رسول الله, ففي يوم <span>{{ $data->date->format("L") }}</span> الموافق <span>{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', $data->date) }}</span>
+            <p>الحمد لله وحده والصلاة والسلام علي رسول الله, ففي يوم <span>{{ \Alkoumi\LaravelHijriDate\Hijri::Date('l', "ar", $data->date) }}</span> الموافق <span>{{  \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', $data->date) }}</span>
             اجتمع الطرفان:</p>
             <p>طرف اول مؤسسة <span>باكورة التقنية</span> ويمثله <span>ا/ {{  $data->user->name  }}</span></p>
             <p>طرف ثاني / <span>{{ $data->est_name }}</span></p>
@@ -27,24 +27,24 @@
                 <li>
                     <table class="no-border">
                         <tr>
-                            <td class="no-border" style="width: 50%">قيمة الفاتورة: {{ $data->total_cost }}</td>
-                            <td class="no-border" style="width: 50%">يتم دفعها مقدم العقد.</td>
+                            <td class="no-border">قيمة الفاتورة: &nbsp;&nbsp;&nbsp; {{ $data->total_cost }} ريال</td>
+                            <td class="no-border">يتم دفعها مقدم العقد.</td>
                         </tr>
                         <tr>
                             <td class="no-border" colspan="2">
-                                في حال كان المبلغ اكثر من 5000 ريال فإنه يكون علي دفعتين, مقدم 70% ( {{ round(($data->total_cost * 70)/100, 1) }} ) أثناء توقيع العقد,<br> ومؤخر 30% ({{ round(($data->total_cost * 30)/100, 1) }}) يتم إستلامها في نفس يوم تسليم العمل
+                                في حال كان المبلغ اكثر من 5000 ريال فإنه يكون علي دفعتين, مقدم 70% ( {{ round(($data->total_cost * 70)/100, 1) }} ريال) أثناء توقيع العقد,<br> ومؤخر 30% ( {{ round(($data->total_cost * 30)/100, 1) }} ريال ) يتم إستلامها في نفس يوم تسليم العمل
                             </td>
                         </tr>
                     </table>
                 </li>
-                <li>يوم وتاريخ البدء في تنفيذ العقد هو {{ $data->start_date->format("L") ."  ".   \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', $data->start_date) }}</li>
+                <li>يوم وتاريخ البدء في تنفيذ العقد هو {{ \Alkoumi\LaravelHijriDate\Hijri::Date('l', "ar", $data->start_date) ."  ".   \Alkoumi\LaravelHijriDate\Hijri::DateShortFormat('ar', $data->start_date) }}</li>
                 <li>مدة تنفيذ العمل {{ $data->working_days }} يوم/ايام عمل</li>
                 <li>يلتزم الطرف الاول بالبدء بالتنفيذ بعد توقيع العقد والاتفاق علي اليوم والتاريخ المناسب في العقد وفي حال لم يتم البدء في نفس الوقت المحدد فللطرف الثاني الحق في فسخ العقد</li>
                 <li>يتم توزيع الكاميرات والنقاط كالتالي
                     <table class="no-border" style="border: 1px solid;">
                         <tr class="no-border" style="border: 1px solid;">
-                            <td style="border: 1px solid;">عدد {{ $data->outside_camera }} كاميرا خارجية</td>
-                            <td style="border: 1px solid;">عدد {{ $data->inside_camera }} كاميرا داخلية</td>
+                            <td style="border: 1px solid;">عدد {{ arabicNumbers($data->outside_camera) }} كاميرا خارجية</td>
+                            <td style="border: 1px solid;">عدد {{ arabicNumbers($data->inside_camera) }} كاميرا داخلية</td>
                         </tr>
                     </table>
                 </li>
@@ -86,18 +86,17 @@
                 <li>يتم تحويل مبلغ الفاتورة علي حسابات المؤسسة 
                     <table class="no-border">
                         <tr class="no-border">
-                            <td class="no-border" style="width: 50%;">حساب الراجحي <span>{{ arabicNumbers(426608010538011) }}</span></td>
-                            <td class="no-border" style="width: 50%;">حساب الاهلي <span>{{ arabicNumbers(49400000226906) }}</span></td>
+                        @foreach ($user->information->bank_accounts as $key => $item)
+                            <td class="no-border" style="width: 50%;">حساب {{ $item['name'] }} <span>{{ arabicNumbers($item['account']) }}</span></td>
+                        @endforeach
                         </tr>
                     </table>
                 </li>
-                <li></li>
             </ul>
 
                 <p>طرف اول مؤسسة <span>باكورة التقنية</span></p>
                 <p>ويمثلها المدير العام/ <span>{{ $data->user->name }}</span></p>
                 <p>التوقيع/</p>
-                <br>
                 <br>
                 <br>
                 <p>طرف ثاني/ {{ $data->est_name }}</p>

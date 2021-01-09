@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Alkoumi\LaravelHijriDate\Hijri;
 use Box\Spout\Writer\Style\StyleBuilder;
 use Rap2hpoutre\FastExcel\FastExcel;
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
+use App\Models\ContractPoint;
 use App\Models\Structure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,21 +50,39 @@ class ExportController extends Controller
     public function cameratExcel($type) {
 
         $user = Auth::guard('web')->user();
-        $contracts = Contract::where(['type'=> $type, 'user_id'=> $user->id])->with(['items']);
-        foreach ($contracts->cursor() as $index=>$contract) {
-            yield  [
-                "الرقم التسلسلي"            => $index +1, 
-                "المتعاقد"              => $contract->owner  ,
-                " رقم المبني"          => $contract->building_no,
-                " الرقم الاضافي"          => $contract->second_no,
-                " الرمز البريدي"          => $contract->postal_code,
-                " الهاتف الجوال"          => $contract->phone,
-                " المدينة"          => $contract->city,
-                " الشارع"          => $contract->street,
-                " الحي"          => $contract->neignborhood,
-                "العناصر "          => $contract->pluckNameForItems(),
-            ];
+        if(in_array($type, ['inst_cont', 'insp_cont'])){
+            $contracts = ContractPoint::where(['type'=> $type, 'user_id'=> $user->id]);
+            foreach ($contracts->cursor() as $index=>$contract) {
+                yield  [
+                    "الرقم التسلسلي"            => $index +1, 
+                    "المتعاقد"              => $contract->username  ,
+                    " المؤسسة"          => $contract->est_name,
+                    "  تاريخ التعاقد"          => $contract->date . " - ". Hijri::DateShortFormat('ar', $contract->date),
+                    "تاريخ تنفيذ العقد"          => $contract->start_date . " - ". Hijri::DateShortFormat('ar', $contract->start_date),
+                    "التكلفة الكلية"          => $contract->total_cost,
+                    " عدد ايام العمل"          => $contract->working_days,
+                    "عدد الكاميرات الداخلية"          => $contract->inside_camera,
+                    " عدد الكاميرات الخارجية"          => $contract->outside_camera,
+                ];
+            }
+        }else{
+            $contracts = Contract::where(['type'=> $type, 'user_id'=> $user->id])->with(['items']);
+            foreach ($contracts->cursor() as $index=>$contract) {
+                yield  [
+                    "الرقم التسلسلي"            => $index +1, 
+                    "المتعاقد"              => $contract->owner  ,
+                    " رقم المبني"          => $contract->building_no,
+                    " الرقم الاضافي"          => $contract->second_no,
+                    " الرمز البريدي"          => $contract->postal_code,
+                    " الهاتف الجوال"          => $contract->phone,
+                    " المدينة"          => $contract->city,
+                    " الشارع"          => $contract->street,
+                    " الحي"          => $contract->neignborhood,
+                    "العناصر "          => $contract->pluckNameForItems(),
+                ];
+            }
         }
+        
     }
 
     public function consultaionExcel($type) {

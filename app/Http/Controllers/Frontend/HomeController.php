@@ -24,16 +24,19 @@ class HomeController extends Controller
         switch ($user->account_type) {
             case 'camera':
                 $items = Contract::where(['user_id'=> $user->id])->get();
+                $ins_cont = ContractPoint::where('user_id', $user->id)->get();
                 break;
             case 'safety':
                 $items = Contract::where(['user_id'=> $user->id])->get();
+                $ins_cont = ContractPoint::where(['user_id'=> $user->id])->get();
                 break;
             default:
                 $items = Structure::where(['user_id'=> $user->id])->get();
+                $ins_cont = Structure::where(['user_id'=> $user->id])->get();
                 break;
         }
         
-        return view('frontend.index', compact('items'));
+        return view('frontend.index', compact('items', 'ins_cont'));
     }
 
     public function index($type)

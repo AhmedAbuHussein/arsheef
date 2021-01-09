@@ -104,6 +104,11 @@ return [
     "inside_camera"=> "عدد الكاميرات الداخلية",
     "outside_camera"=> "عدد الكاميرات الخارجية",
     "created date"=> "تاريخ كتابة العقد",
+    "bank_accounts"=> "حسابات البنوك",
+    "bank_accounts_name"=> "اسم الفرع",
+    "bank_accounts_account"=> "رقم الحساب",
+    ""=> "",
+    ""=> "",
     ""=> "",
     ""=> "",
 

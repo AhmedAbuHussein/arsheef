@@ -106,6 +106,17 @@
                     </div>
 
                     <div class="row custom-row">
+                        <div class="col-md-4">{{ __('file.bank_accounts') }}</div>
+                        <div class="col-md-8">
+                            <ul>
+                                @foreach (optional($user->information)->bank_accounts as $item)
+                                    <li>حساب {{ $item['name'] }} : {{ $item['account'] }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row custom-row">
                         <div class="col-md-6">
                             <p>{{ __('file.logo') }}</p>
                             @if (is_object($user->information))

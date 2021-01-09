@@ -90,6 +90,60 @@
                     </div>
                 </div>
             </div>
+            <hr>
+            <h4 class="text-muted text-right my-3">الحسابات البنكية لتحويل الاموال الخاص بالمؤسسة</h4>
+            <hr/>
+            @if (optional($user->information)->bank_accounts == null)
+            
+                @for ($i = 0; $i < 2; $i++)
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="bank_accounts_name{{ $i }}">{{ __('file.bank_accounts_name') }}</label>
+                            <input type="text" name="bank_accounts[{{ $i }}][name]" id="bank_accounts_name{{ $i }}" value="{{ old("bank_accounts[$i][name]") }}" class="form-control" placeholder="{{ __('file.bank_accounts_name') }}" />
+                            @error("bank_accounts[$i][name]")
+                                <div class="text-danger text-bold">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="bank_accounts_account{{ $i }}">{{ __('file.bank_accounts_account') }}</label>
+                            <input type="number" name="bank_accounts[{{ $i }}][account]" id="bank_accounts_account{{ $i }}" value="{{ old("bank_accounts[$i][account]") }}" class="form-control" placeholder="{{ __('file.bank_accounts_account') }}" />
+                            @error("bank_accounts[$i][name]")
+                                <div class="text-danger text-bold">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                @endfor
+            
+            @else
+            @foreach ($user->information->bank_accounts as $key=>$bank)
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="bank_accounts_name{{ $key }}">{{ __('file.bank_accounts_name') }}</label>
+                            <input type="text" name="bank_accounts[{{ $key }}][name]" id="bank_accounts_name{{ $key }}" value="{{ old("bank_accounts[$key][name]")??$bank['name'] }}" class="form-control" placeholder="{{ __('file.bank_accounts_name') }}" />
+                            @error("bank_accounts[$key][name]")
+                                <div class="text-danger text-bold">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="bank_accounts_account{{ $key }}">{{ __('file.bank_accounts_account') }}</label>
+                            <input type="number" id="bank_accounts_account{{ $key }}" name="bank_accounts[{{ $key }}][account]" value="{{ old("bank_accounts[$key][account]")??$bank['account'] }}" class="form-control" placeholder="{{ __('file.bank_accounts_account') }}" />
+                            @error("bank_accounts[$key][name]")
+                                <div class="text-danger text-bold">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+            @endif
+            
 
             <div class="row">
                 <div class="col-md-6 ml-auto mr-auto">

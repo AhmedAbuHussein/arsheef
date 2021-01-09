@@ -26,7 +26,7 @@ class ProfileController extends Controller
     public function update(Request $request,$type)
     {
         $user = Auth::guard('web')->user();
-        
+       
         if($type == 'profile'){
             $this->validate($request, [
                 'name'=> "required|string|min:3",
@@ -50,6 +50,10 @@ class ProfileController extends Controller
         }else{
             $user->load(['information']);
             $this->validate($request, [
+                "bank_accounts"=> "nullable|array",
+                "bank_accounts.*"=> "required|array",
+                "bank_accounts.*.name"=> "required|string",
+                "bank_accounts.*.account"=> "required|numeric",
                 'establish_name'=> "required|string|min:3",
                 'admin_name'=> "required|string|min:3",
                 'commerical_register'=> "required|numeric",

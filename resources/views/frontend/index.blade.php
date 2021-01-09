@@ -45,7 +45,7 @@
            <div class="col-md-3">
                 <div class="box">
                     <i class="fa fa-contao" style="color: #3cafb4"></i>
-                    <span>{{ $items->where('type', 'inst_cont')->count() }}</span>
+                    <span>{{ $ins_cont->where('type', 'inst_cont')->count() }}</span>
                     <a href="{{ route('index', ['type'=> 'inst_cont']) }}">{{ __('file.installation contracts') }}</a>
                 </div>
             </div>
@@ -53,7 +53,7 @@
             <div class="col-md-3">
                 <div class="box">
                     <i class="fa fa-eye" style="color: #865f13"></i>
-                    <span>{{ $items->where('type', 'insp_cont')->count() }}</span>
+                    <span>{{ $ins_cont->where('type', 'insp_cont')->count() }}</span>
                     <a href="{{ route('index', ['type'=> 'insp_cont']) }}">{{ __('file.inspection contracts') }}</a>
                 </div>
             </div>
