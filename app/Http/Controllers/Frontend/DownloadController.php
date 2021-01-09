@@ -50,7 +50,7 @@ class DownloadController extends Controller
             return $this->handler($user, $data, $title, "pdf.contract2", "pdf.contract_header");
 
         }else{
-            $data = Contract::where(['user_id'=> $user->id, 'type'=> $type, 'id'=> $item])->with('items')->first();
+            $data = Contract::where(['user_id'=> $user->id, 'type'=> $type, 'id'=> $item])->first();
             if(!$data){
                 flash("لا يمكنك الولوج لهذه الصفحة");
                 return redirect()->route('index', ['type'=> $type]);

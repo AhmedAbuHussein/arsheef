@@ -34,7 +34,7 @@ class ShowController extends Controller
             $item = ContractPoint::findOrFail($item);
             return view('frontend.camera.inst_show', compact('type', 'item'));
         }else{
-            $item = Contract::with('items')->findOrFail($item);
+            $item = Contract::findOrFail($item);
             return view('frontend.camera.show', compact('type', 'item'));
         }
     }

@@ -106,6 +106,58 @@
               </div>
           </div>
 
+          <hr>
+          <h4 class="text-muted text-right my-2">العناصر</h4>
+          <hr>
+          {{-- items --}}
+          
+            @foreach ($data->items as  $key=>$cam)
+            <div class="form-row">
+              <h4 class="text-right text-muted col-12 bg-dark p-2">عنصر رقم {{ $key +1 }}</h4>
+            </div>
+            <div class="form-row">
+            <div class="form-group col-md-4">
+              <label >{{ __('file.quantity') }}</label>
+              <input type="text" readonly class="form-control"  name="items[{{ $key }}][name]" value="{{ $cam['name'] }}" required />
+            </div>
+            
+            <div class="form-group col-md-4">
+              <label >{{ __('file.quantity') }}</label>
+              <input type="text" name="items[{{ $key }}][quantity]" value="{{ old("items[$key][quantity]")??$cam['quantity'] }}" class="form-control" required />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label>{{ __('file.type') }}</label>
+              <select name="items[{{ $key }}][type]" required class="form-control">
+                <option value="">اختار النوع</option>
+                <option {{ $cam['type'] == 'داخلي'?'selected':'' }} value="داخلي">{{ 'داخلي' }}</option>
+                <option {{ $cam['type'] == 'خارجي'?'selected':'' }} value="خارجي">{{ 'خارجي' }}</option>
+                <option {{ $cam['type'] == 'NVR'?'selected':'' }} value="NVR">{{ 'NVR' }}</option>
+                <option {{ $cam['type'] == '32 بوصة'?'selected':'' }} value="32 بوصة">{{ '32 بوصة' }}</option>
+              </select>
+            </div>
+            </div>
+            <div class="form-row">
+            <div class="form-group col-md-4">
+              <label>{{ __('file.details') }}</label>
+              <input type="text" name="items[{{ $key }}][details]" value="{{ old("items[$key][details]")??$cam['details'] }}" class="form-control" required />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label>{{ __('file.modal') }}</label>
+              <input type="text" name="items[{{ $key }}][modal]" value="{{ old("items[$key][modal]")??$cam['modal'] }}" class="form-control" />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label>{{ __('file.storage') }}</label>
+              <input type="text" name="items[{{ $key }}][storage]" value="{{ old("items[$key][storage]")??$cam['storage'] }}" class="form-control" />
+            </div>
+            </div>
+            
+            @endforeach
+          <hr/>
+          {{-- itesm --}}
+
           <div class="form-row">
             <div class="form-group col-md-12">
               <label for="receiver">{{ __('file.receiver') }}</label>

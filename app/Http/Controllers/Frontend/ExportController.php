@@ -78,7 +78,6 @@ class ExportController extends Controller
                     " المدينة"          => $contract->city,
                     " الشارع"          => $contract->street,
                     " الحي"          => $contract->neignborhood,
-                    "العناصر "          => $contract->pluckNameForItems(),
                 ];
             }
         }

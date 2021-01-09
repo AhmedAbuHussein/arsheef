@@ -43,7 +43,7 @@
                 <span>الحي : </span><span>{{ $data->neignborhood }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
             </p>
 
-             @if ($data->items->count() > 0)
+             @if (!is_null($data->items) && count($data->items) > 0)
                  
             <div class="table-container">
                 <p class=" text-bold text-underline text-right text-up-table">جدول كميات ومواصفات كاميرات المراقبة وملحقاتها :-</p>
@@ -61,12 +61,12 @@
                     <tbody>
                         @foreach ($data->items as $item)
                         <tr>
-                            <td>{{ $item->name??'------' }}</td>
-                            <td> {{ arabicNumbers($item->quantity) }}</td>
-                            <td>{{ $item->type??'------' }}</td>
-                            <td>{{ $item->details??'------' }}</td>
-                            <td>{{ $item->storage??'------' }}</td>
-                            <td>{{ $item->modal??'------' }}</td>
+                            <td>{{ $item['name']??'------' }}</td>
+                            <td> {{ arabicNumbers($item['quantity']) }}</td>
+                            <td>{{ $item['type']??'------' }}</td>
+                            <td>{{ $item['details']??'------' }}</td>
+                            <td>{{ $item['storage']??'------' }}</td>
+                            <td>{{ $item['modal']??'------' }}</td>
                         </tr>
                         @endforeach
                     </tbody>

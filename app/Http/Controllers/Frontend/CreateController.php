@@ -96,7 +96,7 @@ class CreateController extends Controller
     
     public function createContCont(Request $request, $type)
     {
-
+    
         $this->validate($request, [
             'type'=> 'required|in:inst_scen,inst_cont,insp_scen,insp_cont',
             'username'=> 'required|string|min:2|max:255',
@@ -132,6 +132,13 @@ class CreateController extends Controller
             'second_no'=> 'required|numeric',
             'postal_code'=> 'required|numeric',
             "commerical_register"=> 'required|numeric',
+            "items"=> "nullable|array",
+            "items.*.name"=>"required|string", 
+            "items.*.quantity"=>"required|numeric", 
+            "items.*.type"=>"required|string", 
+            "items.*.details"=>"required|string", 
+            "items.*.modal"=>"nullable|string", 
+            "items.*.storage"=>"nullable|string", 
             "receiver"=> "required|string",
             'attach_1'=> 'nullable|file',
             'attach_2'=> 'nullable|file',
@@ -165,6 +172,13 @@ class CreateController extends Controller
             'neignborhood'=> 'required|string|min:3',
             'building_no'=> 'required|numeric',
             "receiver"=> "required|string",
+            "items"=> "nullable|array",
+            "items.*.name"=>"required|string", 
+            "items.*.quantity"=>"required|numeric", 
+            "items.*.type"=>"required|string", 
+            "items.*.details"=>"required|string", 
+            "items.*.modal"=>"nullable|string", 
+            "items.*.storage"=>"nullable|string", 
             'attach_1'=> 'nullable|image|mimes:jpeg,jpg,png,gif',
             'attach_2'=> 'nullable|file',
             'attach_3'=> 'nullable|file',

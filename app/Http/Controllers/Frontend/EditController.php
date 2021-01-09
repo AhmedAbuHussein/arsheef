@@ -61,6 +61,7 @@ class EditController extends Controller
                 flash("غير مسموح الولوج لهذا العنصر");
                 return redirect()->route('index', ['type'=> $type]);
             }
+          
             return view('frontend.camera.edit', compact('data', 'type'));
         }
        
@@ -139,6 +140,13 @@ class EditController extends Controller
             'second_no'=> 'required|numeric',
             "commerical_register"=> 'required|numeric',
             'building_no'=> 'required|numeric',
+            "items"=> "nullable|array",
+            "items.*.name"=>"required|string", 
+            "items.*.quantity"=>"required|numeric", 
+            "items.*.type"=>"required|string", 
+            "items.*.details"=>"required|string", 
+            "items.*.modal"=>"nullable|string", 
+            "items.*.storage"=>"nullable|string", 
         ]);
         $user = Auth::guard('web')->user();
        $data = Contract::where(['id'=> $item, 'user_id'=> $user->id])->first();
@@ -161,6 +169,13 @@ class EditController extends Controller
             'neignborhood'=> 'required|string|min:3',
             'building_name'=> 'required|string|min:3',
             'building_no'=> 'required|numeric',
+            "items"=> "nullable|array",
+            "items.*.name"=>"required|string", 
+            "items.*.quantity"=>"required|numeric", 
+            "items.*.type"=>"required|string", 
+            "items.*.details"=>"required|string", 
+            "items.*.modal"=>"nullable|string", 
+            "items.*.storage"=>"nullable|string", 
             "attach_1"=> 'required|image|mimes:jpg,jpeg,png,gif,bmp'
         ]);
         $data = $request->except(['_token', 'attach_1']);

@@ -9,7 +9,8 @@ class Contract extends Model
 {
     protected $guarded = ['id'];
     protected $casts = [
-        'date'=> 'datetime'
+        'date'=> 'datetime',
+        "items"=> "array",
     ];
 
     public function user()
@@ -17,13 +18,13 @@ class Contract extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function items()
+   /*  public function items()
     {
         return $this->hasMany(Item::class, 'contract_id');
-    }
+    } */
 
-    public function pluckNameForItems()
+ /*    public function pluckNameForItems()
     {
         return $this->items->pluck("name")->implode(' , ');
-    }
+    } */
 }

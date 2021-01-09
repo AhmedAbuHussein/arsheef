@@ -133,7 +133,7 @@
        
     </div>
 
-    @if ($item->items->count() > 0)
+    @if (!is_null($item->items) && count($item->items) > 0)
     
         <div class="row custom-row">
             <div class="col-md-12 custom-col delimiter-custom">{{ __('file.items') }}</div>
@@ -144,13 +144,13 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-5 custom-col">{{ __('file.name') }}</div>
-                    <div class="col-md-7 custom-col">{{ $value->name }}</div>
+                    <div class="col-md-7 custom-col">{{ $value['name']. " - " .$value['type'] }}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-5 custom-col">{{ __('file.quantity') }}</div>
-                    <div class="col-md-7 custom-col">{{ $value->quantity }}</div>
+                    <div class="col-md-7 custom-col">{{ $value['quantity'] }}</div>
                 </div>
             </div>
         </div>
