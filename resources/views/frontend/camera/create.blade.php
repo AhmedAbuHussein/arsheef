@@ -123,6 +123,16 @@
                   @enderror
               </div>
           </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="receiver">{{ __('file.receiver') }}</label>
+              <input type="text" name="receiver" value="{{ old('receiver') }}" class="form-control" id="receiver" required />
+              @error('receiver')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+          </div>
         
             <button type="submit" class="btn btn-primary">{{ __('file.process') }}</button>
       </form>

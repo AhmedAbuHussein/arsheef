@@ -222,6 +222,13 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('profile') }}" aria-expanded="false">
+                                <i class="mdi mdi-human-male"></i>
+                                <span class="hide-menu">{{ __('file.profile') }}</span>
+                            </a>
+                        </li>
+                        
+                        <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('index', ['type'=> 'inst_scen']) }}" aria-expanded="false">
                                 <i class="mdi mdi-account-check"></i>
                                 <span class="hide-menu">{{ __('file.installation scenes') }}</span>
@@ -251,12 +258,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('profile') }}" aria-expanded="false">
-                                <i class="mdi mdi-human-male"></i>
-                                <span class="hide-menu">{{ __('file.profile') }}</span>
-                            </a>
-                        </li>
+                        
 
                     </ul>
                 </nav>

@@ -107,7 +107,7 @@ return [
     "bank_accounts"=> "حسابات البنوك",
     "bank_accounts_name"=> "اسم الفرع",
     "bank_accounts_account"=> "رقم الحساب",
-    ""=> "",
+    "receiver"=> "مستلم العقد",
     ""=> "",
     ""=> "",
     ""=> "",

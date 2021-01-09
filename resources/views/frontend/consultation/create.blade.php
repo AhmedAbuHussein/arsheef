@@ -78,14 +78,22 @@
           </div>
 
           <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="building_no">{{ __('file.building no') }}</label>
+            <div class="form-group col-md-4">
+              <label for="receiver">{{ __('file.receiver') }}</label>
+              <input type="text" name="receiver" value="{{ old('receiver') }}" class="form-control" id="receiver" required />
+              @error('receiver')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group col-md-4">
+              <label for="receiver">{{ __('file.building no') }}</label>
               <input type="text" name="building_no" value="{{ old('building_no') }}" class="form-control" id="building_no" required />
               @error('building_no')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group col-md-6">
+
+            <div class="form-group col-md-4">
               <label for="attach_1">{{ __('file.attach image') }}</label>
               <input type="file" name="attach_1" value="{{ old('attach_1') }}" class="form-control" id="attach_1" accept="image/*" />
               @error('attach_1')

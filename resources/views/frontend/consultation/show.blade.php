@@ -28,13 +28,19 @@
 <div class="container" style="margin-top: 60px">
 
     <div class="row custom-row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="row">
                 <div class="col-5 custom-col">{{ __('file.contract') }}</div>
                 <div class="col-7 custom-col">{{ $item->owner }}</div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-5 custom-col">{{ __('file.receiver') }}</div>
+                <div class="col-7 custom-col">{{ $item->receiver }}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
             <div class="row">
                 <div class="col-5 custom-col border-right-custom">{{ __('file.city') }}</div>
                 <div class="col-7 custom-col">{{ $item->city }}</div>

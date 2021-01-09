@@ -106,7 +106,8 @@ class CreateController extends Controller
             'total_cost'=> 'required|numeric',
             'working_days'=> 'required|numeric',
             'inside_camera'=> 'required|numeric',
-            'outside_camera'=> 'required|numeric'
+            'outside_camera'=> 'required|numeric',
+            "receiver"=> "required|string",
         ]);
         $user = Auth::guard('web')->user();
         $data = $request->except(['_token']);
@@ -131,6 +132,7 @@ class CreateController extends Controller
             'second_no'=> 'required|numeric',
             'postal_code'=> 'required|numeric',
             "commerical_register"=> 'required|numeric',
+            "receiver"=> "required|string",
             'attach_1'=> 'nullable|file',
             'attach_2'=> 'nullable|file',
         ]);
@@ -162,6 +164,7 @@ class CreateController extends Controller
             'street'=> 'required|string|min:3',
             'neignborhood'=> 'required|string|min:3',
             'building_no'=> 'required|numeric',
+            "receiver"=> "required|string",
             'attach_1'=> 'nullable|image|mimes:jpeg,jpg,png,gif',
             'attach_2'=> 'nullable|file',
             'attach_3'=> 'nullable|file',

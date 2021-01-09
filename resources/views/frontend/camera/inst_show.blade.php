@@ -87,13 +87,19 @@
     </div>
 
     <div class="row custom-row">
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-5 custom-col">{{ __('file.receiver') }}</div>
+                <div class="col-md-7 custom-col">{{ $item->receiver }}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
             <div class="row">
                 <div class="col-md-5 custom-col">{{ __('file.contract_edit') }}</div>
                 <div class="col-md-7 custom-col">{{ $item->updated_at->format('Y-m-d H:i') }}</div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="row">
                 <div class="col-md-5 custom-col">{{ __('file.created date') }}</div>
                 <div class="col-md-7 custom-col">{{ $item->created_at->format('Y-m-d H:i') }}</div>

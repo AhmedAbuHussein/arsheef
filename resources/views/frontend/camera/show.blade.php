@@ -120,6 +120,12 @@
     <div class="row custom-row">
         <div class="col-md-6">
             <div class="row">
+                <div class="col-5 custom-col">{{ __('file.receiver') }}</div>
+                <div class="col-7 custom-col">{{ $item->receiver }}</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
                 <div class="col-5 custom-col">{{ __('file.commerical_register') }}</div>
                 <div class="col-7 custom-col">{{ $item->commerical_register }}</div>
             </div>
