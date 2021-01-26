@@ -43,7 +43,12 @@ class User extends Authenticatable
 
     public function contracts()
     {
-        return $this->hasMany(Contract::class, 'user_id')->with('items');
+        return $this->hasMany(Contract::class, 'user_id');
+    }
+
+    public function contractpoints()
+    {
+        return $this->hasMany(ContractPoint::class, 'user_id');
     }
 
     public function items()

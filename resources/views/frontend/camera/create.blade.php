@@ -117,41 +117,66 @@
             </div>
             <div class="form-row">
             <div class="form-group col-md-4">
-              <label >{{ __('file.quantity') }}</label>
+              <label >{{ __('file.name') }}</label>
               <input type="text" readonly class="form-control"  name="items[{{ $key }}][name]" value="{{ $cam }}" required />
-            </div>
-            
-            <div class="form-group col-md-4">
-              <label >{{ __('file.quantity') }}</label>
-              <input type="text" name="items[{{ $key }}][quantity]" value="{{ old("items[$key][quantity]") }}" class="form-control" required />
             </div>
 
             <div class="form-group col-md-4">
               <label>{{ __('file.type') }}</label>
-              <select name="items[{{ $key }}][type]" required class="form-control">
-                <option value="">اختار النوع</option>
-                <option value="داخلي">{{ 'داخلي' }}</option>
-                <option value="خارجي">{{ 'خارجي' }}</option>
-                <option value="NVR">{{ 'NVR' }}</option>
-                <option value="32 بوصة">{{ '32 بوصة' }}</option>
-              </select>
+              @if ($key == 0)
+                  <input type="text" value="داخلي" readonly name="items[{{ $key }}][type]" class="form-control"/>
+              @elseif($key == 1)
+              <input type="text" value="خارجي" readonly name="items[{{ $key }}][type]" class="form-control"/>
+              @elseif($key == 2)
+              <input type="text" value="NVR" readonly name="items[{{ $key }}][type]" class="form-control"/>
+              @elseif($key == 3)
+              <input type="number" name="items[{{ $key }}][type]" class="form-control"/>
+              <input type="hidden" value="بوصة" name="items[{{ $key }}][type_info]" />
+              <span class="details-span">بوصة</span>
+              @endif
+            </div>
+            <div class="form-group col-md-4">
+              <label >{{ __('file.quantity') }}</label>
+              <input type="number" name="items[{{ $key }}][quantity]" value="{{ old("items[$key][quantity]") }}" class="form-control" required />
             </div>
             </div>
             <div class="form-row">
             <div class="form-group col-md-4">
               <label>{{ __('file.details') }}</label>
-              <input type="text" name="items[{{ $key }}][details]" value="{{ old("items[$key][details]") }}" class="form-control" required />
+              @if ($key == 0 || $key == 1)
+              <input id="details" type="number" min="1" step="1" name="items[{{ $key }}][details]" value="{{ old("items[$key][details]") }}" class="form-control" required />
+              <input type="hidden" value="ميجا بيكسل" name="items[{{ $key }}][details_info]" />
+              <span class="details-span">ميجا بيكسل</span>
+              @elseif($key == 2)
+              <input id="details" type="number" min="1" step="1" name="items[{{ $key }}][details]" value="{{ old("items[$key][details]") }}" class="form-control" required />
+              <input type="hidden" value="قنوات" name="items[{{ $key }}][details_info]" />
+              <span class="details-span">قنوات </span>
+              @else
+              <input id="details" type="text" name="items[{{ $key }}][details]" value="{{ old("items[$key][details]") }}" class="form-control" required />
+              @endif
+              
             </div>
 
             <div class="form-group col-md-4">
               <label>{{ __('file.modal') }}</label>
-              <input type="text" name="items[{{ $key }}][modal]" value="{{ old("items[$key][modal]") }}" class="form-control" />
+              <select name="items[{{ $key }}][modal]" class="form-control select2">
+                <option {{ old("items[$key][modal]") == 'hikvision' }} value="hikvision">Hikvision</option>
+              </select>
             </div>
 
-            <div class="form-group col-md-4">
+
+            @if ($key == 2)
+            <div class="form-group col-md-4 custom">
               <label>{{ __('file.storage') }}</label>
-              <input type="text" name="items[{{ $key }}][storage]" value="{{ old("items[$key][storage]") }}" class="form-control" />
+              <input type="number" name="items[{{ $key }}][storage]" value="{{ old("items[$key][storage]") }}" class="form-control" />
+              <select class="select2 details-span" name="items[{{ $key }}][storage_info]">
+                <option value="جيجابايت">جيجابايت</option>
+                <option value="تيرابايت">تيرابايت</option>
+                <option value="زيتابايت">زيتابايت</option>
+              </select>
             </div>
+            @endif
+            
             </div>
             
             @endforeach
@@ -194,7 +219,42 @@
 @section('script')
     <script>
         $(function() {
-
+            $(".select2").select2({
+              tags: true
+            });
         });
     </script>
+@endsection
+@section('style')
+    <style>
+      #details{
+        position: relative;
+      }
+      .details-span{
+        position: absolute;
+        top: 30px;
+        left: 6px;
+        background: #343a40;
+        padding: 6px 17px;
+        color: white;
+        font-weight: bold;
+      }
+      .custom .select2-container{
+        width: 109px;
+        position: absolute;
+        top: 29px;
+        left: 6px;
+        height: 33px;
+        border-radius: 0;
+      }
+      .custom .select2-container--default .select2-selection--single{
+        height: 33px;
+        border-radius: 0;
+      }
+      .custom .select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered{
+        background: #343a40;
+        color: white;
+        line-height: 33px;
+      }
+    </style>
 @endsection

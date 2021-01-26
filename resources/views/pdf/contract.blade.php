@@ -60,13 +60,38 @@
                     </thead>
                     <tbody>
                         @foreach ($data->items as $item)
+                        @php
+                            $type = "----";
+                            $details = "----";
+                            $storage = "----";
+                            if(array_key_exists('type', $item)){
+                                $type = $item['type'];
+                                if(array_key_exists('type_info', $item)){
+                                    $type ="$type ".$item['type_info'];
+                                }
+                            }
+                            if(array_key_exists('details', $item)){
+                                $details = $item['details'];
+                                if(array_key_exists('details_info', $item)){
+                                    $details ="$details ".$item['details_info'];
+                                }
+                            }
+
+                            if(array_key_exists('storage', $item)){
+                                $storage = $item['storage'];
+                                if(array_key_exists('storage_info', $item)){
+                                    $storage ="$storage ".$item['storage_info'];
+                                }
+                            }
+                             
+                        @endphp
                         <tr>
                             <td>{{ $item['name']??'------' }}</td>
-                            <td> {{ arabicNumbers($item['quantity']) }}</td>
-                            <td>{{ $item['type']??'------' }}</td>
-                            <td>{{ $item['details']??'------' }}</td>
-                            <td>{{ $item['storage']??'------' }}</td>
-                            <td>{{ $item['modal']??'------' }}</td>
+                            <td> {{ arabicNumbers($item['quantity']??0) }}</td>
+                            <td>{{ $type }}</td>
+                            <td>{{ $details  }}</td>
+                            <td>{{ $storage  }}</td>
+                            <td>{{ array_key_exists('modal', $item)?$item['modal']:'------'  }}</td>
                         </tr>
                         @endforeach
                     </tbody>

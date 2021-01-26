@@ -94,7 +94,22 @@
                             <div class="col-md-4">{{ __('file.admin_name') }}</div>
                             <div class="col-md-8">{{ optional($user->information)->admin_name?? '--------------------'  }}</div>
                         </div>
-    
+                        <div class="row custom-row">
+                            <div class="col-md-4">{{ __('file.inst_cont') }}</div>
+                            <div class="col-md-2">{{ optional($user->contractpoints()->where('type', 'inst_cont'))->count() }} عقد</div>
+
+                            <div class="col-md-4">{{ __('file.inst_scen') }}</div>
+                            <div class="col-md-2">{{ optional($user->contracts()->where('type', 'inst_scen'))->count() }} عقد</div>
+                        </div>
+
+                        <div class="row custom-row">
+                            <div class="col-md-4">{{ __('file.insp_cont') }}</div>
+                            <div class="col-md-2">{{ optional($user->contractpoints()->where('type', 'insp_cont'))->count() }} عقد</div>
+
+                            <div class="col-md-4">{{ __('file.insp_scen') }}</div>
+                            <div class="col-md-2">{{ optional($user->contracts()->where('type', 'insp_scen'))->count() }} عقد</div>
+                        </div>
+
                         <div class="row custom-row">
                             <div class="col-md-6">
                                 <p>{{ __('file.logo') }}</p>
