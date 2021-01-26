@@ -39,7 +39,7 @@
         <table id="table" class="table table-striped table-hover text-center">
             <thead>
                 <tr>
-                   
+                    <th>المسلسل</th>
                     @if (in_array($type, ['inst_cont', 'insp_cont']))
                     <th>{{ __('file.username') }}</th>
                     <th>{{ __('file.est_name') }}</th>
@@ -62,6 +62,7 @@
 
                 @foreach ($items as $item)
                 <tr class="text-center">
+                    <td>{{ $item->id }}</td>
                     @if (in_array($type, ['inst_cont', 'insp_cont']))
                     <td>{{ $item->username }}</td>
                     <td>{{ $item->est_name }}</td>
