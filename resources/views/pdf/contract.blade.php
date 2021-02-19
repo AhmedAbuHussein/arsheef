@@ -1,4 +1,4 @@
-<div class="container text-right" dir="rtl">
+<div class="container text-right" style="padding-top: 0;" dir="rtl">
     <div class="content">
         <div class="header" style="width: 800px; margin:auto;">
            <div class="row">
@@ -121,7 +121,8 @@
 </div>
 
 <style>
-@media print, screen {
+@media all {
+
 
 .table-borderd {
 
@@ -134,7 +135,7 @@
 }
 .table-borderd td, .table-borderd th {
   border: 1px solid #000000;
-  padding: 13px 0;
+  padding: 10px 0;
 }
 
 .table-borderd tr:nth-child(even){background-color: #f2f2f2;}
@@ -170,7 +171,7 @@ div, p, span, h3, h4, h5, h2{
 .container{
    width: 870px;
    margin: auto;
-    padding-top: 25px;
+    padding-top: 20px;
 }
 
 table {
@@ -288,4 +289,3 @@ tr{
 }
 }
 </style>
-</body>

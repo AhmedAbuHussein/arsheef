@@ -17,7 +17,7 @@ class CreateContractsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->enum('type', ['inst_scen', 'inst_cont', 'insp_scen', 'insp_cont']);
-            $table->json('date')->comment('object of hijri data and date');
+            $table->timestamp('date')->nullable();
             $table->string('owner');
             $table->string('commerical_register')->nullable();
 

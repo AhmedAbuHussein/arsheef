@@ -69,8 +69,9 @@ class DownloadController extends Controller
             'default_font_size' => 10,
             'default_font'  => 'xbriyaz',
             'setAutoTopMargin'   => "stretch",
-            "margin_top"=> 2,
-            "margin_header"=> 2,
+            "autoMarginPadding"=> 0,
+            "margin_top"=> 0,
+            "margin_header"=> 0,
             'orientation'   => 'P',
         ]);
 
@@ -84,7 +85,7 @@ class DownloadController extends Controller
 
         $mpdf->SetFooter('|{PAGENO} of {nbpg}|');
         $mpdf->WriteHTML($html);
-        $mpdf->Output(time().".pdf", "D");
+        $mpdf->Output("file_".time().".pdf", "D");
     }
 
     public function getTitle($type)
