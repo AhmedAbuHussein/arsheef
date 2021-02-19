@@ -38,13 +38,13 @@
                     @endif
                 </tr>
             </table>
-            
+
         </div>
     </div>
-    
+
 <style>
 @media print, screen {
-    
+
     div, p, span, h3, h4, h5, h2{
         box-sizing: border-box;
         padding: 0;
@@ -91,7 +91,7 @@
     td img{
         min-width: 60%;
     }
-   
+
 }
     </style>
 </body>

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    
+
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-5 align-self-center">
@@ -110,7 +110,7 @@
           <h4 class="text-muted text-right my-2">العناصر</h4>
           <hr>
           {{-- items --}}
-          
+
             @foreach (["كاميرا ثابته ip camera", "كاميرا ثابته ip camera", "جهاز تسجيل شبكي NVR", "شاشة عرض"] as  $key=>$cam)
             <div class="form-row">
               <h4 class="text-right text-muted col-12 bg-dark p-2">عنصر رقم {{ $key +1 }}</h4>
@@ -130,8 +130,8 @@
               @elseif($key == 2)
               <input type="text" value="NVR" readonly name="items[{{ $key }}][type]" class="form-control"/>
               @elseif($key == 3)
-              <input type="number" name="items[{{ $key }}][type]" class="form-control"/>
-              <input type="hidden" value="بوصة" name="items[{{ $key }}][type_info]" />
+              <input type="number" name="items[{{ $key }}][details_info]" class="form-control"/>
+              <input type="hidden" value="بوصة" name="items[{{ $key }}][type]" />
               <span class="details-span">بوصة</span>
               @endif
             </div>
@@ -154,7 +154,7 @@
               @else
               <input id="details" type="text" name="items[{{ $key }}][details]" value="{{ old("items[$key][details]") }}" class="form-control" required />
               @endif
-              
+
             </div>
 
             <div class="form-group col-md-4">
@@ -176,13 +176,17 @@
               </select>
             </div>
             @endif
-            
+
             </div>
-            
+
             @endforeach
+
+            <items></items>
+
+
           <hr/>
           {{-- itesm --}}
-          
+
 
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -210,7 +214,7 @@
                 @enderror
             </div>
           </div>
-        
+
             <button type="submit" class="btn btn-primary">{{ __('file.process') }}</button>
       </form>
 

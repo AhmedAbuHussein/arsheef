@@ -20,7 +20,7 @@
                 <span class="text-bold">تشهد </span>
                 <span class="text-bold">مؤسسة {{ optional($user->information)->establish_name }}</span>
                 <span>سجل تجاري رقم : </span>
-                <span>{{ arabicNumbers($user->information->commerical_register) }}</span> 
+                <span>{{ arabicNumbers($user->information->commerical_register) }}</span>
                 <br>
                 <span>رقم خطاب ترخيص مزاولة الانشطة الامنية :</span>
                 <span>{{ arabicNumbers($user->information->license_number) }}</span>
@@ -30,7 +30,7 @@
                 <br>
                 <span>لـ</span>
                 <span>{{ $data->owner }}</span>
-                <br> 
+                <br>
                 <span>سجل تجاري رقم : </span><span>{{ arabicNumbers($data->commerical_register) }}</span>
                 <br>
                 <span>رقم المبني : </span><span>{{ arabicNumbers($data->building_no) }}</span> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -44,7 +44,7 @@
             </p>
 
              @if (!is_null($data->items) && count($data->items) > 0)
-                 
+
             <div class="table-container">
                 <p class=" text-bold text-underline text-right text-up-table">جدول كميات ومواصفات كاميرات المراقبة وملحقاتها :-</p>
                 <table class="text-right table-borderd" dir="rtl" lang="ar">
@@ -64,34 +64,29 @@
                             $type = "----";
                             $details = "----";
                             $storage = "----";
-                            if(array_key_exists('type', $item)){
-                                $type = $item['type'];
-                                if(array_key_exists('type_info', $item)){
-                                    $type ="$type ".$item['type_info'];
-                                }
+                            if($item->type == 'بوصة'){
+                                $type = $item->details_info."-".$item->type ;
+                            }else{
+                                $type = $item->type;
                             }
-                            if(array_key_exists('details', $item)){
-                                $details = $item['details'];
-                                if(array_key_exists('details_info', $item)){
-                                    $details ="$details ".$item['details_info'];
-                                }
+                            if(is_numeric($item->details) && $item->type != 'بوصة'){
+                                $details = $item->details ."-".$item->details_info;
+                            }else{
+                                $details = $item->details;
                             }
 
-                            if(array_key_exists('storage', $item)){
-                                $storage = $item['storage'];
-                                if(array_key_exists('storage_info', $item)){
-                                    $storage ="$storage ".$item['storage_info'];
-                                }
+                            if($item->storage){
+                                $storage = $item->storage."-".$item->storage_info;
                             }
-                             
+
                         @endphp
                         <tr>
-                            <td>{{ $item['name']??'------' }}</td>
-                            <td> {{ arabicNumbers($item['quantity']??0) }}</td>
+                            <td>{{ $item->name??'------' }}</td>
+                            <td> {{ arabicNumbers($item->quantity??0) }}</td>
                             <td>{{ $type }}</td>
                             <td>{{ $details  }}</td>
                             <td>{{ $storage  }}</td>
-                            <td>{{ array_key_exists('modal', $item)?$item['modal']:'------'  }}</td>
+                            <td>{{ $item->modal??'------'  }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -102,7 +97,7 @@
             <p class="text-under-table">
                 <span>وعليه نقر بأن جميع الأجهزة مطابقة لما ورد بكراسة الشروط والمواصفات العامة لنظام المراقبة التلفزيونية المعتمد من وكالة التخطيط والتطوير الأمني لوزارة الداخلية .</span>
             </p>
-            @endif   
+            @endif
         </div>
 
         <table class="footer mt-10 mb-20">
@@ -122,14 +117,14 @@
         </table>
 
     </div>
-    
+
 </div>
 
 <style>
 @media print, screen {
 
 .table-borderd {
- 
+
     border: 2px solid #000;
     width: 100%;
 
@@ -254,7 +249,7 @@ tr{
     position: relative;
 }
 .header .date-container {
-  
+
 }
 .header .date-container .date{
     margin: 4px 0px;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
 use App\Models\ContractPoint;
+use App\Models\Item;
 use App\Models\Structure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,16 +57,16 @@ class EditController extends Controller
             }
             return view('frontend.camera.inst_edit', compact('data', 'type'));
         }else{
-            $data = Contract::where(['id'=>$item, 'type'=> $type, 'user_id'=> $user->id])->first();
+            $data = Contract::where(['id'=>$item, 'type'=> $type, 'user_id'=> $user->id])->with('items')->first();
             if(!$data){
                 flash("غير مسموح الولوج لهذا العنصر");
                 return redirect()->route('index', ['type'=> $type]);
             }
-          
+
             return view('frontend.camera.edit', compact('data', 'type'));
         }
-       
-        
+
+
     }
 
     private function editSafety($type, $item)
@@ -89,7 +90,7 @@ class EditController extends Controller
         }
         return view('frontend.consultation.edit', compact('data', 'type'));
     }
-    
+
 
     #helper methods UPdate pages
     private function updateCamera(Request $request, $type, $item)
@@ -124,11 +125,12 @@ class EditController extends Controller
        $data->update($request->except('_token'));
        flash('تم تحديث البيانات بنجاح')->success();
        return redirect()->route('index', ['type'=> $type]);
-       
+
     }
 
     public function updateInsCont(Request $request, $type, $item)
     {
+
         $this->validate($request, [
             'date'=> 'required|date_format:Y-m-d H:i',
             'owner'=> 'required|string|min:3',
@@ -141,12 +143,12 @@ class EditController extends Controller
             "commerical_register"=> 'required|numeric',
             'building_no'=> 'required|numeric',
             "items"=> "nullable|array",
-            "items.*.name"=>"required|string", 
-            "items.*.quantity"=>"required|numeric", 
-            "items.*.type"=>"required|string", 
-            "items.*.details"=>"required|string", 
-            "items.*.modal"=>"nullable|string", 
-            "items.*.storage"=>"nullable|string", 
+            "items.*.name"=>"required|string",
+            "items.*.quantity"=>"required|numeric",
+            "items.*.type"=>"required|string",
+            "items.*.details"=>"required|string",
+            "items.*.modal"=>"nullable|string",
+            "items.*.storage"=>"nullable|string",
         ]);
         $user = Auth::guard('web')->user();
        $data = Contract::where(['id'=> $item, 'user_id'=> $user->id])->first();
@@ -154,7 +156,10 @@ class EditController extends Controller
          flash("غير مسموح التعديل علي هذا العنصر");
          return redirect()->route('index', ['type'=> $type]);
        }
-       $data->update($request->except('_token'));
+       $data->update($request->except('_token', 'items'));
+       foreach ($request->items as $key=>$item) {
+           Item::where('id', $key)->update($item);
+       }
        flash('تم تحديث البيانات بنجاح')->success();
        return redirect()->route('index', ['type'=> $type]);
     }
@@ -170,12 +175,12 @@ class EditController extends Controller
             'building_name'=> 'required|string|min:3',
             'building_no'=> 'required|numeric',
             "items"=> "nullable|array",
-            "items.*.name"=>"required|string", 
-            "items.*.quantity"=>"required|numeric", 
-            "items.*.type"=>"required|string", 
-            "items.*.details"=>"required|string", 
-            "items.*.modal"=>"nullable|string", 
-            "items.*.storage"=>"nullable|string", 
+            "items.*.name"=>"required|string",
+            "items.*.quantity"=>"required|numeric",
+            "items.*.type"=>"required|string",
+            "items.*.details"=>"required|string",
+            "items.*.modal"=>"nullable|string",
+            "items.*.storage"=>"nullable|string",
             "attach_1"=> 'required|image|mimes:jpg,jpeg,png,gif,bmp'
         ]);
         $data = $request->except(['_token', 'attach_1']);

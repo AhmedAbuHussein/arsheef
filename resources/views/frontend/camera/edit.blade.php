@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    
+
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-5 align-self-center">
@@ -110,81 +110,75 @@
           <h4 class="text-muted text-right my-2">العناصر</h4>
           <hr>
           {{-- items --}}
-          
-            @foreach ($data->items as  $key=>$cam)
+
+            @foreach ($data->items as  $key=>$item)
             <div class="form-row">
-              <h4 class="text-right text-muted col-12 bg-dark p-2">عنصر رقم {{ $key +1 }}</h4>
+              <h4 class="text-right text-muted col-12 bg-dark p-2">عنصر رقم {{ $loop->iteration }}</h4>
             </div>
             <div class="form-row">
             <div class="form-group col-md-4">
               <label >{{ __('file.name') }}</label>
-              <input type="text" readonly class="form-control"  name="items[{{ $key }}][name]" value="{{ $cam['name'] }}" required />
+              <input type="text" class="form-control"  name="items[{{ $item->id }}][name]" value="{{ $item->name }}" required />
             </div>
 
             <div class="form-group col-md-4">
               <label>{{ __('file.type') }}</label>
-              @if ($key == 0)
-                  <input type="text" value="داخلي" readonly name="items[{{ $key }}][type]" class="form-control"/>
-              @elseif($key == 1)
-              <input type="text" value="خارجي" readonly name="items[{{ $key }}][type]" class="form-control"/>
+              @if ($item->type != 'بوصة')
+              <input type="text" value="{{ $item->type }}" name="items[{{ $item->id }}][type]" class="form-control"/>
 
-              @elseif($key == 2)
-              <input type="text" value="NVR" readonly name="items[{{ $key }}][type]" class="form-control"/>
-              
-              @elseif($key == 3)
-              <input type="number" name="items[{{ $key }}][type]" value="{{ old("items[$key]['type']")??$cam['type']}}" class="form-control"/>
-              <input type="hidden" value="بوصة" name="items[{{ $key }}][type_info]" />
+              @elseif($item->type == 'بوصة')
+              <input type="number" name="items[{{ $item->id }}][details_info]" value="{{ old("items[$item->id]['details_info']")??$item->details_info}}" class="form-control"/>
+              <input type="hidden" value="بوصة" name="items[{{ $item->id }}][type]" />
               <span class="details-span">بوصة</span>
               @endif
             </div>
             <div class="form-group col-md-4">
               <label >{{ __('file.quantity') }}</label>
-              <input type="number" name="items[{{ $key }}][quantity]" value="{{ old("items[$key][quantity]")??$cam['quantity'] }}" class="form-control" required />
+              <input type="number" name="items[{{ $item->id }}][quantity]" value="{{ old("items[$item->id][quantity]")??$item->quantity }}" class="form-control" required />
             </div>
             </div>
             <div class="form-row">
             <div class="form-group col-md-4">
               <label>{{ __('file.details') }}</label>
-              @if ($key == 0 || $key == 1)
-              <input id="details" type="number" min="1" step="1" name="items[{{ $key }}][details]" value="{{ old("items[$key][details]")??$cam['details'] }}" class="form-control" required />
-              <input type="hidden" value="ميجا بيكسل" name="items[{{ $key }}][details_info]" />
+
+              <input id="details" type="text" name="items[{{ $item->id }}][details]" value="{{ old("items[$item->id][details]")??$item->details }}" class="form-control" required />
+              @if ($item->details_info == "ميجا بيكسل")
+              <input type="hidden" value="ميجا بيكسل" name="items[{{ $item->id }}][details_info]" />
               <span class="details-span">ميجا بيكسل</span>
-              @elseif($key == 2)
-              <input id="details" type="number" min="1" step="1" name="items[{{ $key }}][details]" value="{{ old("items[$key][details]")??$cam['details'] }}" class="form-control" required />
-              <input type="hidden" value="قنوات" name="items[{{ $key }}][details_info]" />
-              <span class="details-span">قنوات </span>
-              @else
-              <input id="details" type="text" name="items[{{ $key }}][details]" value="{{ old("items[$key][details]")??$cam['details'] }}" class="form-control" required />
               @endif
-              
+              @if($item->details_info == 'قنوات')
+              <input type="hidden" value="قنوات" name="items[{{ $item->id }}][details_info]" />
+              <span class="details-span">قنوات </span>
+              @endif
+
             </div>
 
             <div class="form-group col-md-4">
               <label>{{ __('file.modal') }}</label>
-              <select name="items[{{ $key }}][modal]" class="form-control select2">
-                <option {{ old("items[$key][modal]") == 'hikvision'?'selected':(is_null(old("items[$key][modal]")) && $cam['modal'] == 'hikvision'? 'selected': '') }} value="hikvision">Hikvision</option>
-                @if ($cam['modal'] != 'hikvision')
-                <option selected value="{{ $cam['modal'] }}">{{ $cam['modal'] }}</option>
+              <select name="items[{{ $item->id }}][modal]" class="form-control select2">
+                <option {{ old("items[$item->id][modal]") == 'hikvision'?'selected':(is_null(old("items[$item->id][modal]")) && $item->modal == 'hikvision'? 'selected': '') }} value="hikvision">Hikvision</option>
+                @if ($item->modal != 'hikvision')
+                <option selected value="{{ $item->modal }}">{{ $item->modal }}</option>
                 @endif
               </select>
             </div>
 
 
-            @if ($key == 2)
+            @if ($item->storage)
             <div class="form-group col-md-4 custom">
               <label>{{ __('file.storage') }}</label>
-              <input type="text" name="items[{{ $key }}][storage]" value="{{ old("items[$key][storage]")??$cam['storage'] }}" class="form-control" />
-              <select class="select2 details-span" name="items[{{ $key }}][storage_info]">
-                <option {{ $cam['storage_info'] == 'جيجابايت'?'selected':'' }} value="جيجابايت">جيجابايت</option>
-                <option {{ $cam['storage_info'] == 'تيرابايت'?'selected':'' }} value="تيرابايت">تيرابايت</option>
-                <option {{ $cam['storage_info'] == 'زيتابايت'?'selected':'' }} value="زيتابايت">زيتابايت</option>
+              <input type="text" name="items[{{ $item->id }}][storage]" value="{{ old("items[$item->id][storage]")??$item->storage }}" class="form-control" />
+              <select class="select2 details-span" name="items[{{ $item->id }}][storage_info]">
+                <option {{ $item->storage_info == 'جيجابايت'?'selected':'' }} value="جيجابايت">جيجابايت</option>
+                <option {{ $item->storage_info == 'تيرابايت'?'selected':'' }} value="تيرابايت">تيرابايت</option>
+                <option {{ $item->storage_info == 'زيتابايت'?'selected':'' }} value="زيتابايت">زيتابايت</option>
               </select>
             </div>
             @endif
-            
+
             </div>
-            
-            
+
+
             @endforeach
           <hr/>
           {{-- itesm --}}
@@ -198,7 +192,7 @@
                 @enderror
             </div>
           </div>
-        
+
             <button type="submit" class="btn btn-primary">{{ __('file.process') }}</button>
       </form>
 

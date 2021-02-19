@@ -7,7 +7,6 @@ use App\Models\Contract;
 use App\Models\ContractPoint;
 use App\Models\Structure;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DownloadController extends Controller
@@ -20,9 +19,8 @@ class DownloadController extends Controller
             case 'camera':
 
                return $this->contractType($type, $item);
-
                 break;
-            
+
             default:
                 $data = Structure::where(['user_id'=> $user->id, 'type'=> $type, 'id'=> $item])->first();
                 if(!$data){
@@ -50,7 +48,7 @@ class DownloadController extends Controller
             return $this->handler($user, $data, $title, "pdf.contract2", "pdf.contract_header");
 
         }else{
-            $data = Contract::where(['user_id'=> $user->id, 'type'=> $type, 'id'=> $item])->first();
+            $data = Contract::where(['user_id'=> $user->id, 'type'=> $type, 'id'=> $item])->with('items')->first();
             if(!$data){
                 flash("لا يمكنك الولوج لهذه الصفحة");
                 return redirect()->route('index', ['type'=> $type]);
@@ -59,11 +57,12 @@ class DownloadController extends Controller
 
             return $this->handler($user, $data, $title, "pdf.contract", "pdf.contract_header");
         }
+
     }
 
     public function handler($user, $data, $title, $view= "pdf.contract", $header = null)
     {
-      
+
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',
             'format'        => 'A4',
@@ -81,11 +80,11 @@ class DownloadController extends Controller
         }
 
         $view = view($view, compact('user', 'data', 'title'));
-        $html = $view->render();        
+        $html = $view->render();
 
         $mpdf->SetFooter('|{PAGENO} of {nbpg}|');
         $mpdf->WriteHTML($html);
-        $mpdf->Output(time().".pdf", "D"); 
+        $mpdf->Output(time().".pdf", "D");
     }
 
     public function getTitle($type)

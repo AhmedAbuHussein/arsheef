@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CreateController extends Controller
 {
-    
+
     public function create($type)
     {
         $account_type = Auth::guard('web')->user()->account_type;
@@ -91,12 +91,12 @@ class CreateController extends Controller
                 return $this->createScenCont($request, $type);
                 break;
         }
-        abort(404);        
+        abort(404);
     }
-    
+
     public function createContCont(Request $request, $type)
     {
-    
+
         $this->validate($request, [
             'type'=> 'required|in:inst_scen,inst_cont,insp_scen,insp_cont',
             'username'=> 'required|string|min:2|max:255',
@@ -115,11 +115,12 @@ class CreateController extends Controller
         ContractPoint::create($data);
         flash('تم اضافة عقد جديد');
         return redirect()->route('index', ['type'=> $type]);
-       
+
     }
 
     public function createScenCont(Request $request, $type)
     {
+
         $this->validate($request, [
             'type'=> 'required|in:inst_scen,inst_cont,insp_scen,insp_cont',
             'owner'=> 'required|string|min:3|max:255',
@@ -133,18 +134,18 @@ class CreateController extends Controller
             'postal_code'=> 'required|numeric',
             "commerical_register"=> 'required|numeric',
             "items"=> "nullable|array",
-            "items.*.name"=>"required|string", 
-            "items.*.quantity"=>"required|numeric", 
-            "items.*.type"=>"required|string", 
-            "items.*.details"=>"required|string", 
-            "items.*.modal"=>"nullable|string", 
-            "items.*.storage"=>"nullable|string", 
+            "items.*.name"=>"required|string",
+            "items.*.quantity"=>"required|numeric",
+            "items.*.type"=>"required|string",
+            "items.*.details"=>"required|string",
+            "items.*.modal"=>"nullable|string",
+            "items.*.storage"=>"nullable|string",
             "receiver"=> "required|string",
             'attach_1'=> 'nullable|file',
             'attach_2'=> 'nullable|file',
         ]);
         $user = Auth::guard('web')->user();
-        $data = $request->except(['_token', 'attach_1', 'attach_2']);
+        $data = $request->except(['_token', 'attach_1', 'attach_2', 'items']);
         if($request->hasFile('attach_1')){
             $name = uploadImage('attach_1', 'images/files');
             $data['attach_1'] = $name;
@@ -154,7 +155,12 @@ class CreateController extends Controller
             $data['attach_2'] = $name;
         }
         $data['user_id']= $user->id;
-        Contract::create($data);
+        $contract = Contract::create($data);
+        foreach ($request->items as $item) {
+            $item['user_id'] = $user->id;
+            $contract->items()->create($item);
+        }
+
         flash('تم اضافة عقد جديد');
         return redirect()->route('index', ['type'=> $type]);
     }
@@ -173,12 +179,12 @@ class CreateController extends Controller
             'building_no'=> 'required|numeric',
             "receiver"=> "required|string",
             "items"=> "nullable|array",
-            "items.*.name"=>"required|string", 
-            "items.*.quantity"=>"required|numeric", 
-            "items.*.type"=>"required|string", 
-            "items.*.details"=>"required|string", 
-            "items.*.modal"=>"nullable|string", 
-            "items.*.storage"=>"nullable|string", 
+            "items.*.name"=>"required|string",
+            "items.*.quantity"=>"required|numeric",
+            "items.*.type"=>"required|string",
+            "items.*.details"=>"required|string",
+            "items.*.modal"=>"nullable|string",
+            "items.*.storage"=>"nullable|string",
             'attach_1'=> 'nullable|image|mimes:jpeg,jpg,png,gif',
             'attach_2'=> 'nullable|file',
             'attach_3'=> 'nullable|file',
@@ -202,11 +208,11 @@ class CreateController extends Controller
         }
 
         $data['user_id']= $user->id;
-        Structure::create($data);
+        $structure = Structure::create($data);
         flash('تم اضافة عقد جديد');
         return redirect()->route('index', ['type'=> $type]);
     }
-    
+
 
     public function attachShow($type, $parent, $file)
     {

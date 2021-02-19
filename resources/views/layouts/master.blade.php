@@ -14,18 +14,6 @@
     <link rel="icon"  href="{{ url('uploads/logos/cool.png') }}">
     <title>Admin | Dashboard</title>
 
-    <script src="{{ url('js/app.js') }}"></script>
-    <script src="{{ url('js/datatables.min.js') }}"></script>
-    <script src="{{ url('js/sweetalert.js') }}"></script>
-    <script src="{{ url('js/multiple-select.js') }}"></script>
-    <script src="{{ url('js/datetimepicker.js') }}"></script>
-
-    
-    <script src="{{ url('color/js/colorpicker.js') }}"></script>
-    <script src="{{ url('color/js/eye.js') }}"></script>
-    <script src="{{ url('color/js/utils.js') }}"></script>
-
-    
     <!-- Custom CSS -->
     <link href="{{ url('res/dist/css/style.min.css') }}" rel="stylesheet">
     <link href="{{ url('css/datatables.min.css') }}" rel="stylesheet">
@@ -36,7 +24,6 @@
     <link href="{{ url('css/datetimepicker.css') }}" rel="stylesheet" />
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <style>
         #label-img {
@@ -55,11 +42,11 @@
             border: none;
             opacity: 0;
         }
-    
+
     </style>
     @yield('style')
 
-    
+
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -96,7 +83,7 @@
             line-height: 15px;
         }
     </style>
-    
+
     @if (app()->getLocale() == 'ar')
     <link rel="stylesheet" href="{{ url('css/admin_rtl.css') }}" />
 @endif
@@ -134,13 +121,13 @@
                         <a href="{{ url('admin') }}" class="logo">
                             <!-- Logo icon -->
                             <b class="logo-icon">
- 
+
                                 <img style="max-width:200px; " src="{{ url('images/admin.png') }}" alt="Dozzan" class="light-logo" />
                             </b>
                             <!--End Logo icon -->
                         </a>
                     </div>
-                   
+
                     <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="ti-more"></i>
@@ -150,23 +137,23 @@
                 <!-- End Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin6">
-            
+
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav ml-auto mr-ar-auto">
-                      
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                <i class="fa fa-envelope"></i> <span class="badge {{ auth('web')->user()->unreadNotifications()->count()>0?'badge-danger': 'badge-dark' }} header-badge">{{ auth('web')->user()->unreadNotifications()->count() }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right user-dd animated dropdown-menu-left-ar">
                                 @forelse (auth('web')->user()->unreadNotifications as $notify)
-                                <li class="dropdown-item"><a href="{{ route('notify.read', ['id'=> $notify->id]) }}" >{{ $notify->data['message'] }}</a></li>  
+                                <li class="dropdown-item"><a href="{{ route('notify.read', ['id'=> $notify->id]) }}" >{{ $notify->data['message'] }}</a></li>
                                 @empty
-                                <li class="dropdown-item">عقوا لا يوجد اشعارات جديدة</li>  
+                                <li class="dropdown-item">عقوا لا يوجد اشعارات جديدة</li>
                                 @endforelse
-                                                          
+
                             </ul>
                         </li>
 
@@ -174,13 +161,13 @@
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ url('images/logo.png') }}" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated dropdown-menu-left-ar">
-                                
+
                               {{--   @if (app()->getLocale() == 'en')
                                 <a class="dropdown-item" href="{{ route('change.lang', ['lang'=> 'ar']) }}">عربي</a>
                                 @else
                                 <a class="dropdown-item" href="{{ route('change.lang', ['lang'=> 'en']) }}">English</a>
                                 @endif --}}
-                                                              
+
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
@@ -190,12 +177,12 @@
 
                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                  @csrf
-                             </form>  
+                             </form>
 
                             </div>
                         </li>
 
-                        
+
 
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -230,30 +217,30 @@
                                 <span class="hide-menu">{{ __('file.profile') }}</span>
                             </a>
                         </li>
-                        
+
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('index', ['type'=> 'inst_scen']) }}" aria-expanded="false">
                                 <i class="mdi mdi-account-check"></i>
                                 <span class="hide-menu">{{ __('file.installation scenes') }}</span>
                             </a>
                         </li>
-                       
-                       
+
+
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('index', ['type'=> 'insp_scen']) }}" aria-expanded="false">
                                 <i class="mdi mdi-adjust"></i>
                                 <span class="hide-menu">{{ __('file.inspection scenes') }}</span>
                             </a>
                         </li>
-                        
+
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('index', ['type'=> 'inst_cont']) }}" aria-expanded="false">
                                 <i class="mdi mdi-account-check"></i>
                                 <span class="hide-menu">{{ __('file.installation contracts') }}</span>
                             </a>
                         </li>
-                       
-                       
+
+
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('index', ['type'=> 'insp_cont']) }}" aria-expanded="false">
                                 <i class="mdi mdi-adjust"></i>
@@ -261,7 +248,7 @@
                             </a>
                         </li>
 
-                        
+
 
                     </ul>
                 </nav>
@@ -307,6 +294,21 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
 </div>
+
+<script src="{{ url('js/app.js') }}"></script>
+<script src="{{ url('js/datatables.min.js') }}"></script>
+<script src="{{ url('js/sweetalert.js') }}"></script>
+<script src="{{ url('js/multiple-select.js') }}"></script>
+<script src="{{ url('js/datetimepicker.js') }}"></script>
+
+
+<script src="{{ url('color/js/colorpicker.js') }}"></script>
+<script src="{{ url('color/js/eye.js') }}"></script>
+<script src="{{ url('color/js/utils.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
     @if (\Session::has('message'))
 
     <script>
@@ -318,9 +320,9 @@
             });
 
         })
-        
+
     </script>
-        
+
     @endif
 
     <script src="{{ url('res/sparkline.js') }}"></script>
@@ -339,7 +341,7 @@
                 var $preview, editor, toolbar;
                 Simditor.locale = 'en-US';
                 toolbar = ['title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale', 'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'hr', '|', 'indent', 'outdent', 'alignment'];
-            
+
                 editor = new Simditor({
                     textarea: $('.texteditor'),
                     toolbar: toolbar,
@@ -352,7 +354,7 @@
                     });
                 } */
             } catch (error) {
-                
+
             }
 
             $('.datetime').datetimepicker({
@@ -365,15 +367,15 @@
 
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
-        
+
                     reader.onload = function(e) {
                         $($seleector).attr('src', e.target.result);
                     }
-        
+
                     reader.readAsDataURL(input.files[0]);
               }
             }
-        
+
             $("input[type='file']").change(function() {
                 var preview = $(this).siblings('label').children('img.preview');
                 readURL(this,preview);
@@ -385,7 +387,7 @@
             });
         });
     </script>
-    
+
     @yield('script')
 
 </body>
